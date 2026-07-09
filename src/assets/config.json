@@ -1,0 +1,14 @@
+{
+  "hostBackend": "https://online.sokolovcenter.ru:8445",
+  "hostBackend1": "http://81.9.108.61:4005",
+  "hostFront": "http://192.168.1.70:3011",
+  "hostPay": "http://81.9.108.51:8080/web-pay",
+  "promo_carousel":{
+    "date":[
+      {"img":"1.png", "url":"", "text": ""},
+      {"img":"10.png", "url":"https://med122.com/news/detail/4752/", "text": ""}
+    ],
+    "interval": 90000
+  },
+  "m_commission": 1
+}

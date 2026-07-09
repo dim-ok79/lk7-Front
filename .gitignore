@@ -1,0 +1,11 @@
+/node_modules
+/SQL
+/APIDOC
+/CONFIG
+/WAR
+/dist
+/.idea
+/*.rar
+/*.tar
+/.angular
+/.vscode

@@ -1,0 +1,12 @@
+/* @import "variables.scss";*/
+@use "variables.scss";
+
+body {
+  margin: 0;
+  font-family: Golos Text, sans-serif;
+}
+body, html {
+  height: 100%;
+  overflow: hidden;
+  background: linear-gradient(181deg, #62bec2, #e2ebea);
+}
