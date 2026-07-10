@@ -1,1 +1,15 @@
-<p>esia works!</p>
+<div class="app-info-esia row">
+  <div class="col-md-2">
+    <img src="assets/img/warn.png" style="width: 64px">
+  </div>
+
+  <div class="col-md-10 app-info-esia-text">
+    <div>Уважаемые пациенты, уведомляем, что вход в Личный кабинет пациента осуществляется путем авторизации через Госуслуги</div>
+    <div>(Единую систему идентификации и аутентификации - ЕСИА)</div>
+    <br>
+    <div>Система соответствует требованиям законодательства РФ в области защиты информации, включая ФЗ-152, и гарантирует, что подлинность пользователя подтверждена, предотвращая несанкционированный доступ, кражу аккаунтов и мошеннические действия.</div>
+  </div>
+</div>
+<button class="w-100 btn btn-lg cls-btn cls-btn-esia" type="submit" [disabled]="loading" (click)="loginEsia();">ВХОД ЧЕРЕЗ ГОСУСЛУГИ</button>
+
+<ngbd-toast-global></ngbd-toast-global>

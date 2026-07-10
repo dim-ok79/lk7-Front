@@ -1,0 +1,25 @@
+:host{
+  position: absolute;
+  width: 200%;
+  left: -53%;
+  top: 14px;
+}
+
+.app-info-esia{
+  background-color: white;
+  border-radius: 5px;
+  padding: 18px;
+  text-align: center;
+  line-height: 16px;
+}
+
+@media screen and (max-width: 480px) {
+  :host{
+    top: 245px;
+    width: 100%;
+    left: 0;
+  }
+  .app-info-esia-text{
+    margin-top: 12px;
+  }
+}

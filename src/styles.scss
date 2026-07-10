@@ -1,5 +1,9 @@
 /* @import "variables.scss";*/
-@use "variables.scss";
+/*@import "variables.scss";*/
+@use 'variables';
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
 
 body {
   margin: 0;
@@ -10,3 +14,9 @@ body, html {
   overflow: hidden;
   background: linear-gradient(181deg, #62bec2, #e2ebea);
 }
+
+
+.color-text{
+  color: variables.$color-test;
+}
+

@@ -6,14 +6,29 @@
     background: transparent;
     margin-top: 47px;
     min-width: 479px;
+    text-align: center;
 }
 
 .cls-login-form > img{
   padding: 22px;
+  width: 100%;
 }
 
 .cls-auth-name {
   text-align: center;
   font-size: 24px;
   color: #fff;
+}
+
+@media (max-width: 480px) {
+  .cls-login-form{
+    min-width: auto;
+    margin: 8px;
+    max-width: none;
+    width: 96%;
+  }
+  .cls-login-form > img {
+    padding: 0;
+    width: 90%;
+  }
 }

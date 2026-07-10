@@ -1,6 +1,7 @@
 #!/usr/bin/env
 let fileJson =  "package.json";
-let fileIndexHtml =  "dist/lk7-front/index.html";
+let fileIndexHtml =  "dist/lk7-front/browser/index.html";
+
 let strParam = '{version}';
 
 const fs = require('fs');
