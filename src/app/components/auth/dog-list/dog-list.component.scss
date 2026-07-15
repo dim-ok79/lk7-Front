@@ -1,0 +1,82 @@
+/* Договора*/
+.cls-auth-dog-title {
+  color: #A0B1B9;
+  font-size: 16px;
+  text-align: center;
+}
+
+.cls-auth-dog-list {
+  margin-top: 10px;
+  margin-bottom: 16px;
+}
+
+.cls-auth-dog-list span{
+  color: #435B78;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 50px;
+  cursor: pointer;
+}
+
+.cls-auth-dog-list button{
+  margin: 0px;
+}
+
+
+/* Подписание документов */
+.cls-btn-sig {
+  background-color: #D5DFEC;
+  color: #68819F;
+  border-color: #D5DFEC;
+}
+.cls-btn-sig:hover:disabled {
+  background-color: #D5DFEC;
+  color: #68819F;
+  border-color: #D5DFEC;
+}
+
+
+.cls-btn-sig:hover {
+  background-color: #435B78;
+  color: #ffffff;
+  border-color: #435B78;
+}
+
+.cls-hoverDog {
+  span:hover {
+    color: #2274DB;
+  }
+  span {
+    color: #435B78;
+  }
+}
+
+.cls-NotHoverDog{ // не один не выбран
+  span{
+    color: #435B78;
+  }
+}
+
+.cls-hoverNotDog{  // Выбран но не этот
+  span{
+    color: #A1ADBC;
+  }
+}
+
+.cls-btn-sig:disabled { // Заблокированная кнопка - нельзя подписать
+  cursor: no-drop;
+}
+
+
+.cls-footer2 {
+  text-align: center;
+  cursor: pointer;
+  color: #435B78;
+  padding-bottom: 20px;
+  font-weight: 500;
+}
+
+.cls-icon-arrow-right {
+  margin-left: 5px;
+  width: 15px;
+}

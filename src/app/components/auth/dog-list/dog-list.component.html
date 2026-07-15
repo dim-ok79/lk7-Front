@@ -1,0 +1,19 @@
+<div>
+  <div class="cls-auth-dog-title">Здравствуйте, {{patient?.firstname}}</div>
+  <div class="cls-auth-dog-title">Прочитайте и подпишите документы для продолжения:</div>
+
+  <div class="row cls-auth-dog-list" *ngFor="let dog of dogList"
+       on-mouseover="onHoverDog(dog.id)"
+       on-mouseout="onMouseout(dog.id)"
+       [ngClass]="{ 'cls-hoverDog': dog.id == dogHoverId, 'cls-NotHoverDog': dogHoverId == 0, 'cls-hoverNotDog': (dogHoverId > 0 && dog.id != dogHoverId)}">
+    <span class="col-md-8" (click)="clickDog(dog.id)">{{dog.text}}</span>
+    <button class="btn btn-lg cls-btn cls-btn-auth cls-btn-sig col-md-4" type="submit" [disabled]="loading || !disableDog(dog.id)" (click)="goSignature(dog.id);">Подписать</button>
+  </div>
+
+  <div class="cls-auth-dog-footer">
+    <div class="cls-footer2" (click)="logout();" placeholder="Назад">
+      <mat-icon class="cls-icon-arrow-right" svgIcon="arrow_left" style="margin-right: 5px;"></mat-icon>
+      <span>Назад</span>
+    </div>
+  </div>
+</div>

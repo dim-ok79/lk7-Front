@@ -1,13 +1,106 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, Output, ViewEncapsulation, EventEmitter } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { NgbdToastGlobal } from '../../../utils/toast/toast-global.component';
+import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../services/auth.service';
+import { ITokenAndPatientId } from '../../../interfaces/patient.interface';
 
 @Component({
   selector: 'app-login',
-  imports: [],
+  imports: [CommonModule, FormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
+  providers: [NgbdToastGlobal, AuthService],
   encapsulation: ViewEncapsulation.None
-
 })
 export class LoginComponent {
+/*
+Мой логин и пароль
+ДДИ1275944
+CTOEX4NEFI
+ */
+  loading = false;      // Загрузка
+  hidePassword = true;  // Показывать пароль
+  thisTest = false; // Показывать подсказки при логировании
+  frm = { username: '',  password: ''};
+
+  @Output() onAuth = new EventEmitter<ITokenAndPatientId>();   // Событие Авторизация
+  @Output() onError = new EventEmitter<string>();   // Ошибка
+
+
+  constructor(
+    private alert: NgbdToastGlobal,
+    private auth: AuthService,
+  ){
+  }
+
+
+  login(): void {
+    console.log('this.frm=', this.frm);
+    this.loading = true;
+
+    this.auth.login$(this.frm.username, this.frm.password)
+      .subscribe(
+        (result: any) => {
+          if (result.token && result.patientId) {
+            this.onAuth.emit(result)
+          } else {
+            this.onError.emit('Чтото поло не так, попробуйте снова!');
+          }
+          this.loading = false;
+        },
+        (error: any) => {
+          if (error.error && error.error.data && error.error.data.errorMsg) {
+            //            this.errText = error.error.data.errorMsg;
+            this.onError.emit(error.error.data.errorMsg);
+          } else {
+            this.onError.emit('Неверный логин или пароль');
+          }
+          ;
+          this.loading = false;
+        }
+      )
+
+/*
+    this.auth.login$(this.frm.username, this.frm.password)
+      .subscribe(
+        (result: any) => {
+console.log('$$result=', result);
+          if (result.token && result.patientId) {
+            this.loading = false;
+            this.tmpToken = {token: result.token, patientId: result.patientId};
+            this.paS.loadServer(result.token)
+              .subscribe(res=>{
+                  if (result.ext){
+                    // @ts-ignore
+                    this.tmpToken.ext = result.ext;
+                  }
+//                  this.showDoglist = true;
+
+                },
+                err=>{
+                  if (result.ext){
+                    // @ts-ignore
+                    this.tmpToken.ext = result.ext;
+                  }
+//                  this.showDoglist = true;
+
+                });
+//            this.loginDoc(result.token);
+          }
+        },
+        (error: any) => {
+          if (error.error && error.error.data && error.error.data.errorMsg) {
+//            this.errText = error.error.data.errorMsg;
+            this.onError.emit(error.error.data.errorMsg);
+          } else {
+            this.onError.emit('Неверный логин или пароль');
+          };
+          this.loading = false;
+        }
+      )
+*/
+  }
+
 
 }

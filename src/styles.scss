@@ -7,7 +7,7 @@
 
 body {
   margin: 0;
-  font-family: Golos Text, sans-serif;
+  font-family: 'Golos Text', sans-serif;
 }
 body, html {
   height: 100%;
@@ -19,4 +19,17 @@ body, html {
 .color-text{
   color: variables.$color-test;
 }
+
+/* BTN */
+.cls-btn {
+  margin-top: 20px;
+  background-color: variables.$color-btn-bg;
+}
+
+.cls-btn, .cls-btn:hover {
+  color: variables.$color-btn;
+  background-color: variables.$color-btn-bg;
+}
+/* */
+
 

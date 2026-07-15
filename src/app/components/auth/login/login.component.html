@@ -1,1 +1,14 @@
-<p>login works!</p>
+<form  (ngSubmit)="login()">
+  <div class="mb-3">
+    <label class="form-label">Логин</label>
+    <input type="text" class="form-control" [(ngModel)]="frm.username" name="username" required [disabled]="loading">
+    <div id="emailHelp" class="form-text">Мы никогда никому не передадим ваши данные.</div>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Пароль</label>
+    <input type="password" class="form-control" [(ngModel)]="frm.password" name="password" required [disabled]="loading">
+  </div>
+  <button type="submit" class="w-100 btn btn-lg cls-btn cls-btn-auth" [disabled]="loading">ВОЙТИ</button>
+</form>
+
+

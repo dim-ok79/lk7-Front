@@ -1,6 +1,5 @@
 {
-  "hostBackend": "https://online.sokolovcenter.ru:8445",
-  "hostBackend1": "http://81.9.108.61:4005",
+  "hostBackend": "http://81.9.108.61:4005",
   "hostFront": "http://192.168.1.70:3011",
   "hostPay": "http://81.9.108.51:8080/web-pay",
   "promo_carousel":{

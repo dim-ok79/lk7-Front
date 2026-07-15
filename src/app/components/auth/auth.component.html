@@ -1,9 +1,26 @@
+<ngbd-toast-global></ngbd-toast-global>
+
 <div class="cls-auth-form" #ContentBlocAuth>
   <div class="cls-login-form">
     <img src="./assets/img/Logo_horiz_mini.png" alt="">
     <h1 class="color-text cls-auth-name">{{AuthFormText}}</h1>
-<!--    <app-login></app-login>-->
-    <app-esia></app-esia>
+
+    <ng-container [ngSwitch]="curentModule">
+      <ng-template ngSwitchCase="login">
+        <app-login (onAuth)="authModule($event)" (onError)="errorModule($event)"></app-login>
+      </ng-template>
+
+      <ng-template ngSwitchCase="esia">
+        <app-esia></app-esia>
+      </ng-template>
+
+      <ng-template ngSwitchCase="dog-list">
+        <app-dog-list [dogPREVIEW_REQUIRED]="true" [tmpToken]="tmpToken"></app-dog-list>
+      </ng-template>
+
+    </ng-container>
+
+    <div *ngIf="errText">{{errText}}</div>
   </div>
 
 </div>
