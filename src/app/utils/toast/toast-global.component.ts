@@ -1,7 +1,7 @@
 import {Component, inject, OnDestroy, TemplateRef, ViewChild} from '@angular/core';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
-import {Toast, ToastService} from './toast-service';
+import { ToastService } from './toast-service';
 import { ToastsContainer } from './toast-container.component';
 
 @Component({

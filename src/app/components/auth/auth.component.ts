@@ -39,12 +39,14 @@ export class AuthComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
       console.log('Auth INIT =');
 /* Тест документов подписания */
+
       let tmp: ITokenAndPatientId = {
         patientId : 1925388,
-        token : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXRpZW50X2lkIjoxOTI1Mzg4LCJzb2xpZCI6IndlMjszNC0wZGZzdm9raW9uc2RmMnczMml1IiwiaWF0IjoxNzg0MTAxOTU5LCJleHAiOjE3ODQxMjM1NTl9.-_y4rUas-wcnx-HGZXBcc9CKZeOtzVIgDFgdOVTCfWk",
+        token : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXRpZW50X2lkIjoxOTI1Mzg4LCJzb2xpZCI6IndlMjszNC0wZGZzdm9raW9uc2RmMnczMml1IiwiaWF0IjoxNzg0MjA2MDM5LCJleHAiOjE3ODQyMjc2Mzl9.9GnbuB6a4BC2LIdmt2LDUoFiRMshWw-7DiR-hyz5cDY",
         ext : [{name: "WEB_LK_MODULES0", value: "to-doctor,h-doctor,history,services"}]
       };
       this.authModule(tmp);
+
 
   }
 

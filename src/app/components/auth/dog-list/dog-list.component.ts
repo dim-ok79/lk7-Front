@@ -1,9 +1,9 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, ViewEncapsulation, signal } from '@angular/core';
 import { IDogList, IPatient, ITokenAndPatientId } from '../../../interfaces/patient.interface';
 import { ConfigService } from '../../../services/application/config.service';
 import { AuthService } from '../../../services/auth.service';
 import { PatientService } from '../../../services/patient.service';
-import { MatIconModule} from '@angular/material/icon';
+import { MatIconModule, MatIconRegistry} from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -12,7 +12,9 @@ import { DomSanitizer } from '@angular/platform-browser';
   imports: [MatIconModule, CommonModule],
   templateUrl: './dog-list.component.html',
   styleUrl: './dog-list.component.scss',
-  providers: [ConfigService, AuthService, PatientService]
+  providers: [ConfigService, AuthService, PatientService],
+  encapsulation: ViewEncapsulation.None
+
 })
 export class DogListComponent implements OnInit{
 
@@ -24,10 +26,12 @@ export class DogListComponent implements OnInit{
   @Input() tmpToken: ITokenAndPatientId | null = null; //токен
 
   loading = false;      // Загрузка
-  public dogList!: IDogList[]; // Список договоров
+  public dogList: IDogList[] = []; // Список договоров
+//  public dogList = signal<IDogList[]> ([]); // Список договоров
   public dogHoverId: number = 0;  // Наведенный договор, если нет то = 0
   public error = '';
-  public patient: IPatient | null = null; //Текущий пациент
+//  public patient: IPatient | null = null; //Текущий пациент
+  public patient = signal<IPatient | null>( null); //Текущий пациент
 
   constructor(
     private configS: ConfigService,
@@ -43,11 +47,17 @@ export class DogListComponent implements OnInit{
   ngOnInit(): void {
     this.dogHoverId = 0;
     if (this.tmpToken) {
-      this.loginDoc(this.tmpToken.token);
+      this.loginDoc();
     }
   }
 
-  private loginDoc(token: string): void {
+/*
+  trackByFn(index: number, item: IDogList): number {
+    return item.id // Возвращаем уникальный ключ элемента
+  }
+*/
+
+  private loginDoc(): void {
     this.loading = true;
     this.dogList = [];
     this.auth.getContractList(this.tmpToken!)
@@ -56,28 +66,44 @@ export class DogListComponent implements OnInit{
 //                  this.dogList = response;
 console.log('getContractList response=', response);
           if (response && response.length > 0) {
-            response.forEach(item => {
-              // Получаем информацию о пациенте
-/*
-              this.ps.getServerPatientInfo$(token)
-                .subscribe(
-                  info => {
-                    this.patient = info;
-                    this.patient.birthdate = null;
-                  }, err => {
-                    this.patient = null;
-                  }
-                );
-*/
+            // Получаем информацию о пациенте
+            this.ps.getServerPatientInfo$(this.tmpToken!.token)
+              .subscribe(
+                info => {
+                  this.patient.set(info);
+/*                  this.patient.update(curr => ({...curr, birthdate : null}));*/
 
+/*
+                  this.patient = info;
+                  this.patient.birthdate = null;
+*/
+                }, err => {
+//                  this.patient = null;
+                  this.patient.set(null);
+                }
+              );
+
+            response.forEach(item => {
+console.log(' item=', item);
+              this.dogList = [...this.dogList,
+                {
+                  id: item.template_id,
+                  text: item.template_name,
+                  Сh: false,
+                  Url: `/contract/preview?patientId=${this.tmpToken!.patientId}&contractId=${item.template_id}`
+                }
+              ];
+
+/*
               this.dogList.push({
                 id: item.template_id,
                 text: item.template_name,
                 Сh: false,
                 Url: `/contract/preview?patientId=${this.tmpToken!.patientId}&contractId=${item.template_id}`
               });
+*/
             });
-
+console.log('loginDoc this.dogList=', this.dogList);
             this.error = '';
 //                        this.showDoglist = true;
           } else { // Если нет договоров то продолжаем

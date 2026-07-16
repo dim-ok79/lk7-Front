@@ -12,7 +12,7 @@ export class ConfigService {
   private config: any = null;
 
   loadConfig(): Promise<any> {
-    console.log('11111');
+    console.log('loadConfig');
     // Получаем конфигурацию и сохраняем ее
     return firstValueFrom(
       this.http.get('./assets/config.json').pipe(
@@ -22,7 +22,7 @@ export class ConfigService {
   }
 
   getValue(key: string, defaultValue?: any): any {
-// console.log('getValue - ', this.configuration);
+console.log('getValue - ', this.config);
     return this.config[key] || defaultValue;
 //        hostBackend: "http://10.0.0.204:8080/pa-web"
 //        return 'http://10.0.0.204:8080/pa-web';

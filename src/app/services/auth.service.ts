@@ -264,51 +264,5 @@ export class AuthService {
     return this.httpNew.get(url,  this.token);
   }
 
-/*
-  public patientforphone$(patient: IAuthPatientPhone): Observable<IHttpRequest> {
-    return new Observable((observer) => {
-      return this.httpNew.post('/api/patientforphone' , patient, null, true)
-        .subscribe(
-          result => {
-            observer.next(result);
-          },
-          err => {
-            observer.error(err);
-          }
-        );
-    });
-  }
-*/
-
-  public loginphone$(p_patientid: number, p_captcha: number, p_captchaSolid:number): Observable<boolean> | any {
-    let param = {patientid: p_patientid, captcha: p_captcha, captchaSolid: p_captchaSolid};
-    return new Observable((observer) => {
-      return this.httpNew.post('/api/loginphone' , param, null, true)
-        .subscribe(
-          result => {
-            console.log('result=', result);
-            if (result && result.success && result.data) {
-              let tmp = result.data;
-              if (tmp && tmp.token && tmp.patientid) {
-                let r = Object.assign({token: tmp.token, patientId: tmp.patientid})
-                if (tmp.ext){
-                  r = Object.assign(r, {ext: tmp.ext});
-                }
-                observer.next(r);
-              } else {
-                observer.error(false);
-              }
-            } else {
-              observer.error(false);
-            }
-          },
-          err => {
-            observer.error(err);
-          }
-        );
-    });
-  }
-
-
 }
 
