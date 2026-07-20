@@ -12,7 +12,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   imports: [MatIconModule, CommonModule],
   templateUrl: './dog-list.component.html',
   styleUrl: './dog-list.component.scss',
-  providers: [ConfigService, AuthService, PatientService],
+  providers: [AuthService, PatientService],
   encapsulation: ViewEncapsulation.None
 
 })

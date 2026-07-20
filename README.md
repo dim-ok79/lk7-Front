@@ -5,23 +5,23 @@
 # Angular CLI : 22.0.0
 
 
-#NPM  - разрешает установку старых пакетов
+#NPM  - СЂР°Р·СЂРµС€Р°РµС‚ СѓСЃС‚Р°РЅРѕРІРєСѓ СЃС‚Р°СЂС‹С… РїР°РєРµС‚РѕРІ
 npm config set legacy-peer-deps true
 
-#Версия Angular 
+#Р’РµСЂСЃРёСЏ Angular 
 ng version
 
 npm install @angular/build@22 @angular-devkit/build-angular@22 --save-dev
 
 
-# Создание компоненты test с суфиксом через npm run
+# РЎРѕР·РґР°РЅРёРµ РєРѕРјРїРѕРЅРµРЅС‚С‹ test СЃ СЃСѓС„РёРєСЃРѕРј С‡РµСЂРµР· npm run
 npm run g:c components/auth/test
 
-# ИЛИ стандартно, добавил параметр в angular.json
+# РР›Р СЃС‚Р°РЅРґР°СЂС‚РЅРѕ, РґРѕР±Р°РІРёР» РїР°СЂР°РјРµС‚СЂ РІ angular.json
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss",
           "type": "component"
         }
 
-
+# РЎРµСЂРІРёСЃС‹ - root РІ providers РЅРµ РґРѕР±Р°РІР»СЏС‚СЊ

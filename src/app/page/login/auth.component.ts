@@ -1,14 +1,14 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
  import { Size } from '../../services/size';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from './login/login.component';
-import { EsiaComponent } from './esia/esia.component';
+import { LoginComponent } from '../../components/auth/login/login.component';
+import { EsiaComponent } from '../../components/auth/esia/esia.component';
 import { NgbdToastGlobal } from '../../utils/toast/toast-global.component';
 import { ITokenAndPatientId } from '../../interfaces/patient.interface';
 import { PatientAttachedService } from '../../services/patient_attached.service';
 import { PatientService } from '../../services/patient.service';
 import { AuthService } from '../../services/auth.service';
-import { DogListComponent } from './dog-list/dog-list.component';
+import { DogListComponent } from '../../components/auth/dog-list/dog-list.component';
 
 @Component({
   selector: 'app-auth',

@@ -2,7 +2,6 @@
 Сервис по работе Высотой основного блока
 17-05-2022 Событийную часть отключил, работает из LS
  */
-
 import {Injectable} from "@angular/core";
 import {Observable, Subject} from "rxjs";
 import { ISize } from "../interfaces/size.interface";
@@ -14,9 +13,9 @@ const storeKey = 'WEB_LK_DEVICE_TYPE';
 export class Size {
   private h :ISize = {outletH: 0, blockHeaderH:91};
   private width: number = 0;
-  deviceType: string = 'pc';
-  pc: string = 'pc' as const;
-  mobile: string = 'mobile' as const;
+  public deviceType: string = 'pc';
+  public pc: string = 'pc' as const;
+  public mobile: string = 'mobile' as const;
   tablet: string = 'tablet' as const;
 //  deviceTypeSubject = new Subject<string>();
 
