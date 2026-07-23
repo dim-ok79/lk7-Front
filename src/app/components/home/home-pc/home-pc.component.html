@@ -1,6 +1,11 @@
-<div class="app-home-header"></div>
+<div class="app-home-header">
+  <div class="app-home-header_logo">111</div>
+  <div class="app-home-header_exit" (click)="logout()" >Выход</div>
+</div>
 
   <div class="app-home-body">
-    <div class="app-home-body-menu"></div>
-    <div class="app-home-body-content"></div>
+    <div class="app-home-body-menu app-block"></div>
+    <div class="app-home-body-content row">
+      <app-patient-info class="col-md-6"></app-patient-info>
+    </div>
   </div>

@@ -32,4 +32,13 @@ body, html {
 }
 /* */
 
+/*Блоки */
+.app-block{
+  border-radius: 10px;
+  background-color: variables.$color-block;
+  color: white;
+  padding: 20px;
+}
+
+
 

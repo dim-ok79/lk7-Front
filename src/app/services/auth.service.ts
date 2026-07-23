@@ -16,7 +16,9 @@ import {Observable, throwError} from "rxjs";
 import {dateToText} from "../utils/global.function";
 
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
 
   public token: string | null;
@@ -160,27 +162,26 @@ export class AuthService {
       );
 
   }
+
   /**
    * Выход из системы, осуществляется только при выполненной авторизации
    */
-/*
+
   public logout(): void {
 //     console.log('Exit111 URL=', this.router.url);
     if (this.token) {
       this.serverLogout(this.token)
         .subscribe(
           result => {
-// console.log('Exit222 URL=', this.router.url);
-            if (this.router.navigate(['/login'])) {
-              this.token = null;
-              this.patientId = null;
-              StoreService.clearAllStore();
-            }
+            this.token = null;
+            this.patientId = null;
+            StoreService.clearAllStore();
+            this.router.navigate(['/login']);
           }
         );
     }
   }
-*/
+
 
   /**
    * Процедура logout'a на стороне сервера
@@ -191,17 +192,20 @@ export class AuthService {
     return this.httpNew.post('/api/logout' , null, this.token)
   }
 
-  /**
+/*
+  /!**
    * Смена пароля
    * @param pOldPassword - Старый пароль
    * @param pNewPassword - Новый пароль
    * @returns {Observable<boolean>}
-   */
+   *!/
   public changepw(pOldPassword: string, pNewPassword: string): Observable<any> {
     return this.httpNew.post('/api/changepw' , {oldPassword: pOldPassword, newPassword: pNewPassword}, this.token);
   }
+*/
 
-  /**
+/*
+  /!**
    * Восстановление пароля
    * @param  lastName='' - фамилия
    * @param  firstName='' - имя
@@ -209,29 +213,34 @@ export class AuthService {
    * @param  birthDate='' - дата рождения в формате dd_MM_yyyy
    * @param  email='' - электронная почта
    * @returns {Observable<boolean>}
-   */
+   *!/
   public findpatientchangepw(pLastName: string, pFirstName: string, pSecondName: string, pBirthDate: string, pEmail: string, pCaptcha: string, pCaptchaSolid: string): Observable<any> {
     return this.httpNew.post('/api/findpatientchangepw' , {lastName: pLastName, firstName: pFirstName, secondName: pSecondName, birthDate: pBirthDate, email: pEmail, captcha: pCaptcha, captchaSolid: pCaptchaSolid}, null, true);
   }
+*/
 
-  /**
+/*
+  /!**
    * Проверка токена на восстановление
    * @param  pToken='' - токен
    * @returns {Observable<boolean>}
-   */
+   *!/
   public checktr(pToken: string): Observable<any> {
     return this.httpNew.post('/api/checktr' , {token: pToken}, null);
   }
+*/
 
-  /**
+/*
+  /!**
    * смена пароля пациенту по токену
    * @param  pToken='' - токен
    * @param  pNewpw='' - новый пароль
    * @returns {Observable<boolean>}
-   */
+   *!/
   public changepwtoken(pToken: string, pNewpw: string): Observable<any> {
     return this.httpNew.post('/api/changepwtoken' , {token: pToken, newpw: pNewpw}, null);
   }
+*/
 
 
 
@@ -239,19 +248,12 @@ export class AuthService {
 
   /* Список договоров (не подписанных) */
   public getContractList(tmp: ITokenAndPatientId): Observable<IDogListForSig[]> {
-//      const url = '/api/patient/' + tmp.patientId + '/contract';  // tomCat
     const url = '/contract/patient/list/sig';
     return this.httpNew.get(url, tmp.token);
   }
 
   /* Подписать договор */
   public postContract(tmp: ITokenAndPatientId, templateId: number): Observable<IDogSignatureRes> {
-//TomCat      const url = '/api/patient/' + tmp.patientId + '/contract/template/' + templateId;
-    /*
-            const url = '/contract/template/' + templateId;
-            return this.httpNew.post(url , null, tmp.token, true);
-    */
-
     const url = `/contract/sig?patientId=${tmp.patientId}&contractId=${templateId}`;
     return this.httpNew.get(url , tmp.token);
 
@@ -259,7 +261,6 @@ export class AuthService {
 
   /* Список подписанных договоров */
   public getContractListToPatient(): Observable<IContract[]> {
-//TomCat      const url = '/api/patient/' + this.patientId + '/contract/sign';
     const url = '/contract/patient/list';
     return this.httpNew.get(url,  this.token);
   }

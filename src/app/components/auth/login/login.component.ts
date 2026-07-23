@@ -10,7 +10,7 @@ import { ITokenAndPatientId } from '../../../interfaces/patient.interface';
   imports: [CommonModule, FormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
-  providers: [NgbdToastGlobal, AuthService],
+  providers: [NgbdToastGlobal],
   encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent {
@@ -25,7 +25,7 @@ CTOEX4NEFI
   frm = { username: '',  password: ''};
 
   @Output() onAuth = new EventEmitter<ITokenAndPatientId>();   // Событие Авторизация
-  @Output() onError = new EventEmitter<string>();   // Ошибка
+  @Output() onError = new EventEmitter<string | null>();   // Ошибка
 
 
   constructor(
@@ -43,7 +43,8 @@ CTOEX4NEFI
       .subscribe(
         (result: any) => {
           if (result.token && result.patientId) {
-            this.onAuth.emit(result)
+            this.onError.emit(null);
+            this.onAuth.emit(result);
           } else {
             this.onError.emit('Чтото поло не так, попробуйте снова!');
           }

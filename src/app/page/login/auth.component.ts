@@ -9,6 +9,7 @@ import { PatientAttachedService } from '../../services/patient_attached.service'
 import { PatientService } from '../../services/patient.service';
 import { AuthService } from '../../services/auth.service';
 import { DogListComponent } from '../../components/auth/dog-list/dog-list.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -31,7 +32,8 @@ export class AuthComponent implements OnInit, AfterViewInit {
 
     constructor(private size: Size,
                 private paS: PatientAttachedService,
-
+                private auth: AuthService,
+                private router: Router,
     ){
 //      super();
     }
@@ -40,12 +42,14 @@ export class AuthComponent implements OnInit, AfterViewInit {
       console.log('Auth INIT =');
 /* Тест документов подписания */
 
+/*
       let tmp: ITokenAndPatientId = {
         patientId : 1925388,
-        token : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXRpZW50X2lkIjoxOTI1Mzg4LCJzb2xpZCI6IndlMjszNC0wZGZzdm9raW9uc2RmMnczMml1IiwiaWF0IjoxNzg0MjA2MDM5LCJleHAiOjE3ODQyMjc2Mzl9.9GnbuB6a4BC2LIdmt2LDUoFiRMshWw-7DiR-hyz5cDY",
+        token : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXRpZW50X2lkIjoxOTI1Mzg4LCJzb2xpZCI6IndlMjszNC0wZGZzdm9raW9uc2RmMnczMml1IiwiaWF0IjoxNzg0NjIwNzk3LCJleHAiOjE3ODQ2NDIzOTd9.7q8faCtbFj1_7E4dunsteYpqHIMSpBp1ByU66-hZOcQ",
         ext : [{name: "WEB_LK_MODULES0", value: "to-doctor,h-doctor,history,services"}]
       };
       this.authModule(tmp);
+*/
 
 
   }
@@ -56,40 +60,28 @@ export class AuthComponent implements OnInit, AfterViewInit {
   };
 
     // Обработка получение токена
-  authModule(resModule: ITokenAndPatientId){
+  authModule(resModule: ITokenAndPatientId | null){
     console.log('authModule resModule=', resModule);
     this.tmpToken = resModule;
-    this.curentModule = 'dog-list';
-/*
-    this.paS.loadServer(this.tmpToken.token)
-      .subscribe(res=>{
-        console.log('paS.loadServer res=', res);
-/!*
-          if (res.ext){
-            // @ts-ignore
-            this.tmpToken.ext = res.ext;
-          }
-*!/
-//                  this.showDoglist = true;
-        },
-        err=>{
-          console.log('paS.loadServer err=', err);
-/!*
-          if (res.ext){
-            // @ts-ignore
-            this.tmpToken.ext = res.ext;
-          }
-*!/
-//                  this.showDoglist = true;
 
-        });
-//            this.loginDoc(result.token);
-*/
+    // После подписания документов - работаем
+    if (this.curentModule == 'dog-list') {
+      this.loginOK();
+    }
+
+    if (this.curentModule == 'login' || this.curentModule == 'esia') {
+      this.curentModule = 'dog-list';
+    }
 
   }
 
+  public loginOK(): void {
+    this.auth.loginOk$(this.tmpToken!.token, this.tmpToken!.patientId, this.tmpToken!.ext!);
+    this.router.navigate(['/'])
+  }
+
   // Обработка ошибки
-  errorModule(event: string) {
+  errorModule(event: string| null) {
     this.errText = event;
   }
 

@@ -1,11 +1,15 @@
 .app-home-header{
   height: 61px;
-
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
   background-color: #afafaf;
+
 }
 
 .app-home-body{
-  height: 94vh;
+  height: 100vh;
   display: flex;
   padding-bottom: 60px;
   background-color: green;
@@ -13,8 +17,9 @@
 
 .app-home-body-menu{
   min-width: 150px;
+  margin: 18px;
 
-  background-color: chartreuse;
+/*  background-color: chartreuse;*/
 
 }
 

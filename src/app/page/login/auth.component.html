@@ -15,7 +15,8 @@
       </ng-template>
 
       <ng-template ngSwitchCase="dog-list">
-        <app-dog-list [dogPREVIEW_REQUIRED]="true" [tmpToken]="tmpToken"></app-dog-list>
+        <app-dog-list (onAuth)="authModule($event)" (onError)="errorModule($event)"
+                      [dogPREVIEW_REQUIRED]="true" [tmpToken]="tmpToken"></app-dog-list>
       </ng-template>
 
     </ng-container>

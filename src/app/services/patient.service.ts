@@ -14,7 +14,6 @@ export class PatientService {
   constructor(private httpApp: AppHttpService, private auth: AuthService) { }
 
   public getServerPatientInfo$(token?: string | null): Observable<IPatient> {
-//TomCat    return this.httpNew.get(`/api/patient/${this.auth.patientId}/info` , this.auth.token)
     if (token) {
       return this.httpApp.get(`/patient/info` , token)
     } else {

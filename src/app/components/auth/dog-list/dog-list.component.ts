@@ -12,20 +12,23 @@ import { DomSanitizer } from '@angular/platform-browser';
   imports: [MatIconModule, CommonModule],
   templateUrl: './dog-list.component.html',
   styleUrl: './dog-list.component.scss',
-  providers: [AuthService, PatientService],
+  providers: [ PatientService],
   encapsulation: ViewEncapsulation.None
 
 })
 export class DogListComponent implements OnInit{
 
+  @Output() onAuth = new EventEmitter<ITokenAndPatientId | null>();   // Событие Авторизация
   @Output() onError = new EventEmitter<string>();   // Ошибка
-  @Output() onEvent = new EventEmitter<string>();   // События
   @Input() dogPREVIEW_REQUIRED: boolean = false; // Обязательность предпросмотра
 
 
   @Input() tmpToken: ITokenAndPatientId | null = null; //токен
 
-  loading = false;      // Загрузка
+//  loading = false;      // Загрузка
+//  public loading = signal<boolean>( false); //Текущий пациент
+  loading = signal(false);      // Загрузка
+
   public dogList: IDogList[] = []; // Список договоров
 //  public dogList = signal<IDogList[]> ([]); // Список договоров
   public dogHoverId: number = 0;  // Наведенный договор, если нет то = 0
@@ -58,28 +61,24 @@ export class DogListComponent implements OnInit{
 */
 
   private loginDoc(): void {
-    this.loading = true;
+    this.loading.update(val => val = true);
     this.dogList = [];
     this.auth.getContractList(this.tmpToken!)
       .subscribe(
         response => {
-//                  this.dogList = response;
 console.log('getContractList response=', response);
+          if (response && response.length == 0) {  // Договоров на подписание нет, работаем
+            this.loginOK();
+          }
+
           if (response && response.length > 0) {
             // Получаем информацию о пациенте
             this.ps.getServerPatientInfo$(this.tmpToken!.token)
               .subscribe(
                 info => {
-                  this.patient.set(info);
-/*                  this.patient.update(curr => ({...curr, birthdate : null}));*/
-
-/*
-                  this.patient = info;
-                  this.patient.birthdate = null;
-*/
+                  this.patient.update(curr => curr = info);
                 }, err => {
-//                  this.patient = null;
-                  this.patient.set(null);
+                  this.patient.update(curr => curr = null);
                 }
               );
 
@@ -94,25 +93,16 @@ console.log(' item=', item);
                 }
               ];
 
-/*
-              this.dogList.push({
-                id: item.template_id,
-                text: item.template_name,
-                Сh: false,
-                Url: `/contract/preview?patientId=${this.tmpToken!.patientId}&contractId=${item.template_id}`
-              });
-*/
             });
 console.log('loginDoc this.dogList=', this.dogList);
             this.error = '';
-//                        this.showDoglist = true;
           } else { // Если нет договоров то продолжаем
             this.loginOK();
           }
-          this.loading = false;
+          this.loading.update(val => val = false);
         },
         error => {
-          this.loading = false;
+          this.loading.update(val => val = false);
           console.error('error=', error);
         },
       );
@@ -135,13 +125,11 @@ console.log('loginDoc this.dogList=', this.dogList);
 
     /* Подписание договора */
   public goSignature(templateId: number): void {
-// console.log('->goSignature -', templateId);
-      this.loading = true;
+    this.loading.update(val => val = true);
     this.auth.postContract(this.tmpToken!, templateId)
       .subscribe(
         result => {
-//                    console.log('result=', result);
-          this.loading = false;
+          this.loading.update(val => val = false);
           if (result && result.id) {
             let i: number | null = null;
             this.dogList.forEach((item, index ) => {
@@ -178,21 +166,16 @@ console.log('loginDoc this.dogList=', this.dogList);
           };
 
           this.onError.emit(this.error);
-
-          this.loading = false;
+          this.loading.update(val => val = false);
         }
       );
-
-
   }
 
   public onHoverDog(id: number){ // on-mouseover
-//        console.log('HOVER=', id);
       this.dogHoverId = id;
     }
 
   public onMouseout(id: number){  // on-mouseleave on-mouseout (одинаково работают)
-//        console.log('onMouseout=', id);
       this.dogHoverId = 0;
     }
 
@@ -209,7 +192,7 @@ console.log('loginDoc this.dogList=', this.dogList);
   }
 
   public loginOK(): void {
-      this.onEvent.emit('LOGINOK');
+    this.onAuth.emit(this.tmpToken);
   }
 
   logout(){

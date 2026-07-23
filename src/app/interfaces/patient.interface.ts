@@ -13,6 +13,7 @@ export interface IPatient {
   snils: string;       // СНИЛС ИНН
   count_login: number  // количество логинов
   sex: number  // Пол 0-Мужчина, 1- Женщина
+  age: string  // Сколько лет
 }
 
 // Параметры пациента
