@@ -12,9 +12,9 @@ export class AppMenuService {
 
   constructor(private configS: ConfigService,
               private router: Router) {
-    this.menuList.push({id: 1, name: 'dddd', active: false, url: 'home'});
+    this.menuList.push({id: 1, name: 'home', active: false, url: 'home'});
     this.menuList.push({id: 2, name: 'login', active: false, url: 'login'});
-    this.menuList.push({id: 3, name: 'sdfg3erg', active: false, url: 'home'});
+    this.menuList.push({id: 3, name: 'sdfg3erg', active: false});
   }
 
   getListMenu(): IMenu[] {

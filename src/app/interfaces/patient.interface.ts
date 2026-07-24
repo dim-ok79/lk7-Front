@@ -10,6 +10,7 @@ export interface IPatient {
   cellular: string;       // Сотовый телефон
   email: string;          // Почта
   address_proj: string;    // Адрес проживания
+  address_proj_f: string;    // Адрес фактический
   snils: string;       // СНИЛС ИНН
   count_login: number  // количество логинов
   sex: number  // Пол 0-Мужчина, 1- Женщина

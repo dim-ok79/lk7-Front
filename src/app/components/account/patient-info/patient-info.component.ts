@@ -1,10 +1,11 @@
-import { Component, OnInit, signal, ViewEncapsulation } from '@angular/core';
-import { PatientService } from '../../services/patient.service';
-import { IPatient } from '../../interfaces/patient.interface';
+import { Component, Input, OnInit, signal, ViewEncapsulation } from '@angular/core';
+import { PatientService } from '../../../services/patient.service';
+import { IPatient } from '../../../interfaces/patient.interface';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-patient-info',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './patient-info.component.html',
   styleUrl: './patient-info.component.scss',
   providers: [PatientService],
@@ -12,8 +13,13 @@ import { IPatient } from '../../interfaces/patient.interface';
 
 })
 export class PatientInfoComponent implements OnInit{
+  @Input() viewFull: boolean = false; // Показывать полностью
 
-  public patient = signal<IPatient | null>( null); //Текущий пациент
+//  public patient = signal<IPatient | null>( null); //Текущий пациент
+  private patientDef = {patientId: 0, num: '', lastname: '', firstname: '', secondname: '', birthdatestr: '', birthdate: null, phone: '', cellular: '', email: '',
+    address_proj: '', address_proj_f: '', snils: '', count_login: 0, sex: 0, age: ''};
+  public patient = signal<IPatient>( this.patientDef); //Текущий пациент
+
 
   constructor(
     private ps: PatientService,
@@ -22,6 +28,7 @@ export class PatientInfoComponent implements OnInit{
   }
 
   ngOnInit(): void {
+// console.log('this.viewFull =', this.viewFull);
     this.ps.getServerPatientInfo$()
       .subscribe(
         info => {
@@ -34,7 +41,7 @@ export class PatientInfoComponent implements OnInit{
           */
         }, err => {
 //                  this.patient = null;
-          this.patient.set(null);
+          this.patient.set(this.patientDef);
         }
       );
 
@@ -53,22 +60,6 @@ export class PatientInfoComponent implements OnInit{
     let res = '';
     if (pat && pat.lastname && pat.firstname){
       res = pat.lastname +' '+ pat.firstname + ' ' + pat.secondname!;
-    }
-    return res;
-  }
-
-  getNum(pat: IPatient | null): string{
-    let res = '';
-    if (pat){
-      res = pat.num;
-    }
-    return res;
-  }
-
-  getAge(pat: IPatient | null): string{
-    let res = '';
-    if (pat){
-      res = pat.age;
     }
     return res;
   }

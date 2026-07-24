@@ -1,0 +1,8 @@
+
+<div class="app-contract app-block">
+  <div>ПОДПИСАННЫЕ ДОКУМЕНТЫ</div>
+  <section *ngFor="let doc of contracts();">
+    <div class="app-contract-item" (click)="openContract(doc.id)">{{doc.text}}</div>
+  </section>
+</div>
+

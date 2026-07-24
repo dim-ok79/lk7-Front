@@ -43,9 +43,11 @@ export class PatientService {
   }
 
   /* Смена пароля*/
+/*
   public changepasswd$(pOldPassword: string, pNewPassword: string ): Observable<any> {
     return this.httpApp.post(`/api/changepasswd` , {oldPassword: pOldPassword, newPassword: pNewPassword} , this.auth.token)
   }
+*/
 
   /* Количество активности пользователя*/
   public getInetuserLogSize$(): Observable<IInetuserLogSize> {
@@ -82,9 +84,11 @@ export class PatientService {
   }
 
 
+/*
   public create_pw$(): Observable<any> {
       return this.httpApp.get(`/patient/create_pw` , this.auth.token)
   }
+*/
 
 
 }

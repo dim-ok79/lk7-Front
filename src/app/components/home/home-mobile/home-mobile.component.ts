@@ -3,7 +3,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { IMenu } from '../../../interfaces/menu.interface';
 import { CommonModule } from '@angular/common';
 import { AppMenuService } from '../../../services/menu.service';
-import { PatientInfoComponent } from '../../patient-info/patient-info.component';
+import { PatientInfoComponent } from '../../account/patient-info/patient-info.component';
 
 @Component({
   selector: 'app-home-mobile',

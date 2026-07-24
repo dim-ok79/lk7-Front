@@ -3,23 +3,23 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  cursor: pointer;
-  background-color: #afafaf;
+  background-color: white;
+}
 
+.app-home-header_exit{
 }
 
 .app-home-body{
   height: 100vh;
   display: flex;
   padding-bottom: 60px;
-  background-color: green;
+  background-color: white;
 }
 
 .app-home-body-menu{
   min-width: 150px;
   margin: 18px;
-
-/*  background-color: chartreuse;*/
+  margin-top: 28px;
 
 }
 
