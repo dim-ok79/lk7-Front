@@ -41,9 +41,16 @@ body, html {
 }
 
 
+.app-bg-color {
+  background-color: variables.$color-block!important;
+  color: white!important;
+}
+
 /* Основные*/
 .app-cp{
   cursor: pointer;
 }
+
+/* TABLE */
 
 

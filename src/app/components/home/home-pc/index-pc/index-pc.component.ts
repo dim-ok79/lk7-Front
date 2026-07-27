@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { BlockGoyComponent } from '../../../block-goy/block-goy.component';
+import { BlockGoyComponent } from '../../../common/block-goy/block-goy.component';
 import { PatientInfoComponent } from '../../../account/patient-info/patient-info.component';
 
 @Component({
