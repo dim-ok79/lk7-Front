@@ -22,7 +22,6 @@ export class ConfigService {
   }
 
   getValue(key: string, defaultValue?: any): any {
-console.log('getValue - ', this.config);
     return this.config[key] || defaultValue;
 //        hostBackend: "http://10.0.0.204:8080/pa-web"
 //        return 'http://10.0.0.204:8080/pa-web';

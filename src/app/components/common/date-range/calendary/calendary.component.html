@@ -1,0 +1,33 @@
+<div class="calendary">
+  <div class="cal-header">
+<!--
+    <mat-icon svgIcon="top" class="cal-top" (click)="calendarClickGo('top')" [ngClass]="{ 'not-activ-btn': disableTop==true}"></mat-icon>
+-->
+    <span class="cal-header-mount">{{headerText.mount}}</span>
+    <span class="cal-header-year">{{headerText.year}}</span>
+<!--
+    <mat-icon svgIcon="bottom" class="cal-bottom" (click)="calendarClickGo('bottom')" [ngClass]="{ 'not-activ-btn': disableBottom==true}"></mat-icon>
+-->
+  </div>
+
+  <table class="cal-table">
+    <tr style="height: 3em;">
+      <th class="cal-h">пн</th>
+      <th class="cal-h">вт</th>
+      <th class="cal-h">ср</th>
+      <th class="cal-h">чт</th>
+      <th class="cal-h">пт</th>
+      <th class="cal-h">сб</th>
+      <th class="cal-h">вс</th>
+    </tr>
+    <tr *ngFor="let wd of weekDayArray">
+      <td class="cal-row-dr" *ngFor="let dt of dayArray | slice:wd.start:wd.end; let i = index;"
+          [ngClass]="{ 'day-not-activ-dr': dt.isCourrentMonth==false, 'day-activ-dr': dt.isCourrentMonth==true, 'day-selected-dr': dt.isSelected==true}"
+          (click)="clicDate(dt)">
+        <span *ngIf="dt.isCourrentMonth">{{dt.day}}</span>
+      </td>
+    </tr>
+
+  </table>
+
+</div>

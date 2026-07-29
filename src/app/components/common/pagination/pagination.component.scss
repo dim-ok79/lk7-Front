@@ -1,0 +1,41 @@
+.cls-pagination {
+  display: flex;
+  list-style: none;
+  float: right;
+  cursor: pointer;
+}
+
+.cls-pagination > li{
+  /*
+  min-width: 26px;
+  */
+  border-radius: 20px;
+  text-align: center;
+  color: black;
+  width: 30px;
+  height: 30px;
+  padding-top: 3px;
+}
+
+/* Активная страница */
+.cls-pagination > li.active{
+  background-color: #8AA4C3;
+  color: white;
+}
+
+/*
+.page-item.active .page-link {
+  z-index: 3;
+  color: #fff;
+  background-color: green;
+  border-color: #007bff;
+}
+*/
+
+.cls-pg-itogo {
+  position: absolute;
+}
+
+ul{
+    margin-bottom: 0;
+}

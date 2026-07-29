@@ -1,0 +1,99 @@
+.cls-pagination {
+  display: flex;
+  list-style: none;
+  float: right;
+  cursor: pointer;
+}
+
+.cls-pagination > li{
+  /*
+  min-width: 26px;
+  */
+  border-radius: 20px;
+  text-align: center;
+  color: black;
+  width: 30px;
+  height: 30px;
+  padding-top: 3px;
+}
+
+/* Активная страница */
+.cls-pagination > li.active{
+  background-color: #8AA4C3;
+  color: white;
+}
+
+
+.cls-pagination {
+  margin-bottom: 0;
+}
+.cls-pg-itogo {
+  position: absolute;
+}
+.cls-pagination .app-pagination-arr svg path {
+  fill: #8AA4C3;
+}
+.padination-mob--curpage {
+  display: none;
+}
+
+.cls-pg-itogo {
+  display: none;
+}
+.cls-pagination .app-pagination-arr svg path {
+  fill: #fff;
+}
+.cls-pagination {
+  float: none;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  padding-left: 0;
+}
+.cls-pagination> li {
+  color: #9AACDB;
+  font-weight: 500;
+  font-size: 16px;
+}
+.cls-pagination > li.active {
+  background-color: #9277FF;
+}
+.cls-pagination .app-pagination-arr {
+  background: #9AACDB;
+  width: 50px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: linear .2s;
+}
+
+.app-pagination-arr:hover {
+  background: #9AACDB;
+}
+
+.cls-pagination .cls-pag-first {
+  border-radius: 20px 0px 0px 20px;
+}
+.cls-pagination .cls-pag-next {
+  border-radius: 0px 20px 20px 0px;
+}
+.padination-mobDn {
+  display: none;
+}
+.padination-mob--curpage {
+  display: block;
+  width: 54px;
+  height: 40px;
+  background-color: #fff;
+  font-weight: 500;
+  font-size: 16px;
+  color: #9AACDB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cls-pagination .app-pagination-arr.arrDis {
+  pointer-events: none;
+  background: #E3EBFE;
+}

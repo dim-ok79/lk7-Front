@@ -1,0 +1,82 @@
+/* Весь блок */
+.cls-ptp {
+    font-size: 16px;
+    font-weight: 400;
+    padding: 10px;
+}
+
+/* Шапка */
+.cls-ptp-header {
+    //min-height: 35px;
+}
+
+/* Тело */
+.cls-ptp-body {
+    height: auto;
+}
+
+/* Низ */
+.cls-ptp-footer {
+    //height: 25px;
+    //max-height: 25px;
+    //min-height: 25px;
+}
+
+.cls-name {
+
+}
+
+.cls-date {
+    //float: right;
+}
+
+
+.form-group.hidden {
+    width: 0;
+    margin: 0;
+    border: none;
+    padding: 0;
+}
+
+.custom-day {
+    text-align: center;
+    padding: 0.185rem 0.25rem;
+    display: inline-block;
+    height: 2rem;
+    width: 2rem;
+}
+
+.custom-day.focused {
+    background-color: #e6e6e6;
+}
+
+.custom-day.range, .custom-day:hover {
+    background-color: rgb(2, 117, 216);
+    color: white;
+}
+
+.custom-day.faded {
+    background-color: rgba(2, 117, 216, 0.5);
+}
+
+
+.panel-table-pagination {
+    display: grid;
+    grid-template: 50px 1fr 50px/1fr;
+    height: 100%;
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__body {
+        overflow-y: auto;
+    }
+
+    &__footer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}

@@ -1,5 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+// Импорт русской локали для moment.js
+import 'moment/locale/ru';
 
 @Component({
   selector: 'app-root',

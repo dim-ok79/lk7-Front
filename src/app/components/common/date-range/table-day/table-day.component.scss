@@ -1,0 +1,415 @@
+
+// Стартовая дата
+.cls-dr-start-day {
+  border-radius: 16px 0 0 16px;
+  background-color: #e3dcff;
+  color: white!important;
+}
+
+.cls-dr-start-day > span{
+  background-color: #9277ff;
+  border-radius: 16px;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding-top: 3px;
+}
+
+// дата окончания
+.cls-dr-end-day {
+  border-radius: 0 16px 16px 0;
+  background-color: #e3dcff;
+  color: white!important;
+}
+
+.cls-dr-end-day > span{
+  background-color: #9277ff;
+  border-radius: 16px;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding-top: 3px;
+}
+
+// Промежуточная дата
+.cls-dr-inserted {
+  background-color: #e3dcff;
+}
+
+// Текущий день
+.cls-dr-current-day {
+  background-color: #C7BFE9;
+}
+
+// Текущий месяц
+.cls-dr-current-month {
+  text-align: center;
+  color: #0c0c0c;
+  font-weight: 500;
+  min-width: 32px;
+  height: 32px;
+ }
+
+.cls-dr-current-month > span {
+  height: 30px;
+  width: 30px;
+}
+
+.cls-dr-col-h{
+  color: #17a2b8;
+  font-weight: normal;
+  font-style: italic;
+  line-height: 2rem;
+  text-align: center;
+  font-size: 80%;
+}
+
+.cal-dr-table{
+  width: 100%;
+}
+
+.cls-dr-one-day{
+  background-color: white!important;
+}
+
+.cls-dr-current-day:hover {
+  background-color: #6A4ED8;
+}
+
+:host(.mobile){
+    // Загловки
+    .cls-dr-col-h{
+        text-align: center;
+        color: #B9B9B9;
+        font-style: normal;
+        line-height: calc(19rem / 16);
+        font-size: 1rem;
+    }
+
+    // День
+    .cls-dr-current-month {
+        text-align: center;
+        color: #5E5E5E;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: calc(19rem / 16);
+    }
+
+    .calendar__selected{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    //Таблица календаря
+    .cal-dr-table{
+        width: 100%;
+    }
+
+    .cls-dr-end-day > span,
+    .cls-dr-start-day > span{
+        padding: 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+
+    }
+
+    .cls-dr-current-day{
+
+        border-radius: 0;
+        background-color: transparent;
+
+        &.cls-dr-end-day{
+            border-radius: 0 16px 16px 0;
+
+        }
+        &.cls-dr-start-day{
+            border-radius: 16px 0 0 16px;
+        }
+
+        &.cls-dr-end-day,
+        &.cls-dr-start-day{
+            background-color: #6A4ED8;
+            & > span{
+                background-color: #9277ff;
+            }
+        }
+
+        &.cls-dr-inserted{
+            background-color: #e3dcff;
+        }
+
+        & > span{
+            background-color: #C7BFE9;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+        }
+    }
+}
+
+
+//импорт медиа
+// @use "@table-day";
+/* TODO = перенести в отдельный файл
+*/
+@media (max-width: 800px) {
+  // Стартовая дата
+  .cls-dr-start-day {
+    border-radius: 50% 0 0 50%;
+    background-color: #e3dcff;
+    // background-color: transparent!important;
+    color: white!important;
+    &:before {
+      content: '';
+      width: 50%;
+      height: 100%;
+      display: block;
+      background-color: #fff;
+      position: absolute;
+      left: 0;
+      z-index: 2;
+      top: 0;
+    }
+    span {
+      position: relative;
+      z-index: 3;
+    }
+  }
+
+  .cls-dr-start-day > span{
+    background-color: #9277ff;
+    border-radius: 50%;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding-top: 3px;
+  }
+
+  // дата окончания
+  .cls-dr-end-day {
+    border-radius: 0 50% 50% 0;
+    background-color: #e3dcff;
+    color: white!important;
+    position: relative;
+    &:before {
+      content: '';
+      width: 50%;
+      height: 100%;
+      display: block;
+      background-color: #fff;
+      position: absolute;
+      right: 0;
+      z-index: 2;
+      top: 0;
+    }
+    span {
+      position: relative;
+      z-index: 3;
+    }
+  }
+
+  .cls-dr-end-day > span{
+    background-color: #9277ff;
+    border-radius: 50%;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding-top: 3px;
+  }
+
+  // Промежуточная дата
+  .cls-dr-inserted {
+    background-color: #EDE9FF;
+  }
+
+  // Текущий день
+  .cls-dr-current-day {
+    background-color: #C7BFE9;
+  }
+
+  // Текущий месяц
+  .cls-dr-current-month {
+    text-align: center;
+    color: #0c0c0c;
+    font-weight: 500;
+    min-width: 40px;
+    height: 40px;
+    padding: 0;
+    // display: block;
+    max-width: 40px;
+    width: 40px;
+  }
+
+  .cls-dr-current-month > span {
+    height: 100%;
+    width: 100%;
+  }
+
+  .cls-dr-col-h{
+    color: #17a2b8;
+    font-weight: normal;
+    font-style: italic;
+    line-height: 2rem;
+    text-align: center;
+    font-size: 80%;
+  }
+  .calendary {
+    display: flex;
+    justify-content: center;
+    height: 320px;
+  }
+  .cal-dr-table{
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .cls-dr-one-day{
+    background-color: white!important;
+  }
+
+  .cls-dr-current-day:hover {
+    background-color: #6A4ED8;
+  }
+
+  :host(.mobile){
+    // Загловки
+    .cls-dr-col-h{
+      text-align: center;
+      color: #B9B9B9;
+      font-style: normal;
+      line-height: calc(19rem / 16);
+      font-size: 1rem;
+    }
+
+    // День
+    .cls-dr-current-month {
+      text-align: center;
+      color: #5E5E5E;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: calc(19rem / 16);
+    }
+
+    .calendar__selected{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    //Таблица календаря
+    .cal-dr-table{
+      width: 100%;
+    }
+
+    .cls-dr-end-day > span,
+    .cls-dr-start-day > span{
+      padding: 0;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+
+    }
+
+    .cls-dr-current-day{
+
+      border-radius: 0;
+      background-color: #C7BFE9;
+
+      &.cls-dr-end-day{
+        border-radius: 0 50% 50% 0;
+
+      }
+      &.cls-dr-start-day{
+        border-radius: 50% 0 0 50%;
+      }
+
+      &.cls-dr-end-day,
+      &.cls-dr-start-day{
+        // background-color: #6A4ED8;
+        width: 30px;
+        & > span{
+          background-color: #9277ff;
+        }
+      }
+
+      &.cls-dr-inserted{
+        background-color: #C7BFE9;
+      }
+
+      & > span{
+        background-color: transparent;
+        border-radius: 50%;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+      }
+    }
+  }
+  .cls-dr-current-month.cls-dr-current-day.cls-dr-end-day {
+    background-color: transparent!important;
+    // border-radius: 0;
+    span {
+      background-color: #C7BFE9!important;
+      color: #5E5E5E;
+      border-radius: 0;
+    }
+  }
+  .cls-dr-current-month.cls-dr-current-day.cls-dr-end-day.cls-dr-inserted {
+    background-color: #e3dcff!important;
+    span {
+      background-color: #9277ff!important;
+      color: #fff;
+      border-radius: 50%;
+    }
+  }
+
+  .cal-dr-table .cal-tr-border {
+    border-bottom: 5px solid #fff;
+  }
+  .calendary .cal-dr-table .ng-star-inserted  {
+    min-height: 47px;
+  }
+  .calendary .cal-dr-table .ng-star-inserted  span {
+    min-height: 40px;
+    max-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cls-dr-not-thisdays span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 400;
+    font-size: 16px;
+    width: 100%;
+    height: 100%;
+    color: #D3D3D3;
+  }
+  .cls-dr-not-thisdays {
+    visibility: visible;
+  }
+}
+

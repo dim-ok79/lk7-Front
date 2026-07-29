@@ -1,0 +1,34 @@
+<div class="calendary">
+  <table class="cal-dr-table">
+    <tr style="height: 3em;">
+      <th class="cls-dr-col-h">пн</th>
+      <th class="cls-dr-col-h">вт</th>
+      <th class="cls-dr-col-h">ср</th>
+      <th class="cls-dr-col-h">чт</th>
+      <th class="cls-dr-col-h">пт</th>
+      <th class="cls-dr-col-h">сб</th>
+      <th class="cls-dr-col-h">вс</th>
+    </tr>
+    <tr class="cal-tr-border" *ngFor="let wd of weekDayArray">
+      <td *ngFor="let dt of dayArray | slice:wd.start:wd.end; let i = index;"
+          on-mouseover="onHoverDay(dt)"
+          [ngClass]="{'cls-dr-current-month': dt.isCurrentMonth
+          , 'cls-dr-current-day': dt.isCurrentDay
+          , 'cls-dr-start-day': dt.isStartDAY
+          , 'cls-dr-end-day': dt.isEndDay
+          , 'cls-dr-inserted': dt.isStartInserted
+          , 'cls-dr-one-day': dt.isEndDay && dt.isStartDAY
+          , 'cls-dr-not-thisdays': !dt.isCurrentMonth
+          }"
+          (click)="clickDate(dt)">
+        <span >{{dt.day}}</span>
+      </td>
+    </tr>
+<!--
+    placement="left"  [ngbTooltip]="tipContentOnline" tooltipClass="tooltipPanel">
+-->
+
+  </table>
+
+</div>
+

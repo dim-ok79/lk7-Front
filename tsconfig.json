@@ -15,6 +15,7 @@
     "module": "preserve",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
+    "noUncheckedSideEffectImports": false,
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

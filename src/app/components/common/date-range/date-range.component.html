@@ -1,0 +1,42 @@
+<div class="cls-date-range">
+  <button class="btn-period" (click)="calendary()">
+    <span class="btn-period-begin">{{dt?.str_begin}}</span>
+    <span *ngIf="dt?.str_end != dt?.str_begin" class="btn-period-tire">-</span>
+    <span *ngIf="dt?.str_end != dt?.str_begin" class="btn-period-end">{{dt?.str_end}}</span>
+    <mat-icon svgIcon="date_range"></mat-icon>
+  </button>
+
+<!--  <div class="calendary-list unselectable" [ngClass]="{ 'fade-in-class': isShown(), 'fade-out-class': !isShown()}" animate.enter="fade-in-class" animate.leave="fade-out-class">-->
+  <div class="calendary-list unselectable" [ngClass]="{ 'selectable': isShown()}">
+    <div class="row w-100" style="padding: 10px; margin-left: 0px; background-color: white; border-radius: 19px;">
+      <div class="cal-date-begin col-md-6">
+        <div class="cal-dr-header">
+          <mat-icon svgIcon="arrow_left_old" class="img-btn-arrow-left" (click)="mountPlusMinus(headerLeft, '-')" [ngClass]="{ 'img-btn-lr-not-activ': headerLeft.left==false}"></mat-icon>
+          <span class="cal-dr-header-mount">{{headerLeft.mount}} {{headerLeft.year}}</span>
+          <span style="min-width: 24px; min-height: 24px; float: right">
+            <mat-icon *ngIf="headerLeft.right" svgIcon="arrow_right_old" class="img-btn-arrow-right" (click)="mountPlusMinus(headerLeft, '+')"></mat-icon>
+          </span>
+        </div>
+        <app-table-day prefix="dtLeft"></app-table-day>
+      </div>
+
+      <div class="split-lines-block">
+        <div class="split-lines" *ngIf="headerLeft.right">
+        </div>
+      </div>
+
+      <div class="cal-date-end col-md-6">
+        <div class="cal-dr-header">
+          <span style="min-width: 24px; min-height: 24px; float: left">
+            <mat-icon *ngIf="headerRight.left" svgIcon="arrow_left_old" class="img-btn-arrow-left" (click)="mountPlusMinus(headerRight, '-')"></mat-icon>
+          </span>
+          <span class="cal-dr-header-mount">{{headerRight.mount}} {{headerRight.year}}</span>
+          <mat-icon svgIcon="arrow_right_old" class="img-btn-arrow-right" (click)="mountPlusMinus(headerRight, '+')" [ngClass]="{ 'img-btn-lr-not-activ': headerRight.right==false}"></mat-icon>
+        </div>
+        <app-table-day prefix="dtRight"></app-table-day>
+      </div>
+
+    </div>
+  </div>
+
+</div>

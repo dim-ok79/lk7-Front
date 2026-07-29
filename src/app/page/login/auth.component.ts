@@ -64,6 +64,7 @@ export class AuthComponent implements OnInit, AfterViewInit {
     console.log('authModule resModule=', resModule);
     this.tmpToken = resModule;
 
+console.log('this.curentModule=' , this.curentModule);
     // После подписания документов - работаем
     if (this.curentModule == 'dog-list') {
       this.loginOK();
@@ -76,8 +77,9 @@ export class AuthComponent implements OnInit, AfterViewInit {
   }
 
   public loginOK(): void {
-    this.auth.loginOk$(this.tmpToken!.token, this.tmpToken!.patientId, this.tmpToken!.ext!);
-    this.router.navigate(['/'])
+    if (this.auth.loginOk$(this.tmpToken!.token, this.tmpToken!.patientId, this.tmpToken!.ext!)){
+      this.router.navigate(['/home'])
+    };
   }
 
   // Обработка ошибки
