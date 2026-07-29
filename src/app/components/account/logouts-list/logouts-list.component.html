@@ -6,7 +6,12 @@
                             [CountRec]="patientLogsCountRec()"
                             [CountRecPage]="patientLogsCountRectoPage"
                             (onChangedPage)="changedPage($event)"
+                            class="loading-group"
 >
+
+<!--
+  <div *ngIf="loading()" class="loading"><img src="./assets/loading.gif" alt="Загрузка..."></div>
+-->
 
   <ng-container *ngIf="patientLogsCountRec()>0; then showTable else showNotRec"></ng-container>
 
@@ -15,6 +20,7 @@
   </ng-template>
 
   <ng-template #showTable>
+    <div *ngIf="loading()" class="loading"><img src="./assets/loading.gif" alt="Загрузка..."></div>
     <table class="table table-borderless table-hover">
       <thead>
       <tr>

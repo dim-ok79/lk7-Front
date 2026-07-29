@@ -3,9 +3,8 @@ import { IDogList, IPatient, ITokenAndPatientId } from '../../../interfaces/pati
 import { ConfigService } from '../../../services/application/config.service';
 import { AuthService } from '../../../services/auth.service';
 import { PatientService } from '../../../services/patient.service';
-import { MatIconModule, MatIconRegistry} from '@angular/material/icon';
+import { MatIconModule} from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dog-list',
@@ -40,11 +39,8 @@ export class DogListComponent implements OnInit{
     private configS: ConfigService,
     private auth: AuthService,
     private ps: PatientService,
-    private iconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer
     )
   {
-    this.iconRegistry.addSvgIcon('arrow_right', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/auth/arrow_right.svg'));
-    this.iconRegistry.addSvgIcon('arrow_left', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/auth/arrow_left.svg'));
   }
 
   ngOnInit(): void {

@@ -5,8 +5,7 @@ import {DateRangeService} from "../../../services/date-range.service";
 import {IPeriod} from "../../../interfaces/period.interface";
 import { TableDayComponent } from './table-day/table-day.component';
 import { CommonModule } from '@angular/common';
-import { MatIconModule, MatIconRegistry} from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
+import { MatIconModule} from '@angular/material/icon';
 
 const tableLeftPrefix = 'dtLeft';
 const tableRightPrefix = 'dtRight';
@@ -50,16 +49,7 @@ export class DateRangeComponent implements OnInit {
   headerRight: IDateRangeHeader  = {mount: '', year: 0, dt: new Date(), left:true, right:true, prefix: tableRightPrefix};
 
   constructor(private drs: DateRangeService,
-              private iconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer
               ) {
-    this.iconRegistry.addSvgIcon('arrow_right', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/auth/arrow_right.svg'));
-
-    this.iconRegistry.addSvgIcon('date_range', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/date_range.svg'));
-    this.iconRegistry.addSvgIcon('arrow_left_old', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/arrow_left.svg'));
-    this.iconRegistry.addSvgIcon('arrow_right_old', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/arrow_right.svg'));
-
-    moment.locale('ru');
-
     this.dt = {str_begin: '', str_end: '', dt_begin: null, dt_end: null};
     // Событие изменения даты
     drs.CalendaryOnSelectDay$().subscribe(n =>{
@@ -208,7 +198,6 @@ export class DateRangeComponent implements OnInit {
   setDateHeader(h: IDateRangeHeader, dt: Date, l: boolean , r: boolean){
     h.dt = dt;
     h.mount = moment(h.dt).format('MMMM');
-console.log('moment(h.dt).format(\'MMMM\')=', moment(h.dt).format('MMMM'));
     h.year = h.dt.getFullYear();
     h.left = l;
     h.right = r;

@@ -6,8 +6,7 @@ import { CommonModule } from '@angular/common';
 import { PatientService } from '../../../services/patient.service';
 import { IInetuserLog } from '../../../interfaces/patient.interface';
 import { strToDate } from '../../../utils/global.function';
-import { DomSanitizer } from '@angular/platform-browser';
-import { MatIconModule, MatIconRegistry} from '@angular/material/icon';
+import { MatIconModule} from '@angular/material/icon';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -23,7 +22,7 @@ export class LogoutsListComponent {
   dtBegin: Date | null = null;    // Дата начала
   dtEnd: Date | null = null;    // Дата ококнчания
   periodText = '';
-
+  loading = signal(false);            // Всего записей
 //  servicesListLength: number = 5;  // Количество записей
 
   patientLogs : IInetuserLog[] = [];  // Логи пациента
@@ -32,13 +31,9 @@ export class LogoutsListComponent {
 
 
   constructor(private pService: PatientService,
-              private iconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer
-
   ){
-    this.iconRegistry.addSvgIcon('logInfo', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/account/logInfo.svg'));
 
     this.getLogSize();
-
 /*
     this.pService.getInetuserLog$(1,20)
       .subscribe(
@@ -70,7 +65,7 @@ export class LogoutsListComponent {
   }
 
   public getPatientLog(pStart?: number , pEnd?: number): void {
-//    this.loadingLogs = true;
+    this.loading.update(val => val = true);
     if (this.patientLogsCountRec() < 1) {
       this.getLogSize();
     } else {
@@ -83,10 +78,10 @@ export class LogoutsListComponent {
               item.date = strToDate(item.dat_str);
             });
 
-//            this.loadingLogs = false;
+            this.loading.update(val => val = false);
           }, err => {
             this.patientLogs = [];
-//            this.loadingLogs = false;
+            this.loading.update(val => val = false);
           }
         );
 
