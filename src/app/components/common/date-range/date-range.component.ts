@@ -44,7 +44,6 @@ export class DateRangeComponent implements OnInit {
     return this.dt.dt_end;
   }
 
-//  calendearyAnime = 'off';  // Показ календаря
   headerLeft: IDateRangeHeader  = {mount: '', year: 0, dt: new Date(), left:true, right:true, prefix: tableLeftPrefix};
   headerRight: IDateRangeHeader  = {mount: '', year: 0, dt: new Date(), left:true, right:true, prefix: tableRightPrefix};
 

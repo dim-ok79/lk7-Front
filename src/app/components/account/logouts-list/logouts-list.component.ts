@@ -1,11 +1,20 @@
-import { Component, signal, ViewEncapsulation } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  signal,
+  viewChild,
+  ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
 import { PanelTablePaginationComponent } from '../../common/panel-table-pagination/panel-table-pagination.component';
 import { IPeriod } from '../../../interfaces/period.interface';
 import moment from 'moment';
 import { CommonModule } from '@angular/common';
 import { PatientService } from '../../../services/patient.service';
 import { IInetuserLog } from '../../../interfaces/patient.interface';
-import { strToDate } from '../../../utils/global.function';
+import { dateMinusDay, strToDate } from '../../../utils/global.function';
 import { MatIconModule} from '@angular/material/icon';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -18,7 +27,34 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
   encapsulation: ViewEncapsulation.None,
   providers: []
 })
-export class LogoutsListComponent {
+export class LogoutsListComponent implements AfterViewInit {
+//  @Input() HeightBlock = 0;      // указать высоту блока
+
+  _HeightBlock: number = 0;
+
+  @Input()      // Дата начала
+  set HeightBlock(value: number) {
+    console.log('1HeightBlock SET value=', value);
+//    console.log('1this.ContentBlockTbodyEL=', this.ContentBlockTbodyEL)
+    if (value>10){
+      this.testHeightBlock.update(val => val = value - 255 - 25);
+    }
+    this._HeightBlock = value;
+  }
+
+  get HeightBlock(): number {
+    console.log('HeightBlock GET value=', this._HeightBlock);
+    return this._HeightBlock;
+  }
+
+  testHeightBlock = signal(0);
+
+//  @ViewChild('ContentBlockTbody') ContentBlockTbodyEL: ElementRef|undefined;
+//  @ViewChild('ContentBlockTbody') ContentBlockTbodyEL!: ElementRef;
+//  @ViewChild('ContentBlockTbody') ContentBlockTbodyEL!: ElementRef;
+
+//   blockRef = viewChild<ElementRef>('ContentBlockTbody');
+
   dtBegin: Date | null = null;    // Дата начала
   dtEnd: Date | null = null;    // Дата ококнчания
   periodText = '';
@@ -34,16 +70,24 @@ export class LogoutsListComponent {
   ){
 
     this.getLogSize();
+
+    // Установка даты
+    this.dtEnd = dateMinusDay(new Date(), 0);
+    this.dtBegin = dateMinusDay(this.dtEnd, 20);
+  }
+
+  ngAfterViewInit() {
 /*
-    this.pService.getInetuserLog$(1,20)
-      .subscribe(
-        info => {
-          console.log('getInetuserLog$ info=', info);
-        }, err => {
-//                  this.patient = null;
-          console.log('getInetuserLog$ err=', err);
-        }
-      );
+    console.log('this.ContentBlockTbodyEL=', this.ContentBlockTbodyEL)
+    console.log('this.HeightBlock=', this.HeightBlock)
+*/
+
+/*
+    const el = this.blockRef()?.nativeElement;
+console.log('EL=', el)
+    if (el) {
+      el.style.height = '500px'; // Устанавливаем нужную высоту
+    }
 */
 
   }

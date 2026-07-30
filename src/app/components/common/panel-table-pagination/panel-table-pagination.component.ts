@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import {IPeriod} from "../../../interfaces/period.interface";
 import { PaginationComponent } from '../pagination/pagination.component';
 import { CommonModule } from '@angular/common';
@@ -8,7 +8,9 @@ import { DateRangeComponent } from '../date-range/date-range.component';
   selector: 'app-panel-table-pagination',
   imports: [CommonModule, PaginationComponent, DateRangeComponent],
   templateUrl: './panel-table-pagination.component.html',
-  styleUrls: ['./panel-table-pagination.component.scss']
+  styleUrls: ['./panel-table-pagination.component.scss'],
+  encapsulation: ViewEncapsulation.None
+
 })
 export class PanelTablePaginationComponent implements OnInit {
   @Input() CountRec = 0;     // Всего записей

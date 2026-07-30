@@ -1,2 +1,67 @@
 .app-table {
 }
+
+.logout-td-yeer{
+  width: 20%;
+}
+
+.logout-td-text{
+
+}
+.logout-td-info{
+  width: 10%;
+}
+
+th {
+  align-content: center;
+}
+
+th.logout-td-text {
+  text-align: center;
+}
+
+
+table {
+  width: 100%;
+  table-layout: fixed; /* ровные колонки */
+}
+
+tbody {
+  display: block;
+/*  max-height: 200px; !* ваша максимальная высота *!*/
+  overflow-y: auto;  /* включение прокрутки */
+}
+
+thead, tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+/*
+.table-fixed thead {
+  width: 97%;
+}
+.table-fixed tbody {
+  height: 230px;
+  overflow-y: auto;
+  width: 100%;
+}
+.table-fixed thead, .table-fixed tbody, .table-fixed tr, .table-fixed td, .table-fixed th {
+  display: block;
+}
+.table-fixed tbody td, .table-fixed thead > tr> th {
+  float: left;
+  border-bottom-width: 0;
+}
+*/
+
+/*
+.tableFixHead          { overflow: auto; height: 100px; }
+.tableFixHead thead th { position: sticky; top: 0; z-index: 1; }
+
+!* Just common table stuff. Really. *!
+table  { border-collapse: collapse; width: 100%; }
+th, td { padding: 8px 16px; }
+th     { background:#eee; }
+*/
