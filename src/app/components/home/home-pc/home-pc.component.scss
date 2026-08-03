@@ -7,6 +7,12 @@
 }
 
 .app-home-header_exit{
+  display: flex;
+}
+
+.app-home-header_exit > span{
+  margin-top: 5%;
+  margin-right: 10px;
 }
 
 .app-home-body{
@@ -18,13 +24,28 @@
 
 .app-home-body-menu{
   min-width: 150px;
+  width: 150px;
   margin: 18px;
   margin-top: 28px;
-
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #888 #60bdc2;
+  padding: 10px;
 }
 
 .app-home-body-content{
   height: calc(100vh - 76px);
   width: 100%;
   background-color: #ffffff;
+}
+
+.app-svg-exit{
+  width: 40px!important;
+  height: 40px!important;
+}
+
+.app-svg-logo{
+  width: 120px!important;
+  height: 70px!important;
+  margin-left: 20px;
 }

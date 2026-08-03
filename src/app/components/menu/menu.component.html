@@ -1,0 +1,11 @@
+<ng-container *ngFor="let menu of menuList;">
+    <button class="btn app-btn-menu" [disabled]="!menu.url" (click)="goToMenu(menu)">
+      <mat-icon *ngIf="menu.svgName" [svgIcon]="menu.svgName" style="width: 40px; height: 40px;"></mat-icon><br>
+      <div class="app-menu-item-text">{{menu.name}}</div>
+    </button>
+    <div *ngIf="menu.submenu">
+      <div *ngFor="let menuSub of menu.submenu;"
+      class="app-sub-menu">{{menuSub.name}}</div>
+    </div>
+</ng-container>
+

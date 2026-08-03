@@ -4,4 +4,10 @@
 
 .app-contract-item{
   cursor: pointer;
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.app-contract-item > span{
+  margin-left: 8px;
 }

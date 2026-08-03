@@ -1,8 +1,8 @@
-<div>ВХОД В ЛИЧНЫЙ КАБИНЕТ</div>
+
 <div class="loading-group">
   <div *ngIf="loading()" class="loading"><img src="./assets/loading.gif" alt="Загрузка..."></div>
 
-  <app-panel-table-pagination nameBlock="" (onChangePeriod)="changePeriod($event)"
+  <app-panel-table-pagination nameBlock="ВХОД В ЛИЧНЫЙ КАБИНЕТ" (onChangePeriod)="changePeriod($event)"
                               [dtBegin]="dtBegin"
                               [dtEnd]="dtEnd"
                               textItogo="входов"
@@ -38,8 +38,8 @@
           <td class="logout-td-yeer">{{getDateTime(log.date)}}</td>
           <td class="logout-td-text">{{log.text}}</td>
           <td class="logout-td-info">
-            <ng-template #tipContent let-greeting="greeting">OS: {{log.os}} Браузер: {{log.browser}} IP адрес:{{log.ip_address}}</ng-template>
-            <mat-icon svgIcon="logInfo" class="cls-mat-icon cls-mat-icon-info" placement="left" [ngbTooltip]="tipContent" tooltipClass="tooltipPanel"></mat-icon>
+            <ng-template #tipContent let-greeting="greeting">OS: {{log.os}} <br>Браузер: {{log.browser}}<br> IP адрес:{{log.ip_address}}</ng-template>
+            <mat-icon svgIcon="logInfo" class="cls-mat-icon cls-mat-icon-info app-icon-info" placement="left" [ngbTooltip]="tipContent" tooltipClass="tooltipPanel"></mat-icon>
           </td>
         </tr>
 

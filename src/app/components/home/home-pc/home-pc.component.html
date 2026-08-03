@@ -1,15 +1,15 @@
 <div class="app-home-header">
-  <div class="app-home-header_logo app-cp">111</div>
-  <div class="app-home-header_exit app-cp" (click)="logout()" >Выход</div>
+  <div class="app-home-header_logo app-cp">
+    <mat-icon svgIcon="logo" class="app-svg-logo"></mat-icon>
+  </div>
+  <div class="app-home-header_exit app-cp" (click)="logout()" >
+    <mat-icon svgIcon="exit" class="app-svg-exit"></mat-icon><span>Выход из ЛК</span>
+  </div>
 </div>
 
   <div class="app-home-body">
     <div class="app-home-body-menu app-block">
-      <ng-container *ngFor="let menu of menuList;">
-        <div>
-          <button class="btn" [disabled]="!menu.url" (click)="goToMenu(menu)">{{menu.name}}</button>
-        </div>
-      </ng-container>
+      <app-menu></app-menu>
     </div>
     <div class="app-home-body-content container">
       <router-outlet ></router-outlet>

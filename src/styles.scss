@@ -4,6 +4,7 @@
 @import "@angular/material/prebuilt-themes/indigo-pink.css";
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
+
 /* Стили анимации */
 // @import "animations";
 // @import './animations.scss';
@@ -94,6 +95,17 @@ body, html {
   position: relative;
 }
 /* ****************/
+
+/* tooltipPanel Панель подсказка */
+/* Основное поле*/
+.tooltipPanel > div.tooltip-inner{
+  background-color: variables.$color-block;
+}
+/* Стрелочка*/
+.tooltipPanel > div::before{
+  border-left-color: variables.$color-block!important;
+}
+
 
 /* TABLE */
 

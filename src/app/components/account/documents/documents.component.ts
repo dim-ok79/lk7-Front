@@ -3,10 +3,11 @@ import { AuthService } from '../../../services/auth.service';
 import { IContract } from '../../../interfaces/patient.interface';
 import { CommonModule } from '@angular/common';
 import { ConfigService } from '../../../services/application/config.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-documents',
-  imports: [CommonModule],
+  imports: [CommonModule, MatIconModule],
   templateUrl: './documents.component.html',
   styleUrl: './documents.component.scss',
   encapsulation: ViewEncapsulation.None

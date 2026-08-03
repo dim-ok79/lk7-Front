@@ -69,11 +69,12 @@ export class LogoutsListComponent implements AfterViewInit {
   constructor(private pService: PatientService,
   ){
 
-    this.getLogSize();
-
+//    this.getLogSize();
     // Установка даты
     this.dtEnd = dateMinusDay(new Date(), 0);
     this.dtBegin = dateMinusDay(this.dtEnd, 20);
+    this.getPatientLog(1, this.patientLogsCountRectoPage, this.dtBegin, this.dtEnd);
+
   }
 
   ngAfterViewInit() {
@@ -93,13 +94,13 @@ console.log('EL=', el)
   }
 
   getLogSize(){
-    this.pService.getInetuserLogSize$()
+    this.pService.getInetuserLogSize$(this.dtBegin, this.dtEnd)
       .subscribe(
         res => {
           if (res.size) {
             this.patientLogsCountRec.update(val => val = res.size);
 //            console.log('!!! this.patientLogsCountRec=', this.patientLogsCountRec);
-            this.getPatientLog(1, this.patientLogsCountRectoPage);
+//            this.getPatientLog(1, this.patientLogsCountRectoPage, this.dtBegin, this.dtEnd);
           }
         }, err => {
           console.log('getInetuserLogSize$ err=', err);
@@ -108,13 +109,16 @@ console.log('EL=', el)
 
   }
 
-  public getPatientLog(pStart?: number , pEnd?: number): void {
+  public getPatientLog(pStart?: number , pEnd?: number, pbeginDate?: Date | null, pendDate?: Date | null): void {
     this.loading.update(val => val = true);
+/*
     if (this.patientLogsCountRec() < 1) {
       this.getLogSize();
     } else {
+*/
+      this.getLogSize();
 
-      this.pService.getInetuserLog$(pStart, pEnd)
+      this.pService.getInetuserLog$(pStart, pEnd, pbeginDate, pendDate)
         .subscribe(
           res => {
             this.patientLogs = res;
@@ -129,7 +133,7 @@ console.log('EL=', el)
           }
         );
 
-    }
+//    }
 
   }
 
@@ -162,15 +166,17 @@ console.log('EL=', el)
 //    this.getServicesSize();
 console.log('LL changePeriod=', dt);
     this.setPeriodText();
+    this.getPatientLog(1, this.patientLogsCountRectoPage, this.dtBegin, this.dtEnd);
+
   }
 
   /* Событие выбора страницы */
   changedPage(page: any) {
 console.log('!!! page=', page);
     if (page == 1) {
-      this.getPatientLog(1, this.patientLogsCountRectoPage);
+      this.getPatientLog(1, this.patientLogsCountRectoPage, this.dtBegin, this.dtEnd);
     } else {
-      this.getPatientLog(page*this.patientLogsCountRectoPage-this.patientLogsCountRectoPage , page*this.patientLogsCountRectoPage)
+      this.getPatientLog(page*this.patientLogsCountRectoPage-this.patientLogsCountRectoPage , page*this.patientLogsCountRectoPage, this.dtBegin, this.dtEnd)
     }
   }
 

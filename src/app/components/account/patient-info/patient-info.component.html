@@ -2,13 +2,13 @@
 <div class="app-patient-info app-block">
   <div class="app-patient-info-text1">ЗДРАВСТВУЙТЕ, <span>{{getPatientFIO(patient())}}</span></div>
   <div class="row">
-    <div class="col-sm-6 app-patient-info-text2 row">
-      <span class="col-md-4 info-header">Пол</span>
-      <span class="col-md-8 info-value">{{getSex(patient())}}</span>
+    <div class="col-sm-6 app-patient-info-text2 ">
+      <span class="info-header">Пол</span>
+      <span class="info-value">{{getSex(patient())}}</span>
     </div>
-    <div class="col-sm-6 app-patient-info-text2 row">
-      <span class="col-md-6 info-header">Возраст</span>
-      <span class="col-md-6 info-value">{{patient().age}} лет</span>
+    <div class="col-sm-6 app-patient-info-text2">
+      <span class="info-header">Возраст</span>
+      <span class="info-value">{{patient().age}} лет</span>
     </div>
   </div>
   <div class="app-patient-info-text2"> Номер карты в клинике <span>{{patient()!.num}}</span></div>
@@ -16,12 +16,27 @@
     <div> Адрес проживания / Фактический</div>
     <div> {{patient().address_proj}} / {{patient().address_proj_f}}</div>
 
+<!--
+    <div>
+      <span style="display: flex">
+        <mat-icon svgIcon="mail" class="app-svg-icon"></mat-icon>
+        <span>{{patient().email}}</span>
+      </span>
+      <span  style="display: flex">
+        <mat-icon svgIcon="phone" class="app-svg-icon"></mat-icon>
+        <span>{{patient().cellular}}</span>
+      </span>
+    </div>
+-->
+
     <div class="row">
-      <div class="col-sm-6">
-        {{patient().email}}
+      <div class="col-md-auto" style="display: flex">
+        <mat-icon svgIcon="mail" class="app-svg-icon"></mat-icon>
+        <span>{{patient().email}}</span>
       </div>
-      <div class="col-sm-6">
-        {{patient().cellular}}
+      <div class="col-md-auto" style="display: flex">
+        <mat-icon svgIcon="phone" class="app-svg-icon"></mat-icon>
+        <span>{{patient().cellular}}</span>
       </div>
     </div>
 

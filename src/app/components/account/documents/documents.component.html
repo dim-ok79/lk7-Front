@@ -2,7 +2,10 @@
 <div class="app-contract app-block">
   <div>ПОДПИСАННЫЕ ДОКУМЕНТЫ</div>
   <section *ngFor="let doc of contracts();">
-    <div class="app-contract-item" (click)="openContract(doc.id)">{{doc.text}}</div>
+    <div class="app-contract-item" (click)="openContract(doc.id)">
+      <mat-icon svgIcon="pdf" class="app-svg-icon"></mat-icon>
+      <span>{{doc.text}}</span>
+    </div>
   </section>
 </div>
 

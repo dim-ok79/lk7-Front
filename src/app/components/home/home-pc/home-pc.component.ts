@@ -5,10 +5,12 @@ import { IMenu } from '../../../interfaces/menu.interface';
 import { AppMenuService } from '../../../services/menu.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
+import { MenuComponent } from '../../menu/menu.component';
 
 @Component({
   selector: 'app-home-pc',
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule, MatIconModule, MenuComponent],
   templateUrl: './home-pc.component.html',
   styleUrl: './home-pc.component.scss',
   providers: [NgbdToastGlobal],

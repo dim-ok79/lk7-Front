@@ -2,10 +2,11 @@ import { Component, Input, OnInit, signal, ViewEncapsulation } from '@angular/co
 import { PatientService } from '../../../services/patient.service';
 import { IPatient } from '../../../interfaces/patient.interface';
 import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-patient-info',
-  imports: [CommonModule],
+  imports: [CommonModule, MatIconModule],
   templateUrl: './patient-info.component.html',
   styleUrl: './patient-info.component.scss',
   providers: [PatientService],

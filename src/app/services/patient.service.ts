@@ -5,6 +5,7 @@ import {AuthService} from "./auth.service";
 import {ICityBE} from "../interfaces/city.interface";
 import {IPatientAttached} from "../interfaces/patient-attached.interface";
 import { AppHttpService } from './application/app-http.service';
+import { dateToText } from '../utils/global.function';
 
 @Injectable({
   providedIn: 'root'
@@ -50,18 +51,39 @@ export class PatientService {
 */
 
   /* Количество активности пользователя*/
-  public getInetuserLogSize$(): Observable<IInetuserLogSize> {
-// TomCat    return this.httpApp.get('/api/log/size' , this.auth.token);
-    return this.httpApp.get('/log/size' , this.auth.token);
+  public getInetuserLogSize$(pbeginDate?: Date | null, pendDate?: Date | null): Observable<IInetuserLogSize> {
+    let url = '/log/size';
+    let params = '';
+    if (pbeginDate) {
+      params = params + `&beginDate=${dateToText(pbeginDate)}`;
+    }
+    if (pendDate) {
+      params = params + `&endDate=${dateToText(pendDate)}`;
+    }
+    if (params.length>1){
+      url = url + '?' + params.slice(1);
+    }
+    return this.httpApp.get(url , this.auth.token);
   }
 // /api/log/size
 
   /* Список активности пользователя*/
-  public getInetuserLog$(pStart?: number , pEnd?: number): Observable<IInetuserLog[]> {
+  public getInetuserLog$(pStart?: number , pEnd?: number, pbeginDate?: Date | null, pendDate?: Date | null ): Observable<IInetuserLog[]> {
     let url = '/log/rec';
+    let params = '';
     if (pStart && pEnd) {
-      url = url + `?start=${pStart}&end=${pEnd}`;
+      params = params + `&start=${pStart}&end=${pEnd}`;
     }
+    if (pbeginDate) {
+      params = params + `&beginDate=${dateToText(pbeginDate)}`;
+    }
+    if (pendDate) {
+      params = params + `&endDate=${dateToText(pendDate)}`;
+    }
+    if (params.length>1){
+      url = url + '?' + params.slice(1);
+    }
+
     return this.httpApp.get(url , this.auth.token);
   }
 
