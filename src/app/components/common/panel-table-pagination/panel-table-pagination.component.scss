@@ -59,6 +59,9 @@
     background-color: rgba(2, 117, 216, 0.5);
 }
 
+.panel-table-pagination-not-date {
+  grid-template: 1fr 50px / 1fr!important;
+}
 
 .panel-table-pagination {
     display: grid;

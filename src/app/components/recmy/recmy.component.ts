@@ -1,4 +1,4 @@
-import { Component, Input, signal } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, signal, ViewChild } from '@angular/core';
 import { IBtnMyRec } from '../../interfaces/recmy.interface';
 import { CommonModule } from '@angular/common';
 import { HistoryService } from '../../services/history.service';
@@ -17,10 +17,12 @@ import { ConfigService } from '../../services/application/config.service';
   templateUrl: './recmy.component.html',
   styleUrl: './recmy.component.scss',
 })
-export class RecmyComponent {
-  testHeightBlock = signal(200);
+export class RecmyComponent implements OnInit, AfterViewInit{
+  @ViewChild('ContentBlockLog') ContentBlocklogEL: ElementRef|undefined;
 
-  typeMyRec = signal<IBtnMyRec[]>([{id: 1, name: 'Предстоящие', active: true}, {id: 2, name: 'Завершенные', active: false}]);
+  testHeightBlock = signal(100);
+
+  typeMyRec = signal<IBtnMyRec[]>([{id: 1, name: 'Предстоящие', active: false}, {id: 2, name: 'Завершенные', active: false}]);
   loading = signal(false);            // Загрузка
   historyList =signal<IHistoryEvents[]>([]);
   rnumbList = signal<IRnumbList[]>([]);
@@ -38,6 +40,23 @@ export class RecmyComponent {
     private rnumbS: RnumbService,
     private configS: ConfigService,
   ){
+    this.dtBegin = new Date();
+    this.dtEnd = new Date();
+    this.dtBegin.setDate(this.dtBegin.getDate() - 60);
+  }
+
+  ngOnInit(): void {
+    this.onClickType(1);
+  }
+
+  ngAfterViewInit() {
+    this.calcTableH();
+  };
+
+  /* расчет высоты блока относительно */
+  private calcTableH(){
+    console.log('0 calcTableH this.ContentBlocklogEL=', this.ContentBlocklogEL?.nativeElement.offsetHeight );
+    this.testHeightBlock.update(curr => curr = this.ContentBlocklogEL?.nativeElement.offsetHeight-252);
   }
 
   onClickType(id: number) {
@@ -47,14 +66,11 @@ export class RecmyComponent {
       )
     );
 
-    const dEnd = new Date(); // Текущая дата
-    const dStart = new Date(); // Текущая дата
-    dStart.setDate(dStart.getDate() - 60);
 
     if (this.getCurrentTypeMyRec().id == 1){ // Предстоящие
       this.getRnumbList();
     } else { // Завершенные
-      this.getHistory(dStart, dEnd);
+      this.getHistory(this.dtBegin!, this.dtEnd!);
     }
 
   };

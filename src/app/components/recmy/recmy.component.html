@@ -1,122 +1,123 @@
-<div>МОИ ПОСЕЩЕНИЯ</div>
-<div *ngIf="loading()" class="loading"><img src="./assets/loading.gif" alt="Загрузка..."></div>
+<div style="height: 90vh" #ContentBlockLog>
+  <span>МОИ ПОСЕЩЕНИЯ</span>
+  <div *ngIf="loading()" class="loading"><img src="./assets/loading.gif" alt="Загрузка..."></div>
 
-<div>
-  <button *ngFor="let typeMR of typeMyRec();"
-    class="btn app-btn-filter"
-    [ngClass]="{ 'active': typeMR.active}"
-    (click)="onClickType(typeMR.id)">{{typeMR.name}}
-  </button>
-</div>
+  <div>
+    <button *ngFor="let typeMR of typeMyRec();"
+            class="btn app-btn-filter"
+            [ngClass]="{ 'active': typeMR.active}"
+            (click)="onClickType(typeMR.id)">{{typeMR.name}}
+    </button>
+  </div>
 
-<div>
-  <ng-container *ngIf="getCurrentTypeMyRec().id>1; then showHistory else showHistoryPred"></ng-container>
+  <div>
+    <ng-container *ngIf="getCurrentTypeMyRec().id>1; then showHistory else showHistoryPred"></ng-container>
 
-  <ng-template #showHistory>
-    <div class="cls-not-rec"> Завершенные</div>
-    <app-panel-table-pagination nameBlock="" (onChangePeriod)="changePeriod($event)"
-                                [dtBegin]="dtBegin"
-                                [dtEnd]="dtEnd"
-                                textItogo="посещений"
-                                [CountRec]="historyCountRec()"
-                                [CountRecPage]="patientLogsCountRectoPage"
-                                (onChangedPage)="changedPage($event)"
-    >
+    <ng-template #showHistory>
+      <app-panel-table-pagination nameBlock="" (onChangePeriod)="changePeriod($event)"
+                                  [dtBegin]="dtBegin"
+                                  [dtEnd]="dtEnd"
+                                  textItogo="посещений"
+                                  [CountRec]="historyCountRec()"
+                                  [CountRecPage]="patientLogsCountRectoPage"
+                                  (onChangedPage)="changedPage($event)"
+      >
 
-      <ng-container *ngIf="historyCountRec()>0; then showTable else showNotRec"></ng-container>
+        <ng-container *ngIf="historyCountRec()>0; then showTable else showNotRec"></ng-container>
 
-      <ng-template #showNotRec>
-        <div class="cls-not-rec"> Нет завершенных посещений</div>
-      </ng-template>
+        <ng-template #showNotRec>
+          <div class="cls-not-rec"> Нет завершенных посещений</div>
+        </ng-template>
 
-      <ng-template #showTable>
-        <div class="tableFixHead">
-          <table class="table table-borderless table-hover table-fixed">
-            <thead>
-            <tr>
-              <th scope="col" class="app-bg-color cls-header-table-dt logout-td-yeer" >Дата посещения</th>
-              <th scope="col" class="app-bg-color logout-td-text">Врач</th>
-              <th scope="col" class="app-bg-color logout-td-info">Услуга</th>
-              <th scope="col" class="app-bg-color logout-td-info">Оценить</th>
-              <th scope="col" class="app-bg-color logout-td-info">Документы</th>
-            </tr>
-            </thead>
-            <tbody [style.height.px]="testHeightBlock()">
-            <tr *ngFor="let his of historyList()">
-              <td class="logout-td-yeer">
-                {{getTekDay(his.dtSort)}} в {{getTime(his.dtSort)}}
-                <div style="color: #c5c5c5;">{{getNameDay(his.dtSort)}}</div>
-              </td>
-              <td class="logout-td-text">{{his.doctor}}</td>
-              <td class="logout-td-text">{{his.typetext}}</td>
-              <td class="logout-td-text">
-                <button>Оценить врача</button>
-              </td>
-              <td class="logout-td-info">
-                <mat-icon svgIcon="pdf" class="cls-mat-icon cls-mat-icon-info app-icon-info"
-                          (click)="gotToDownload(his.keyid, his.typehistory)">
+        <ng-template #showTable>
+          <div class="tableFixHead">
+            <table class="table table-borderless table-hover table-fixed">
+              <thead>
+              <tr>
+                <th scope="col" class="app-bg-color cls-header-table-dt logout-td-yeer" >Дата посещения</th>
+                <th scope="col" class="app-bg-color logout-td-text">Врач</th>
+                <th scope="col" class="app-bg-color logout-td-info">Услуга</th>
+                <th scope="col" class="app-bg-color logout-td-info">Оценить</th>
+                <th scope="col" class="app-bg-color logout-td-info">Документы</th>
+              </tr>
+              </thead>
+              <tbody [style.max-height.px]="testHeightBlock()">
+              <tr *ngFor="let his of historyList()">
+                <td class="logout-td-yeer">
+                  {{getTekDay(his.dtSort)}} в {{getTime(his.dtSort)}}
+                  <div style="color: #c5c5c5;">{{getNameDay(his.dtSort)}}</div>
+                </td>
+                <td class="logout-td-text">{{his.doctor}}</td>
+                <td class="logout-td-text">{{his.typetext}}</td>
+                <td class="logout-td-text">
+                  <button>Оценить врача</button>
+                </td>
+                <td class="logout-td-info">
+                  <mat-icon svgIcon="pdf" class="cls-mat-icon cls-mat-icon-info app-icon-info"
+                            (click)="gotToDownload(his.keyid, his.typehistory)">
 
-                </mat-icon>
-              </td>
-            </tr>
+                  </mat-icon>
+                </td>
+              </tr>
 
-            </tbody>
-          </table>
-        </div>
-      </ng-template>
+              </tbody>
+            </table>
+          </div>
+        </ng-template>
 
-    </app-panel-table-pagination>
+      </app-panel-table-pagination>
 
-  </ng-template>
+    </ng-template>
 
-  <ng-template #showHistoryPred>
-    <app-panel-table-pagination nameBlock="" (onChangePeriod)="changePeriod($event)"
-                                [dtBegin]="dtBegin"
-                                [dtEnd]="dtEnd"
-                                textItogo="посещений"
-                                [CountRec]="rnumbCountRec()"
-                                [CountRecPage]="patientLogsCountRectoPage"
-                                (onChangedPage)="changedPage($event)"
-    >
+    <ng-template #showHistoryPred>
+      <app-panel-table-pagination nameBlock="" (onChangePeriod)="changePeriod($event)"
+                                  textItogo="посещений"
+                                  [HeaderHide]="true"
+                                  [CountRec]="rnumbCountRec()"
+                                  [CountRecPage]="patientLogsCountRectoPage"
+                                  (onChangedPage)="changedPage($event)"
+      >
 
-      <ng-container *ngIf="rnumbCountRec()>0; then showTable else showNotRec"></ng-container>
+        <ng-container *ngIf="rnumbCountRec()>0; then showTable else showNotRec"></ng-container>
 
-      <ng-template #showNotRec>
-        <div class="cls-not-rec"> Нет Пасещений</div>
-      </ng-template>
+        <ng-template #showNotRec>
+          <div class="cls-not-rec"> Нет Пасещений</div>
+        </ng-template>
 
-      <ng-template #showTable>
-        <div class="tableFixHead">
-          <table class="table table-borderless table-hover table-fixed">
-            <thead>
-            <tr>
-              <th scope="col" class="app-bg-color cls-header-table-dt logout-td-yeer" >Дата посещения</th>
-              <th scope="col" class="app-bg-color logout-td-text">Кабинет</th>
-              <th scope="col" class="app-bg-color logout-td-text">Врач</th>
-              <th scope="col" class="app-bg-color logout-td-info">Услуга</th>
-              <th scope="col" class="app-bg-color logout-td-info">Отделение</th>
-            </tr>
-            </thead>
-            <tbody [style.height.px]="testHeightBlock()">
-            <tr *ngFor="let rnumb of rnumbList()">
-              <td class="logout-td-yeer">
-                {{getTekDay(rnumb.beginDate!)}} в {{getTime(rnumb.beginDate!)}}
-                <div style="color: #c5c5c5;">{{getNameDay(rnumb.beginDate!)}}</div>
-              </td>
-              <td class="logout-td-text">{{rnumb.cab}}</td>
-              <td class="logout-td-text">{{rnumb.lastname}} {{rnumb.firstname}} {{rnumb.secondname}}</td>
-              <td class="logout-td-text"> ? ? ?</td>
-              <td class="logout-td-text">{{rnumb.spec}}</td>
-            </tr>
+        <ng-template #showTable>
+          <div class="tableFixHead">
+            <table class="table table-borderless table-hover table-fixed">
+              <thead>
+              <tr>
+                <th scope="col" class="app-bg-color cls-header-table-dt logout-td-yeer" >Дата посещения</th>
+                <th scope="col" class="app-bg-color logout-td-text">Кабинет</th>
+                <th scope="col" class="app-bg-color logout-td-text">Врач</th>
+                <th scope="col" class="app-bg-color logout-td-info">Услуга</th>
+                <th scope="col" class="app-bg-color logout-td-info">Отделение</th>
+              </tr>
+              </thead>
+              <tbody [style.max-height.px]="testHeightBlock()">
+              <tr *ngFor="let rnumb of rnumbList()">
+                <td class="logout-td-yeer">
+                  {{getTekDay(rnumb.beginDate!)}} в {{getTime(rnumb.beginDate!)}}
+                  <div style="color: #c5c5c5;">{{getNameDay(rnumb.beginDate!)}}</div>
+                </td>
+                <td class="logout-td-text">{{rnumb.cab}}</td>
+                <td class="logout-td-text">{{rnumb.lastname}} {{rnumb.firstname}} {{rnumb.secondname}}</td>
+                <td class="logout-td-text"> ? ? ?</td>
+                <td class="logout-td-text">{{rnumb.spec}}</td>
+              </tr>
 
-            </tbody>
-          </table>
-        </div>
-      </ng-template>
+              </tbody>
+            </table>
+          </div>
+        </ng-template>
 
-    </app-panel-table-pagination>
-  </ng-template>
+      </app-panel-table-pagination>
+    </ng-template>
 
 
+
+  </div>
 
 </div>
