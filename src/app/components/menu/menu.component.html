@@ -1,11 +1,21 @@
 <ng-container *ngFor="let menu of menuList;">
-    <button class="btn app-btn-menu" [disabled]="!menu.url" (click)="goToMenu(menu)">
-      <mat-icon *ngIf="menu.svgName" [svgIcon]="menu.svgName" style="width: 40px; height: 40px;"></mat-icon><br>
-      <div class="app-menu-item-text">{{menu.name}}</div>
+    <button class="btn app-btn-menu" [ngClass]="{ 'app-isMobile': isMobile}" [disabled]="!menu.url" (click)="goToMenu(menu)" >
+      <ng-container [ngSwitch]="isMobile">
+        <ng-template [ngSwitchCase]="true">
+          <mat-icon *ngIf="menu.svgName" [svgIcon]="menu.svgName" class="app-mat-icon-menu"></mat-icon>
+          <span class="app-menu-item-text">{{menu.name}}</span>
+        </ng-template>
+        <ng-template [ngSwitchCase]="false">
+          <mat-icon *ngIf="menu.svgName" [svgIcon]="menu.svgName" class="app-mat-icon-menu"></mat-icon><br>
+          <div class="app-menu-item-text">{{menu.name}}</div>
+        </ng-template>
+      </ng-container>
+
     </button>
     <div *ngIf="menu.submenu">
       <div *ngFor="let menuSub of menu.submenu;"
-      class="app-sub-menu">{{menuSub.name}}</div>
+      class="app-sub-menu"
+      (click)="goToMenu(menuSub)">{{menuSub.name}}</div>
     </div>
 </ng-container>
 

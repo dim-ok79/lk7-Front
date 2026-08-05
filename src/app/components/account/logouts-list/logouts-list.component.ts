@@ -31,11 +31,9 @@ export class LogoutsListComponent implements AfterViewInit {
 //  @Input() HeightBlock = 0;      // указать высоту блока
 
   _HeightBlock: number = 0;
-
-  @Input()      // Дата начала
+  @Input()      // Высота блока
   set HeightBlock(value: number) {
     console.log('1HeightBlock SET value=', value);
-//    console.log('1this.ContentBlockTbodyEL=', this.ContentBlockTbodyEL)
     if (value>10){
       this.testHeightBlock.update(val => val = value - 255 - 25);
     }
@@ -58,7 +56,7 @@ export class LogoutsListComponent implements AfterViewInit {
   dtBegin: Date | null = null;    // Дата начала
   dtEnd: Date | null = null;    // Дата ококнчания
   periodText = '';
-  loading = signal(false);            // Всего записей
+  loading = signal(false);
 //  servicesListLength: number = 5;  // Количество записей
 
   patientLogs : IInetuserLog[] = [];  // Логи пациента

@@ -3,6 +3,7 @@ import { HomeComponent } from './page/home/home.component';
 import { AuthComponent } from './page/login/auth.component';
 import { AccountComponent } from './components/account/account.component';
 import { IndexPcComponent } from './components/home/home-pc/index-pc/index-pc.component';
+import { RecmyComponent } from './components/recmy/recmy.component';
 
 export const routes: Routes = [
   {
@@ -25,7 +26,15 @@ export const routes: Routes = [
       {
         path: 'account',
         component: AccountComponent
-      }
+      },
+      /**
+       * Мои посещения
+       */
+      {
+        path: 'recmy',
+        component: RecmyComponent
+      },
+
     ]
   },
   /**

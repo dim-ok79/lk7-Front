@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { IMenu } from '../../interfaces/menu.interface';
 import { AppMenuService } from '../../services/menu.service';
 import { CommonModule } from '@angular/common';
@@ -14,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class MenuComponent {
   menuList: IMenu[] = []; // Список меню
+  @Input() isMobile: boolean = false;  // Показывать для мобильного
 
   constructor(
     private menuS: AppMenuService

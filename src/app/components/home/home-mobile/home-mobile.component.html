@@ -10,6 +10,8 @@
 
     <!-- Выпадающий блок -->
     <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse" id="navbarSupportedContent">
+      <app-menu [isMobile]=true class="navbar-nav ms-auto mb-2 mb-lg-0" style="height: 94vh;"></app-menu>
+<!--
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0" style="height: 94vh;">
 
         <li class="nav-item" (click)="goToMenu(menu)" *ngFor="let menu of menuList;">
@@ -18,6 +20,7 @@
              aria-current="page">{{menu.name}}</a>
         </li>
       </ul>
+-->
     </div>
   </div>
 </nav>

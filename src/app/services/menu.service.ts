@@ -17,7 +17,7 @@ export class AppMenuService {
     this.menuList.push({id: 0, name: 'Главная', active: false, url: 'home', svgName: ''});
 
     p_podmenu = [];
-    p_podmenu = [...p_podmenu, {id:1, name:'Мои посещения' , active: false, url: ''}];
+    p_podmenu = [...p_podmenu, {id:1, name:'Мои посещения' , active: false, url: 'home/recmy'}];
     p_podmenu = [...p_podmenu, {id:2, name:'Запись на прием к врачу' , active: false, url: ''}];
     p_podmenu = [...p_podmenu, {id:3, name:'Запись на телемедицинскую консультацию' , active: false, url: ''}];
     p_podmenu = [...p_podmenu, {id:3, name:'Запись на отборочную комиссию по госпитализации' , active: false, url: ''}];
