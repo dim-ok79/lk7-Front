@@ -21,7 +21,7 @@
       <th class="cal-h">вс</th>
     </tr>
     <tr *ngFor="let wd of weekDayArray">
-      <td class="cal-row-dr" *ngFor="let dt of dayArray | slice:wd.start:wd.end; let i = index;"
+      <td class="cal-row-dr" *ngFor="let dt of dayArray() | slice:wd.start:wd.end; let i = index;"
           [ngClass]="{ 'day-not-activ-dr': dt.isCourrentMonth==false, 'day-activ-dr': dt.isCourrentMonth==true, 'day-selected-dr': dt.isSelected==true}"
           (click)="clicDate(dt)">
         <span *ngIf="dt.isCourrentMonth">{{dt.day}}</span>

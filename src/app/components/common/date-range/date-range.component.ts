@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, inject, Input, OnInit, Output, signal } from '@angular/core';
 import {IDateRange, IDateRangeHeader} from "../../../interfaces/date-range.interface";
 import moment from 'moment';
 import {DateRangeService} from "../../../services/date-range.service";
@@ -18,6 +18,7 @@ const tableRightPrefix = 'dtRight';
 })
 export class DateRangeComponent implements OnInit {
   public dt: IDateRange;
+//  private cdr = inject(ChangeDetectorRef);
 
   isShown = signal(false); // Показ календаря
 
@@ -179,16 +180,16 @@ export class DateRangeComponent implements OnInit {
 
   }
 
+/*
   whenAnimateSearch(event: any) { // Окончание анимации
 // console.log('EndAnim=', event);
-    /*
         if (this.animState === 'off') {
           this.payAvansAnimeStatus = 1;
         } else {
           this.payAvansAnimeStatus = 0;
         }
-    */
   }
+*/
 
   calendary(){
     this.setAnime(!this.isShown())
@@ -220,6 +221,9 @@ export class DateRangeComponent implements OnInit {
         }
         break;
       }
+//      this.cdr.detectChanges(); // Принудительно запускает детект изменений
+/* TODO - не помогло*/
+// Обновиьт форму111
     }
 
     // Общая проверка и блокировка

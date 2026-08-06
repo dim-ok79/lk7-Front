@@ -42,7 +42,7 @@ export class RecmyComponent implements OnInit, AfterViewInit{
   ){
     this.dtBegin = new Date();
     this.dtEnd = new Date();
-    this.dtBegin.setDate(this.dtBegin.getDate() - 60);
+    this.dtBegin.setDate(this.dtBegin.getDate() - 30);
   }
 
   ngOnInit(): void {

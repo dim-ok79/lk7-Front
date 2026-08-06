@@ -1,9 +1,10 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, signal } from '@angular/core';
 import {ICalendarDate, ICalendarHeader} from "../../../../interfaces/calendar";
 import moment from 'moment';
 import {DateRangeService} from "../../../../services/date-range.service";
 import {IDateRangeCalendarData} from "../../../../interfaces/date-range.interface";
 import { CommonModule } from '@angular/common';
+import { IHistoryEvents } from '../../../../interfaces/history.interface';
 
 @Component({
   selector: 'app-calendary',
@@ -14,7 +15,8 @@ import { CommonModule } from '@angular/common';
 export class CalendaryComponent implements OnInit {
   @Input() prefix: string = '';     // Префикс для разделеиния событий
   @Output() onClickDate = new EventEmitter<string>(); // выбрана Дата формат YYYY-MM-DD
-  dayArray: ICalendarDate[] = [];  // Массив дней
+//  dayArray: ICalendarDate[] = [];  // Массив дней
+  dayArray = signal<ICalendarDate[]>([]); // Массив дней
   _params: IDateRangeCalendarData | null = null; // Данные для инициализации
   weekDayArray = [
     {start:0, end:7},
@@ -71,7 +73,8 @@ console.log('initCalendary params=', params);
 //    let firstDay = minDt;
     let weekday1 = 0;
     //
-    this.dayArray = [];
+    this.dayArray.update(val=> val = []);
+
 //console.log('firstDay=', moment(firstDay).format('DD-MM-YYYY'));
 
     let firstDay1 = new Date(minDt.getFullYear(), minDt.getMonth(), 1);
@@ -96,7 +99,7 @@ console.log('initCalendary params=', params);
       this.addDay(true, d, this.isActive(d));
     }
 
-    let countDayLast = 35-this.dayArray.length; // 5 недель (5*7)
+    let countDayLast = 35-this.dayArray().length; // 5 недель (5*7)
     for (var i = 1 ; i <= countDayLast; i++) { // добавляем оставшиеся дни
       const d = moment(lastDay).add(i, 'days').toDate();
       this.addDay(false, d, this.isActive(d));
@@ -126,14 +129,14 @@ console.log('initCalendary params=', params);
 
   addDay(courrentMonth: boolean, dt: Date, activ: boolean){
     const curent: boolean = (moment(dt).format('DD-MM-YYYY') == moment(new Date()).format('DD-MM-YYYY') );
-    this.dayArray.push({
+    this.dayArray.update(currentItems => [...currentItems, {
       isCourrentMonth: courrentMonth
       , data: dt
       , day: dt.getDate()
       , isAction: activ
       , isSelected: false
       , isCourrentDay: curent && courrentMonth
-    });
+    }]);
   }
 
 // Проверка на активность даты
