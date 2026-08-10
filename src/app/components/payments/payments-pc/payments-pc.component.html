@@ -1,0 +1,79 @@
+<app-panel-table-pagination nameBlock="ФИНАНСЫ" (onChangePeriod)="changePeriod($event)"
+                            textItogo="посещений"
+                            [dtBegin]="dtBegin"
+                            [dtEnd]="dtEnd"
+                            [CountRec]="paymentsListCountRec()"
+                            [CountRecPage]="paymentsListCountRectoPage"
+                            (onChangedPage)="changedPage($event)"
+>
+
+  <ng-container *ngIf="paymentsListCountRec()>0; then showTable else showNotRec"></ng-container>
+
+  <ng-template #showNotRec>
+    <div class="cls-not-rec"> Нет Платежей</div>
+  </ng-template>
+
+  <ng-template #showTable>
+    <div class="tableFixHead">
+      <table class="table table-borderless table-hover table-fixed">
+        <thead>
+        <tr>
+          <th scope="col" class="app-bg-color cls-header-table-dt logout-td-yeer" >Дата платежа</th>
+          <th scope="col" class="app-bg-color app-table-th-center">Тип</th>
+          <th scope="col" class="app-bg-color app-table-th-center">Дни оказания услуг</th>
+          <th scope="col" class="app-bg-color app-table-th-center">Платеж включает</th>
+          <th scope="col" class="app-bg-color app-table-th-center">Всего к оплате</th>
+          <th scope="col" class="app-bg-color app-table-th-center">Оплата</th>
+        </tr>
+        </thead>
+        <tbody [style.max-height.px]="paymentsListHeightBlock()">
+        <tr *ngFor="let pay of paymentsList()">
+          <td class="logout-td-yeer">
+            {{getTekDay(pay.dtSort!)}} в {{getTime(pay.dtSort!)}}
+            <div style="color: #c5c5c5;">{{getNameDay(pay.dtSort!)}}</div>
+          </td>
+          <td class="logout-td-text">{{pay.pay_type}}</td>
+
+          <ng-container *ngIf="pay.services.length>1; then showServices else showNotServices"></ng-container>
+          <ng-template #showServices>
+            <!--Дата услуг-->
+            <td class="cls-table-td-event " *ngIf="pay.services[0].dt">
+              <span>{{getPeriodServicesStartEnd(pay.services)}}</span>
+              <span> - {{getPeriodServicesStartEnd(pay.services, false)}}</span>
+            </td>
+            <!--Наименование услуг-->
+            <td class="cls-table-td-event">
+              <button *ngIf="pay.services.length>1" class="btn cls-btn-second cls-btn-filter cls-button-n-services" style="margin: 0px;">{{pay.services.length}} {{getStrEndServ(pay.services.length)}}</button>
+            </td>
+          </ng-template>
+
+          <ng-template #showNotServices>
+            <!--Дата услуг-->
+            <td class="cls-table-td-event">
+              <section *ngIf="pay.services[0].dt">{{getTekDay(pay.services[0].dt)}} в {{getTime(pay.services[0].dt)}}</section>
+            </td>
+            <!--Наименование услуг-->
+            <td class="cls-table-td-event">{{pay.services[0].name}}
+              <span *ngIf="pay.services[0].spec_name" style="margin-right: 5px;">- {{pay.services[0].spec_name}}</span> <span *ngIf="pay.services[0].doc">( {{pay.services[0].doc}} )</span>
+            </td>
+            <td class="cls-table-td-event" *ngIf="pay.services.length ==0">НЕТ</td>
+          </ng-template>
+
+          <td class="logout-td-text">{{pay.all_amount | priceSpace:'.2'}} руб</td>
+
+
+          <td class="logout-td-text">
+            <section *ngIf="isPay(pay)">
+              <app-btn text="Оплатить">
+              </app-btn>
+            </section>
+          </td>
+
+        </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </ng-template>
+
+</app-panel-table-pagination>

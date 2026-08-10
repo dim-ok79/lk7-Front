@@ -3,11 +3,20 @@
   <div *ngIf="loading()" class="loading"><img src="./assets/loading.gif" alt="Загрузка..."></div>
 
   <div>
+<!--
     <button *ngFor="let typeMR of typeMyRec();"
             class="btn app-btn-filter"
             [ngClass]="{ 'active': typeMR.active}"
             (click)="onClickType(typeMR.id)">{{typeMR.name}}
     </button>
+-->
+    <app-btn class="app-btn-filter" *ngFor="let typeMR of typeMyRec();"
+            [text]="typeMR.name"
+            [active]="typeMR.active"
+            (click)="onClickType(typeMR.id)">
+    </app-btn>
+
+<!--    <app-btn text="Примерр" (click)="onClickType(5)"></app-btn>-->
   </div>
 
   <div>
@@ -19,7 +28,7 @@
                                   [dtEnd]="dtEnd"
                                   textItogo="посещений"
                                   [CountRec]="historyCountRec()"
-                                  [CountRecPage]="patientLogsCountRectoPage"
+                                  [CountRecPage]="historyCountRectoPage"
                                   (onChangedPage)="changedPage($event)"
       >
 
@@ -35,10 +44,10 @@
               <thead>
               <tr>
                 <th scope="col" class="app-bg-color cls-header-table-dt logout-td-yeer" >Дата посещения</th>
-                <th scope="col" class="app-bg-color logout-td-text">Врач</th>
-                <th scope="col" class="app-bg-color logout-td-info">Услуга</th>
-                <th scope="col" class="app-bg-color logout-td-info">Оценить</th>
-                <th scope="col" class="app-bg-color logout-td-info">Документы</th>
+                <th scope="col" class="app-bg-color app-table-th-center">Врач</th>
+                <th scope="col" class="app-bg-color app-table-th-center">Услуга</th>
+                <th scope="col" class="app-bg-color app-table-th-center">Оценить</th>
+                <th scope="col" class="app-bg-color app-table-th-center">Документы</th>
               </tr>
               </thead>
               <tbody [style.max-height.px]="testHeightBlock()">
@@ -50,7 +59,10 @@
                 <td class="logout-td-text">{{his.doctor}}</td>
                 <td class="logout-td-text">{{his.typetext}}</td>
                 <td class="logout-td-text">
-                  <button>Оценить врача</button>
+                  <app-btn class="app-btn-filter"
+                           text="Оценить врача"
+                           >
+                  </app-btn>
                 </td>
                 <td class="logout-td-info">
                   <mat-icon svgIcon="pdf" class="cls-mat-icon cls-mat-icon-info app-icon-info"
@@ -74,7 +86,7 @@
                                   textItogo="посещений"
                                   [HeaderHide]="true"
                                   [CountRec]="rnumbCountRec()"
-                                  [CountRecPage]="patientLogsCountRectoPage"
+                                  [CountRecPage]="historyCountRectoPage"
                                   (onChangedPage)="changedPage($event)"
       >
 
@@ -90,14 +102,14 @@
               <thead>
               <tr>
                 <th scope="col" class="app-bg-color cls-header-table-dt logout-td-yeer" >Дата посещения</th>
-                <th scope="col" class="app-bg-color logout-td-text">Кабинет</th>
-                <th scope="col" class="app-bg-color logout-td-text">Врач</th>
-                <th scope="col" class="app-bg-color logout-td-info">Услуга</th>
-                <th scope="col" class="app-bg-color logout-td-info">Отделение</th>
+                <th scope="col" class="app-bg-color app-table-th-center">Кабинет</th>
+                <th scope="col" class="app-bg-color app-table-th-center">Врач</th>
+                <th scope="col" class="app-bg-color app-table-th-center">Услуга</th>
+                <th scope="col" class="app-bg-color app-table-th-center">Отделение</th>
               </tr>
               </thead>
               <tbody [style.max-height.px]="testHeightBlock()">
-              <tr *ngFor="let rnumb of rnumbList()">
+              <tr *ngFor="let rnumb of rnumbList()"  (click)="openTalon(rnumb)" class="app-cp">
                 <td class="logout-td-yeer">
                   {{getTekDay(rnumb.beginDate!)}} в {{getTime(rnumb.beginDate!)}}
                   <div style="color: #c5c5c5;">{{getNameDay(rnumb.beginDate!)}}</div>

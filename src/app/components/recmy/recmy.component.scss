@@ -1,15 +1,5 @@
 .app-btn-filter {
-  background-color: #b6b6b6;
-  color: white;
-  border-width: 3px;
 }
-
-.app-btn-filter.active{
-  background-color: white;
-  color: #b6b6b6;
-  border-width: 3px;
-}
-
 /*
  even - четные
  odd - не четных
@@ -17,7 +7,6 @@
 .app-btn-filter:nth-child(even) {
   margin-left: 15px;
 }
-
 
 .app-icon-info{
   width: 80px;

@@ -25,7 +25,6 @@ export class HomeComponent implements OnInit{
 
   ngOnInit(): void {
     this.deviceType = this.size.getDeviceType();
-    console.log('HomeComponent INIT =');
   };
 
   size_pc = ():string => {
@@ -36,5 +35,5 @@ export class HomeComponent implements OnInit{
     return this.size.mobile;
   }
 
-  }
+}
 

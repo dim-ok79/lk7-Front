@@ -4,14 +4,14 @@
  */
 import {Injectable} from "@angular/core";
 import {Observable, Subject} from "rxjs";
-import { ISize } from "../interfaces/size.interface";
 import { StoreService } from './application/store.service';
+import { IHeightSize } from '../interfaces/application.interface';
 
 const storeKey = 'WEB_LK_DEVICE_TYPE';
 
 @Injectable()
 export class Size {
-  private h :ISize = {outletH: 0, blockHeaderH:91};
+  private h :IHeightSize = {outletH: 0, blockHeaderH:91};
   private width: number = 0;
   public deviceType: string = 'pc';
   public pc: string = 'pc' as const;
@@ -19,9 +19,9 @@ export class Size {
   tablet: string = 'tablet' as const;
 //  deviceTypeSubject = new Subject<string>();
 
-  resizeSubject = new Subject<ISize>();
+  resizeSubject = new Subject<IHeightSize>();
 
-  setH(hh: ISize) {
+  setH(hh: IHeightSize) {
     this.h = hh;
     if (this.resizeSubject) {
       this.resizeSubject.next(this.h);
@@ -29,12 +29,12 @@ export class Size {
   }
 
   // Событие изменение размера
-  onResize$(): Observable<ISize> {
+  onResize$(): Observable<IHeightSize> {
     return this.resizeSubject.asObservable();
   }
 
   // Получить высоту
-  getH(): ISize {
+  getH(): IHeightSize {
       return this.h;
   }
 

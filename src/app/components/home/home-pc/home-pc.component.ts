@@ -4,7 +4,7 @@ import { AuthService } from '../../../services/auth.service';
 import { IMenu } from '../../../interfaces/menu.interface';
 import { AppMenuService } from '../../../services/menu.service';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MenuComponent } from '../../menu/menu.component';
 
@@ -21,9 +21,10 @@ export class HomePcComponent {
   menuList: IMenu[] = []; // Список меню
 
   constructor(
-    private alert: NgbdToastGlobal,
+/*    private alert: NgbdToastGlobal,*/
     private auth: AuthService,
-    private menuS: AppMenuService
+    private menuS: AppMenuService,
+    private router: Router
   ){
     this.menuList = this.menuS.getListMenu();
 
@@ -35,6 +36,10 @@ export class HomePcComponent {
 
   logout(){
     this.auth.logout();
+  }
+
+  goHome(){
+    this.router.navigate(['/home']);
   }
 
 }

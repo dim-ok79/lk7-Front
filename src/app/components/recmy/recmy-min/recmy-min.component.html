@@ -1,0 +1,25 @@
+<div>МОИ ПРЕДСТОЯЩИЕ ПОСЕЩЕНИЯ</div>
+<div class="app-block" style="height: 78%">
+
+  <ng-container *ngIf="rnumbList().length>0; then showTable else showNot"></ng-container>
+
+  <ng-template #showTable>
+    <table style="width: 100%">
+      <tbody>
+      <tr *ngFor="let rnumb of rnumbList()" (click)="openTalon(rnumb)" class="app-cp">
+        <td class="block-info app-table-recmy-min-td">{{rnumb.cab}} каб.</td>
+        <td class="block-info app-table-recmy-min-td">{{rnumb.spec}}</td>
+        <td class="block-info app-table-recmy-min-td">
+          {{getTekDay(rnumb.beginDate!)}} в {{getTime(rnumb.beginDate!)}}
+          <div style="color: #c5c5c5;">{{getNameDay(rnumb.beginDate!)}}</div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </ng-template>
+
+  <ng-template #showNot>
+    <div style="text-align: center;"> У ВАС НЕ ЗАПЛАНИРОВАННО ПРЕДСТОЯЩИЙ ПОСЕЩЕНИЙ</div>
+  </ng-template>
+
+</div>

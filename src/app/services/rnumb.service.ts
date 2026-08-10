@@ -2,10 +2,9 @@ import { Injectable } from '@angular/core';
 import {AuthService} from "./auth.service";
 import {Observable} from "rxjs";
 import {IRnumbList} from "../interfaces/rnumb.interface";
-import {IServ} from "../interfaces/record.interface";
+import { IServ, ITalonInfo } from '../interfaces/record.interface';
 import { AppHttpService } from './application/app-http.service';
 import { map } from 'rxjs/operators';
-import { IHistoryEvents } from '../interfaces/history.interface';
 import { strToDate } from '../utils/global.function';
 
 @Injectable({
@@ -21,14 +20,12 @@ export class RnumbService {
    */
   public getRnumbList(): Observable<IRnumbList[]> {
     let url = '/rnumb/list';
-//    return this.httpApp.get(url , this.auth.token);
     return this.httpApp.get(url , this.auth.token).pipe(
       map((res: IRnumbList[]) => {
         res.forEach(item => item.beginDate = strToDate(item.dat_bgn))
         return res;
       })
     )
-
   }
 
   /**
@@ -40,4 +37,14 @@ export class RnumbService {
     url = url + `?rnumbID=${rnumbID}`;
     return this.httpApp.get(url , this.auth.token);
   }
+
+  /* Информация о талоне */
+  public getRnumbInfo(rnumbID: number): Observable<ITalonInfo[]> {
+    let url = '/record/rnumb/info';
+    if (rnumbID) {
+      url = url + `?rnumbID=${rnumbID}`;
+    }
+    return this.httpApp.get(url, this.auth.token);
+  }
+
 }

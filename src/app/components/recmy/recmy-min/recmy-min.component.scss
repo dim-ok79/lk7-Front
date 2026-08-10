@@ -1,0 +1,17 @@
+.block-info{
+  background-color: white;
+  color: #1c929c;
+  margin: 15px;
+}
+
+
+tr > td.app-table-recmy-min-td:first-child{
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+
+}
+
+tr > td.app-table-recmy-min-td:last-child{
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}

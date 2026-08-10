@@ -1,0 +1,13 @@
+<ng-container [ngSwitch]="deviceType">
+  <ng-template [ngSwitchCase]="size_pc()">
+    <app-payments-pc></app-payments-pc>
+  </ng-template>
+
+  <ng-template [ngSwitchCase]="size_mobile()">
+    <app-payments-mobile></app-payments-mobile>
+  </ng-template>
+
+  <ng-template ngSwitchDefault>
+    <h1>Извините, но чтото пошло не так, обновите страницу.</h1>
+  </ng-template>
+</ng-container>

@@ -18,6 +18,10 @@ export class LoginComponent {
 Мой логин и пароль
 ДДИ1275944
 CTOEX4NEFI
+
+Наталия
+ДНА606694
+MJF1R5QSAC
  */
   loading = false;      // Загрузка
   hidePassword = true;  // Показывать пароль

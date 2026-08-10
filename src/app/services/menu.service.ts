@@ -14,15 +14,13 @@ export class AppMenuService {
               private router: Router) {
     let p_podmenu: IMenu[] | null = null;
     p_podmenu = null;
-    this.menuList.push({id: 0, name: 'Главная', active: false, url: 'home', svgName: ''});
-
     p_podmenu = [];
     p_podmenu = [...p_podmenu, {id:1, name:'Мои посещения' , active: false, url: 'home/recmy'}];
     p_podmenu = [...p_podmenu, {id:2, name:'Запись на прием к врачу' , active: false, url: ''}];
     p_podmenu = [...p_podmenu, {id:3, name:'Запись на телемедицинскую консультацию' , active: false, url: ''}];
     this.menuList.push({id: 1, name: 'Запись к врачу', active: false, url: 'home/rec', svgName: 'recdoc', submenu: p_podmenu});
     this.menuList.push({id: 2, name: 'Медицинские документы', active: false, url: 'home/rec', svgName: 'meddoc'});
-    this.menuList.push({id: 3, name: 'Финансы', active: false, url: 'home/rec', svgName: 'fin'});
+    this.menuList.push({id: 3, name: 'Финансы', active: false, url: 'home/payments', svgName: 'fin'});
     this.menuList.push({id: 4, name: 'Отправить отзыв', active: false, url: 'home/rec', svgName: 'review'});
     this.menuList.push({id: 5, name: 'Полезная информация', active: false, url: 'home/rec', svgName: 'info'});
 

@@ -39,6 +39,9 @@ export class App {
     this.iconRegistry.addSvgIcon('review', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/menu/review.svg'));
     this.iconRegistry.addSvgIcon('info', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/menu/info.svg'));
 
+    this.iconRegistry.addSvgIcon('location', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/location.svg'));
+
+
 
   }
 

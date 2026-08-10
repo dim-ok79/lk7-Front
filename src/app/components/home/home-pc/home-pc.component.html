@@ -1,5 +1,5 @@
 <div class="app-home-header">
-  <div class="app-home-header_logo app-cp">
+  <div class="app-home-header_logo app-cp" (click)="goHome()">
     <mat-icon svgIcon="logo" class="app-svg-logo"></mat-icon>
   </div>
   <div class="app-home-header_exit app-cp" (click)="logout()" >
@@ -12,6 +12,6 @@
       <app-menu></app-menu>
     </div>
     <div class="app-home-body-content container">
-      <router-outlet ></router-outlet>
+      <router-outlet></router-outlet>
     </div>
   </div>
