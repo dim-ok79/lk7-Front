@@ -9,7 +9,30 @@
     </div>
 
     <div class="cls-ptp-body panel-table-pagination__body">
+
+      <ng-container *ngIf="textNotREC; then showInfo else showNotInfo"></ng-container>
+      <ng-template #showInfo>
+        <ng-container *ngIf="CountRec>0; then showTable else showNotRec"></ng-container>
+
+        <ng-template #showNotRec>
+          <div class="cls-not-rec">{{textNotREC}}</div>
+        </ng-template>
+
+        <ng-template #showTable>
+          <p>Табличка</p>
+          <ng-container *ngTemplateOutlet="linkTemplate"></ng-container>
+        </ng-template>
+
+      </ng-template>
+
+      <ng-template #showNotInfo>
+        <ng-container *ngTemplateOutlet="linkTemplate"></ng-container>
+      </ng-template>
+
+      <ng-template #linkTemplate>
         <ng-content></ng-content>
+      </ng-template>
+
     </div>
 
     <div class="cls-ptp-footer panel-table-pagination__footer">

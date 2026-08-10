@@ -1,4 +1,4 @@
-import { Component, signal, OnInit } from '@angular/core';
+import { Component, signal, OnInit, ViewEncapsulation } from '@angular/core';
 import { IPayment, IPaySystem, IServicePayment } from '../../../interfaces/payments.interface';
 import { CommonModule } from '@angular/common';
 import { PanelTablePaginationComponent } from '../../common/panel-table-pagination/panel-table-pagination.component';
@@ -19,6 +19,8 @@ import { BtnComponent } from '../../common/btn/btn.component';
   imports: [CommonModule, PanelTablePaginationComponent, MatIconModule, PriceSpacePipe, BtnComponent],
   templateUrl: './payments-pc.component.html',
   styleUrl: './payments-pc.component.scss',
+  encapsulation: ViewEncapsulation.None
+
 })
 export class PaymentsPcComponent implements OnInit{
   private patientDef = {patientId: 0, num: '', lastname: '', firstname: '', secondname: '', birthdatestr: '', birthdate: null, phone: '', cellular: '', email: '',

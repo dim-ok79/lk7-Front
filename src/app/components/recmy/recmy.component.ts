@@ -1,4 +1,14 @@
-import { AfterViewInit, Component, ElementRef, inject, Input, OnInit, signal, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  inject,
+  Input,
+  OnInit,
+  signal,
+  ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
 import { IBtnMyRec } from '../../interfaces/recmy.interface';
 import { CommonModule } from '@angular/common';
 import { HistoryService } from '../../services/history.service';
@@ -19,6 +29,8 @@ import { BtnComponent } from '../common/btn/btn.component';
   imports: [CommonModule, PanelTablePaginationComponent, MatIconModule, BtnComponent],
   templateUrl: './recmy.component.html',
   styleUrl: './recmy.component.scss',
+  encapsulation: ViewEncapsulation.None
+
 })
 export class RecmyComponent implements OnInit, AfterViewInit{
   @ViewChild('ContentBlockLog') ContentBlocklogEL: ElementRef|undefined;

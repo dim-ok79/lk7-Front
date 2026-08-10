@@ -15,8 +15,9 @@ import { DateRangeComponent } from '../date-range/date-range.component';
 export class PanelTablePaginationComponent implements OnInit {
   @Input() CountRec = 0;     // Всего записей
   @Input() CountRecPage = 3;     // Кол записей на странице
-  @Input() nameBlock = '';    // Наименование
-  @Input() textItogo = '';    // Текст ИТОГО
+  @Input() nameBlock = '';     // Наименование
+  @Input() textItogo = '';     // Текст ИТОГО
+  @Input() textNotREC: string | null = null;    // Текст Нет записей
   @Input() textItogoStrEnd = []; // окончания, если пустой массив то не применяем
   @Input() HeaderHide = false;    // Показывать заголовок с календарем ?
 

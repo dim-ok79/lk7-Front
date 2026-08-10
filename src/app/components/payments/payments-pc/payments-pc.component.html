@@ -1,19 +1,12 @@
 <app-panel-table-pagination nameBlock="ФИНАНСЫ" (onChangePeriod)="changePeriod($event)"
-                            textItogo="посещений"
+                            textItogo="платежей"
+                            textNotREC="Нет платежей"
                             [dtBegin]="dtBegin"
                             [dtEnd]="dtEnd"
                             [CountRec]="paymentsListCountRec()"
                             [CountRecPage]="paymentsListCountRectoPage"
                             (onChangedPage)="changedPage($event)"
 >
-
-  <ng-container *ngIf="paymentsListCountRec()>0; then showTable else showNotRec"></ng-container>
-
-  <ng-template #showNotRec>
-    <div class="cls-not-rec"> Нет Платежей</div>
-  </ng-template>
-
-  <ng-template #showTable>
     <div class="tableFixHead">
       <table class="table table-borderless table-hover table-fixed">
         <thead>
@@ -74,6 +67,6 @@
         </tbody>
       </table>
     </div>
-  </ng-template>
+
 
 </app-panel-table-pagination>

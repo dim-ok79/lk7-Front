@@ -84,19 +84,13 @@
     <ng-template #showHistoryPred>
       <app-panel-table-pagination nameBlock="" (onChangePeriod)="changePeriod($event)"
                                   textItogo="посещений"
+                                  textNotREC="Нет Пасещений"
                                   [HeaderHide]="true"
                                   [CountRec]="rnumbCountRec()"
                                   [CountRecPage]="historyCountRectoPage"
                                   (onChangedPage)="changedPage($event)"
       >
 
-        <ng-container *ngIf="rnumbCountRec()>0; then showTable else showNotRec"></ng-container>
-
-        <ng-template #showNotRec>
-          <div class="cls-not-rec"> Нет Пасещений</div>
-        </ng-template>
-
-        <ng-template #showTable>
           <div class="tableFixHead">
             <table class="table table-borderless table-hover table-fixed">
               <thead>
@@ -123,7 +117,6 @@
               </tbody>
             </table>
           </div>
-        </ng-template>
 
       </app-panel-table-pagination>
     </ng-template>
