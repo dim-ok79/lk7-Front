@@ -11,3 +11,9 @@
   border-width: 3px;
 }
 
+.app-btn:disabled {
+  background-color: #b4c5c6;
+  border-color: aliceblue;
+  cursor: no-drop;
+}
+

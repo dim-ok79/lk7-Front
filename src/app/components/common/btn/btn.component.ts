@@ -10,4 +10,5 @@ import { CommonModule } from '@angular/common';
 export class BtnComponent {
   @Input() text: string = '';
   @Input() active:  boolean = false;
+  @Input() btnDisabled: boolean  = false;
 }

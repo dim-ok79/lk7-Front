@@ -8,6 +8,7 @@ import { ConfigService } from '../../services/application/config.service';
 import moment from 'moment';
 import { MatIconModule } from '@angular/material/icon';
 import { BtnComponent } from '../../components/common/btn/btn.component';
+import { ImgService } from '../../services/img.service';
 
 @Component({
   selector: 'app-talon',
@@ -19,6 +20,7 @@ export class TalonComponent implements OnInit{
   @Input() rnumbID: number = 0;
   @Input() typeTalon: number = 0;  // 0 - информация
   activeModal = inject(NgbActiveModal);
+  protected imgS = inject(ImgService);
 
   private talonDef: ITalonInfo = {
     rnumb_id: 0,
@@ -88,18 +90,6 @@ export class TalonComponent implements OnInit{
 //          this.loadingTalonNum ++ ;
           console.error('getRnumbInfo ERRROr=', err);
         })
-  }
-
-  getImgSrcDoc(id: number | null | undefined): string {
-    return `${this.configS.getValue('hostBackend')}/img/doc/${id}.png`;
-  }
-
-  /**
-   * В случае если изображение на сервере не найдено то грузим локальное изображение
-   * @param event
-   */
-  public errorHandlerIMG(event: any, type: string): void {
-    event.target.src = `${this.configS.getValue('hostBackend')}/img/${type}/not.png`;
   }
 
   /* День и время*/

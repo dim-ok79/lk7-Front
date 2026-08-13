@@ -10,7 +10,7 @@
 <div class="modal-body">
   <div class="cls-doc row">
     <div class="col-sm-4" style="height: 100%">
-      <img [src]="getImgSrcDoc(talon()?.doctor_id)" (error)="errorHandlerIMG($event, 'doc')" height="100%" width="auto">
+      <img [src]="imgS.getImgSrcDoc(talon()?.doctor_id)" (error)="imgS.errorHandlerIMG($event, 'doc')" height="100%" width="auto">
     </div>
 
     <div class="cls-doc-info col-sm-4">
