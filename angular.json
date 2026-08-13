@@ -31,6 +31,7 @@
             ],
             "styles": [
               "src/styles.scss",
+              "src/stylesRecord.scss",
               "src/animations.scss"
             ]
           },

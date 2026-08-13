@@ -1,0 +1,192 @@
+/*  Стили из Frame2 */
+@use 'variables';
+
+/*
+html, body { height: 100%;
+  --bs-link-color: #65d0cb;
+}
+
+body { margin: 0;
+  font-family: "Golos Text", Sans-serif;
+}
+* {
+  font-family: "Golos Text", Sans-serif;
+}
+*/
+
+
+.cls-select-component > .mdc-text-field--filled:not(.mdc-text-field--disabled){
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  /*   border-bottom: 5px solid red;  */
+}
+
+
+.cls-select-component > div > div > div > label.mat-mdc-floating-label{
+  color: variables.$color-1!important;
+  font-size: 20px;
+}
+
+// не выбран - нижняя черта
+.app-not-selected > .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::before {
+  border-bottom-color: variables.$color-not-selected !important;
+}
+
+
+/* Select - нижняя линия */
+.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::before {
+  border-bottom-color: variables.$color-1!important;
+}
+.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::after {
+  border-bottom-color: variables.$color-1!important;
+}
+.mdc-text-field--filled .mdc-line-ripple::before {
+  border-bottom-width: 3px!important;
+}
+/* стрелочка */
+.mat-mdc-select-arrow {
+  color: variables.$color-1!important;
+}
+
+.mat-mdc-select-arrow svg{
+  color: variables.$color-1!important;
+  /*  fill: $color-2!important;*/
+}
+
+.mdc-list-item__primary-text{
+  color: variables.$color-text-select-item!important;
+}
+
+.mat-mdc-select-value{
+  color: variables.$color-text-select-item!important;
+}
+
+/* ng-select нижнее линия */
+.ng-select .ng-select-container:after{
+  border-bottom-color: variables.$color-1 !important;
+  border-bottom-width: 3px;
+}
+// закругления у основного
+.ng-select .ng-select-container {
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+// Стрелочка
+.ng-select .ng-arrow-wrapper .ng-arrow{
+  color: variables.$color-1!important;
+}
+.ng-select.ng-select-single .ng-select-container .ng-arrow-wrapper {
+  bottom: 15px;
+}
+// Высота блока
+.ng-select .ng-select-container{
+  height: 56px;
+}
+// Отступы INPUT
+.ng-select .ng-select-container{
+  background-color: #f5f5f5;
+  padding-left: 14px;
+  padding-right: 10px;
+}
+// текст выбранный
+.ng-select.ng-select-single .ng-select-container .ng-value-container, .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-value {
+  color: variables.$color-text-select-item;
+}
+/*
+.ng-select div, .ng-select input, .ng-select span{
+  color: $color-text-select-item;
+}
+*/
+
+.ng-placeholder{
+  color: #040101b3!important;
+}
+// текст в списке выбора
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+  color: variables.$color-text-select-item;
+}
+
+/*
+.ng-select .ng-select-container .ng-value-container .ng-placeholder {
+  color: #040101b3 !important;
+}
+*/
+// крестик в выборе
+.ng-select .ng-clear-wrapper .ng-clear {
+  color: variables.$color-1;
+}
+.ng-select.ng-select-single .ng-select-container .ng-clear-wrapper{
+  bottom: 12px;
+}
+
+/**** */
+
+.mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-checked::after {
+  color: variables.$color-1!important;
+}
+
+/*
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  color: red;
+}
+
+input.mat-input-element {
+  color:  red;
+}
+*/
+
+/* Modal */
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  border-radius: 8px !important;
+}
+/* */
+
+.cls-br {
+  border-radius: 8px;
+}
+
+.cls-bg-c {
+  background-color: variables.$color-1;
+}
+
+.cls-background-color {
+  background-color: variables.$color-1;
+}
+
+.cls-border-color {
+  border-color: variables.$color-1;
+}
+
+.cls-gradient {
+  background: linear-gradient(90deg, #60BDC2, #66D6CD);
+}
+
+.btn-cansel > button {
+  background-color: #B8B7B7;
+  border-color: #B8B7B7;
+}
+
+.cls-select-component > .app-not-selected > .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::before {
+  border-bottom-color: variables.$color-not-selected !important;
+}
+
+.mdc-dialog__container{
+  max-height: 100vh!important;
+}
+
+.mat-mdc-dialog-container .mdc-dialog__container{
+  max-height: 100vh;
+}
+/*
+mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::before {
+    border-bottom-color: #60BDC2 !important;
+
+
+.btn-cansel:focus-visible {
+  border-color: #B8B7B7;
+}
+
+button:focus-visible {
+  border-color: #B8B7B7;
+}
+*/

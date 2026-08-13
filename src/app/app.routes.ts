@@ -5,6 +5,7 @@ import { AccountComponent } from './components/account/account.component';
 import { IndexPcComponent } from './components/home/home-pc/index-pc/index-pc.component';
 import { RecmyComponent } from './components/recmy/recmy.component';
 import { PaymentsComponent } from './page/payments/payments.component';
+import { RecordComponent } from './page/record/record.component';
 
 export const routes: Routes = [
   {
@@ -41,6 +42,13 @@ export const routes: Routes = [
       {
         path: 'payments',
         component: PaymentsComponent
+      },
+      /**
+       * Запись
+       */
+      {
+        path: 'record',
+        component: RecordComponent
       },
     ]
   },
