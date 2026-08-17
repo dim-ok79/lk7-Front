@@ -1,0 +1,38 @@
+<app-doctor  class="col-md-12" *ngIf="rnumb_listPAY().length>0"
+             [doctor]="doctor"
+             [SpecId]="SpecId"
+             [Spec]="Spec"
+             [paytype]=1
+             [lpuList_doc]="lpuList_doctors"
+             [rnumb_list]="rnumb_listPAY()"
+             [docUrl]="docUrl"
+             [urlDisable]="urlDisable"
+             [loadingRnumbList]="loadingRnumbList"
+             [SetCurrentLpuIsDoctors]="SetCurrentLpu"
+></app-doctor>
+
+<app-doctor  class="col-md-12" *ngIf="rnumb_listNOTPAY().length>0"
+             [doctor]="doctor"
+             [SpecId]="SpecId"
+             [Spec]="Spec"
+             [paytype]=0
+             [lpuList_doc]="lpuList_doctors"
+             [rnumb_list]="rnumb_listNOTPAY()"
+             [docUrl]="docUrl"
+             [urlDisable]="urlDisable"
+             [loadingRnumbList]="loadingRnumbList"
+             [SetCurrentLpuIsDoctors]="SetCurrentLpu"
+></app-doctor>
+
+<app-doctor  class="col-md-12" *ngIf="rnumb_listTrueConf().length>0"
+             [doctor]="doctor"
+             [SpecId]="SpecId"
+             [Spec]="Spec"
+             [paytype]=2
+             [lpuList_doc]="lpuList_doctors"
+             [rnumb_list]="rnumb_listTrueConf()"
+             [docUrl]="docUrl"
+             [urlDisable]="urlDisable"
+             [loadingRnumbList]="loadingRnumbList"
+             [SetCurrentLpuIsDoctors]="SetCurrentLpu"
+></app-doctor>

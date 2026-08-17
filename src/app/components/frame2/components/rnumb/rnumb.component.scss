@@ -1,0 +1,135 @@
+
+.rnumb-block{
+/*  background-color: #73C4C5;*/
+  margin-bottom: 15px;
+  padding: 20px;
+  position: relative;
+}
+
+.app-rnumb-adr{
+  background-color: white;
+  padding-left: 10px;
+  padding-right: 10px;
+  min-height: 50px;
+  color: #3E8382;
+  position: relative;
+}
+
+.app-rnumb-calendar {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+.app-rnumb-calendar-day{
+  width: 84%;
+  display: flex;
+}
+
+.app-rnumb-calendar-item{
+/*  background-color: #73C4C5;*/
+  color: white;
+  cursor: pointer;
+  padding-left: 7px;
+  padding-right: 7px;
+  margin-right: 12px;
+  border: solid 2px white;
+}
+
+.app-rnumb-calendar-item-time{
+  text-align: center;
+}
+
+.app-rnumb-list{
+  margin-top: 8px;
+  padding-left: 12px;
+  padding-right: 12px;
+  justify-content: flex-start;
+}
+
+.active {
+  background-color: white;
+  color: #73C4C5;
+  cursor: context-menu;
+}
+
+.app-rnumb-calendar-calendary > div {
+  background-color: white;
+/*  cursor: no-drop;*/
+  padding: 0;
+  margin-right: 0;
+}
+
+.app-rnumb-calendar-calendary > div > mat-icon {
+  width: 45px;
+  height: 45px;
+}
+
+.app-notRecOMS{
+  color: white;
+  text-align: center;
+}
+
+.cls-select-lpu{
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 40px;
+  height: 74px;
+}
+
+// Календарь
+span.isAction {
+  background: #66d6cd;
+  border-radius: 100%;
+  cursor: pointer;
+}
+
+.app-day {
+  text-align: center;
+  padding: 0.185rem 0.25rem;
+  border-radius: 0.25rem;
+  display: inline-block;
+  width: 2rem;
+  cursor: no-drop;
+}
+
+.app-day:hover,
+.app-day.focused {
+  background-color: #e6e6e6;
+}
+
+span.isAction:hover,
+  .span.isAction.focused {
+    background-color: #66d6cd;
+  }
+
+/* Выходной не используется */
+.weekend {
+  background-color: #f0ad4e;
+  border-radius: 1rem;
+  color: white;
+}
+
+.app-input-date-hide{
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+
+
+//
+button.example-custom-date-class {
+  background: #66d6cd;
+  border-radius: 100%;
+}
+
+.app-rnumb-calendar-calendary{
+  position: relative;
+}
+
+::ng-deep .custom-datepicker-panel {
+  position: absolute !important;
+  top: 50px !important; /* Задайте нужные отступы */
+  left: 20px !important;
+}

@@ -1,0 +1,57 @@
+<div class="container-fluid">
+  <ngbd-toast-global></ngbd-toast-global>
+
+  <div class="block-selected row">
+    <app-loading [loading]="loadingDate()"></app-loading>
+    <app-select [label]="'Специализация'" class="col-md-4"
+                (onChange)="onSelectedSpec($event)"
+                [selectCurrent]="SelectedSpec"
+                [list]="SelectSpecList"
+    ></app-select>
+
+    <ng-select class="col-md-4"
+               [items]="doctorListSelect"
+               [(ngModel)]="selectedDoc"
+               (change)="onSelectedDoc($event)"
+               bindLabel="fio"
+               placeholder="Поиск по ФИО"
+               notFoundText="Доктор не найден">
+      <ng-template ng-option-tmp let-item="item">
+        <div class="select-name">{{item.l_name}} {{item.s_name}} {{item.f_name}}</div>
+        <small class="select-description">{{ item.specName }}</small>
+      </ng-template>
+
+    </ng-select>
+
+    <app-select [label]="'Адрес приема врача'" class="col-md-4"
+                (onChange)="onSelectedLpu($event)"
+                [selectCurrent]="SelectedLpu"
+                [list]="SelectLpuList()"
+    ></app-select>
+
+
+  </div>
+  <div class="block-selected row" style="overflow: auto; height: 79vh;">
+    <app-loading [loading]="loadingDocList()"></app-loading>
+    <div *ngIf="doctorList && SelectedSpec">
+      <ng-container *ngFor="let doc of doctorList; let i = index">
+        <app-doctors  class="col-md-12" [doctor]="doc"
+                      [SpecId]="SelectedSpec!.valueNum"
+                      [Spec]="SelectedSpec"
+                      [lpuList_doctors]="lpu_list()"
+                      [SetCurrentLpu]="SelectedLpu"
+        ></app-doctors>
+        <div *ngIf="isShowBlocInfo(doc, i)" class="app-doc-block"> Также по данной специализации ведут прием:</div>
+
+      </ng-container>
+    </div>
+
+    <div *ngIf="!doctorList && SelectedSpec" class="col-md-12">
+      <div class="app-home-not-date app-home-header"> По вашим параметрам поиска услуг не найдено.</div>
+    </div>
+    <div *ngIf="!SelectedSpec" class="col-md-12">
+      <div class="app-home-not-date app-home-header"> Выберите необходимые параметры в фильтрах для поиска услуги.</div>
+    </div>
+  </div>
+
+</div>

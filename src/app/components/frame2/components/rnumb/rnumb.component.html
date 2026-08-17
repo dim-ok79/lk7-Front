@@ -1,0 +1,92 @@
+<ng-template *ngIf="this.rnumbToDateArray.length>0; then showRnumbList else showNotRnumbList"> </ng-template>
+
+<ng-template #showRnumbList>
+  <div class="rnumb-block cls-br cls-gradient container-fluid">
+    <div class="app-rnumb-adr cls-br">
+      <div style="font-size: x-large;">{{selectCurrentLpu?.name}}</div>
+      <div>{{selectCurrentLpu?.addres}}</div>
+
+      <mat-form-field class="cls-select-lpu" *ngIf="lpulistCurent.length>1">
+        <mat-label>ЛПУ</mat-label>
+        <mat-select [(ngModel)]="selectCurrentLpu" (selectionChange)="onSelectedLpu($event)">
+          <mat-option *ngFor="let elem of lpulistCurent; let i = index" [value]="elem" style="margin-bottom: 10px">
+            <div class="option-container">
+              <div class="option-name">{{elem.name}} </div>
+              <small class="option-description">{{ elem?.addres }}</small>
+            </div>
+          </mat-option>
+
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+    <div class="app-rnumb-calendar">
+      <span class="app-rnumb-calendar-day">
+        <div *ngFor="let rnumbToDate of this.rnumbToDateArray"
+             class="cls-br app-rnumb-calendar-item cls-background-color"
+             [ngClass]="{'col-3': isMobile, 'col-4': !isMobile}"
+             (click)="onSelectDay(rnumbToDate)"
+             [ngClass]="{ 'active': rnumbToDate.active}">
+          <div>{{p_getNameDay(rnumbToDate.dt) | titlecase}}</div>
+          <div>{{getDate(rnumbToDate.dt)}}</div>
+        </div>
+      </span>
+
+<!--
+      <span class="app-rnumb-calendar-calendary">
+        <div class="cls-br app-rnumb-calendar-item" (click)="picker.open()">
+          <mat-icon svgIcon="calendar"></mat-icon>
+        </div>
+      </span>
+-->
+        <span class="app-rnumb-calendar-calendary">
+          <div class="cls-br app-rnumb-calendar-item" (click)="d.toggle()">
+            <mat-icon svgIcon="calendar"></mat-icon>
+          </div>
+<!--          <input style="opacity: 0; width: 1px;height: 1px"-->
+          <input
+            class="form-control app-input-date-hide"
+            placeholder="yyyy-mm-dd"
+            name="dp"
+            [(ngModel)]="modelSelectDate"
+            ngbDatepicker
+            (dateSelect)="onDateSelected($event)"
+            #d="ngbDatepicker"
+            [dayTemplate]="customDay"
+          />
+
+        </span>
+
+      <ng-template #customDay let-date let-focused="focused">
+        <span class="app-day"
+              [class.focused]="focused"
+              [class.isAction]="isDayAction(date)"
+        >
+          {{ date.day }}
+        </span>
+      </ng-template>
+
+    </div>
+
+    <div class="app-rnumb-list row">
+      <div *ngFor="let rnum of this.rnumbListToDate" class="cls-br app-rnumb-calendar-item cls-background-color app-rnumb-calendar-item-time col-sm-2" (click)="openDialog(rnum)">{{p_getTime(rnum!.dat)}}</div>
+
+    </div>
+
+  </div>
+</ng-template>
+
+<ng-template #showNotRnumbList>
+  <ng-template *ngIf="rectype == 0; then showMesNotRnumbOMS else showMesNotRnumb"> </ng-template>
+  <ng-template #showMesNotRnumbOMS>
+    <div class="rnumb-block cls-br cls-gradient container-fluid app-notRecOMS">Запись на прием доступна по телефону Единой информационно-справочной службы <div>+7 (812) 363-11-22</div></div>
+  </ng-template>
+  <ng-template #showMesNotRnumb>
+    <div class="rnumb-block cls-br cls-gradient container-fluid">Нет номерков</div>
+  </ng-template>
+</ng-template>
+
+
+
+
+

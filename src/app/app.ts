@@ -41,6 +41,7 @@ export class App {
 
     this.iconRegistry.addSvgIcon('location', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/location.svg'));
 
+    this.iconRegistry.addSvgIcon('calendar', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/calendar.svg'));
 
 
   }

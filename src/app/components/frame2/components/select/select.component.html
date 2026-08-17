@@ -1,0 +1,12 @@
+<mat-form-field class="cls-select-lpu" [ngClass]="{'app-not-selected': !selectCurrent}">
+  <mat-label>{{label}}</mat-label>
+  <mat-select [(ngModel)]="selectCurrent" (selectionChange)="onSelected($event)">
+    <mat-option *ngFor="let elem of list; let i = index" [value]="elem" style="margin-bottom: 10px">
+      <div class="option-container">
+        <div class="option-name">{{elem.text}} </div>
+        <small class="option-description">{{ elem?.infoStr }}</small>
+      </div>
+    </mat-option>
+
+  </mat-select>
+</mat-form-field>

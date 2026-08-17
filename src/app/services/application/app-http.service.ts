@@ -42,11 +42,12 @@ export class AppHttpService {
             observer.complete();
           },
           err => {
+console.log('err=', err);
             if ((!err.success && err.error && err.error.data && err.error.data.errorCode && err.error.data.errorCode === 'AuthenticationException') || (err.status === 401)) {
               if (location.pathname.indexOf('/login') === -1) {
                 this.router.navigate(['/login'])
               }
-              StoreService.clearAllStore();
+//              StoreService.clearAllStore();
             }
             observer.error(err);
           }

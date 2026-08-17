@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { Size } from '../../services/size';
 import { HomePcComponent } from '../../components/home/home-pc/home-pc.component';
 import { HomeMobileComponent } from '../../components/home/home-mobile/home-mobile.component';
 import { CommonModule } from '@angular/common';
+import { LpuService } from '../../services/lpu.service';
 
 @Component({
   selector: 'app-home',
@@ -14,6 +15,7 @@ import { CommonModule } from '@angular/common';
 
 })
 export class HomeComponent implements OnInit{
+  lpuS = inject(LpuService);
 
   public deviceType: string = '';
 
@@ -21,6 +23,9 @@ export class HomeComponent implements OnInit{
   ){
     this.deviceType = this.size.getDeviceType();
     console.log('HomeComponent this.deviceType =', this.deviceType);
+    this.lpuS.loadLpuList()
+      .subscribe(res => {});
+
   }
 
   ngOnInit(): void {

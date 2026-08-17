@@ -1,3 +1,5 @@
+
+<app-loading [loading]="loading()"></app-loading>
 <div class="modal-header">
   <ng-container [ngSwitch]="typeTalon">
     <ng-template [ngSwitchCase]="0">
@@ -10,7 +12,8 @@
 <div class="modal-body">
   <div class="cls-doc row">
     <div class="col-sm-4" style="height: 100%">
-      <img [src]="imgS.getImgSrcDoc(talon()?.doctor_id)" (error)="imgS.errorHandlerIMG($event, 'doc')" height="100%" width="auto">
+      <img [src]="imgS.getImgSrcDoc(talon()?.doctor_id)" (error)="imgS.errorHandlerIMG($event, 'doc')"
+            height="100%" width="auto">
     </div>
 
     <div class="cls-doc-info col-sm-4">
@@ -29,19 +32,28 @@
   <div class="cls-talon-adress">
     <div class="cls-priem">Прием врача по адресу:</div>
     <div class="cls-info row">
-      <div class="cls-info-adr col-8">{{talon().addr}}
+      <div class="cls-info-adr col-12">
         <mat-icon svgIcon="location" class="btn-icon-location"></mat-icon>
+        {{lpu?.addres}}
       </div>
-      <div class="cls-info-phone col-4">{{talon().phone}}</div>
+<!--      <div class="cls-info-phone col-4">{{talon().phone}}</div>-->
     </div>
   </div>
 
 </div>
 
 <div class="modal-footer">
+
   <app-btn class="app-btn-filter"
            text="Закрыть"
-           (click)="activeModal.close('Close click')">
+           (click)="closeTalon()"
+           *ngIf="typeTalon==0">
+  </app-btn>
+
+  <app-btn class="app-btn-filter"
+           text="Записаться"
+           (click)="recordTalon()"
+           *ngIf="typeTalon==1">
   </app-btn>
 
 <!--  <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Закрыть</button>-->

@@ -34,8 +34,8 @@ export class PatientService {
     return this.httpApp.get(`/patient/city` , token)
   }
 
-  public getAttachedList$(token: string): Observable<IPatientAttached[]> {
-    return this.httpApp.get(`/lpu/list` , token)
+  public getLpuList$(): Observable<IPatientAttached[]> {
+    return this.httpApp.get(`/lpu/list` , this.auth.token)
   }
 
 

@@ -18,5 +18,6 @@ export interface IRnumbList {
   srv_text: string | null;
   is_telemed? : number;
   url_telemed? : string;
+  lpu_id? : number;
   type_r: string;  // тип записи
 }

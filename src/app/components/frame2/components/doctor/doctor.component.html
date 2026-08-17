@@ -1,0 +1,50 @@
+<div class="row app-doc" *ngIf="isShow">
+  <div class="col-md-7 row">
+    <div class="col-md-5" style="text-align: center">
+      <img *ngIf="doctor" class="doc-img" [src]="imgS.getImgSrcDoc(doctor?.doctorid)" (error)="imgS.errorHandlerIMG($event, 'doc')">
+    </div>
+
+    <div class="col-md-7 app-doc-info">
+      <div class="doc-fio">{{doctor?.l_name}} {{doctor?.s_name}} {{doctor?.f_name}}</div>
+
+      <ng-template *ngIf="paytype==0; then showType0"> </ng-template>
+      <ng-template *ngIf="paytype==1; then showType1"> </ng-template>
+      <ng-template *ngIf="paytype==2; then showType2"> </ng-template>
+      <ng-template #showType0>
+        <div class="doc-price">Прием по прикреплению (ОМС, бюджет)</div>
+      </ng-template>
+      <ng-template #showType1>
+        <div class="doc-price">Платный прием</div>
+      </ng-template>
+      <ng-template #showType2>
+        <div class="doc-price">Телемедицинская консультация</div>
+      </ng-template>
+
+      <ng-template *ngIf="getPrice>0; then showPay else showNotPay"> </ng-template>
+      <ng-template #showPay>
+        <div class="doc-price">Стоимость услуги:{{getPrice}} р</div>
+      </ng-template>
+      <ng-template #showNotPay>
+        <div class="doc-price">По прикреплению (ОМС)</div>
+      </ng-template>
+      <div class="doc-fio">{{doctor?.dolgnost}}</div>
+      <app-btn text="Подробнее о враче" (click)="goToDoctorInfo()" [btnDisabled]="urlDisable"></app-btn>
+    </div>
+
+  </div>
+
+  <div class="col-md-5" style="position: relative">
+    <app-loading [loading]="loadingRnumbList"></app-loading>
+    <app-rnumb
+      (CurrentLpu)="SetCurrentLpu($event)"
+      [rnumbList]="rnumb_list"
+      [lpuList_rnumb]="lpuList_doc"
+      [specid]="SpecId"
+      [doctor]="doctor"
+      [paytype]="paytype"
+    ></app-rnumb>
+  </div>
+</div>
+
+
+

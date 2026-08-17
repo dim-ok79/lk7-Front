@@ -119,6 +119,7 @@ export interface ITalonInfo {
   calc_sum: number | null;            // предварительная стоимость приема.
   is_telemed: number | null;         // Флаг телемед
   url_telemed: string | null;        // Ссылка на теле-конференцию
+  lpu_id? : number;                 // ID ЛПУ
 }
 
 export interface ITalonResBlStatus {

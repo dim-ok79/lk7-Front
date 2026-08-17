@@ -15,7 +15,8 @@ export class PatientAttachedService {
   private _attachedList: IPatientAttached[] = [];
   private _lsKey = 'attached';
 
-  constructor(private  patient: PatientService) { }
+  constructor(private  patient: PatientService) {
+  }
 
   set attachedList(value: IPatientAttached[]) {
     this._attachedList = value;
@@ -53,9 +54,9 @@ export class PatientAttachedService {
 
   // Загрузка с сервера
 
-  loadServer(token: string): Observable<IPatientAttached[]> {
+  loadServer(): Observable<IPatientAttached[]> {
     return new Observable((observer) => {
-      this.patient.getAttachedList$(token)
+      this.patient.getLpuList$()
         .subscribe(res => {
           res.forEach(item => {
             item.selected = item.ispatient>0;
