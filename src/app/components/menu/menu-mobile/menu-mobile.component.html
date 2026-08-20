@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row" style="margin: 8px">
+    <div class="col-6" *ngFor="let menu of menuList;" (click)="goToMenu(menu)">
+      <div class="app-menu-mobile-block app-cp">
+        <div>
+          <mat-icon *ngIf="menu.svgNameColor" [svgIcon]="menu.svgNameColor" class="app-mat-icon-menu-mobile"></mat-icon>
+        </div>
+        <span class="app-menu-item-text">{{menu.name}}</span>
+      </div>
+
+    </div>
+  <!--
+      <div *ngIf="menu.submenu">
+        <div *ngFor="let menuSub of menu.submenu;"
+             class="app-sub-menu"
+             (click)="goToMenu(menuSub)">{{menuSub.name}}</div>
+      </div>
+  -->
+
+  </div>
+</div>
+

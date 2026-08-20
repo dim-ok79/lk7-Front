@@ -56,8 +56,15 @@ export class Frame2Component {
   ){}
 
   ngOnInit(): void {
+
     // Список ЛПУ
     this.lpu_list.update(val => val = []);
+
+    const tmp = this.lpuS.getLpuList();
+    this.lpu_list.set(tmp);
+    // Добавляем неизвестного
+    this.lpu_list.update(val => [...val, {id: 0, city_id: 0, addres: 'Неизвестен', name: 'Неизвестен', orderby: 0, ispatient: 0}])
+/*
     this.lpuS.getLpuList$()
       .subscribe(
         res => {
@@ -72,6 +79,7 @@ export class Frame2Component {
           console.error('getLpuList$ err=', err);
         }
       );
+*/
 
     this.loadingDate.set(true);
 
@@ -82,18 +90,15 @@ export class Frame2Component {
 
     this.onSelectedDEFLpu();
 // Подписываемся на добавление ЛПУ из талонов
-//    console.log('LpuOnAdd$().subscribe');
     this.lpySub = this.lpuS.LpuOnAdd$().subscribe(value=> {
-//      console.log('!!! LpuOnAdd$ n=', value);
       if (this.SelectLpuList().filter(item => item.valueNum == value.id).length == 0) {
         // @ts-ignore
         this.SelectLpuList.update(val => [...val, {text: value.name, valueNum: value.id, infoStr: value.addres}])
       }
-//      console.log('2 SelectLpuList=', Object.assign({}, this.SelectLpuList));
     })
 
-    this.refreshListSpec();
     this.loadingDate.set(false);
+    this.refreshListSpec();
   }
 
   refreshListSpec(){

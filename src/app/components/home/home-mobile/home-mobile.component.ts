@@ -1,13 +1,14 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { IMenu } from '../../../interfaces/menu.interface';
 import { CommonModule } from '@angular/common';
-import { PatientInfoComponent } from '../../account/patient-info/patient-info.component';
-import { MenuComponent } from '../../menu/menu.component';
+import { MenuMobileComponent } from '../../menu/menu-mobile/menu-mobile.component';
+import { Router, RouterModule } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
+
 
 @Component({
   selector: 'app-home-mobile',
-  imports: [NgbModule, CommonModule, PatientInfoComponent, MenuComponent],
+  imports: [NgbModule, CommonModule, MenuMobileComponent, MatIconModule, RouterModule],
   templateUrl: './home-mobile.component.html',
   styleUrl: './home-mobile.component.scss',
   providers: [],
@@ -15,9 +16,13 @@ import { MenuComponent } from '../../menu/menu.component';
 })
 export class HomeMobileComponent {
   isMenuCollapsed = true;
-
   constructor(
+    private router: Router
   ){
+  }
+
+  goHome(){
+    this.router.navigate(['/home']);
   }
 
 }

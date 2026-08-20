@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, inject, OnInit, signal, ViewEncapsulation } from '@angular/core';
 import { Size } from '../../services/size';
 import { HomePcComponent } from '../../components/home/home-pc/home-pc.component';
 import { HomeMobileComponent } from '../../components/home/home-mobile/home-mobile.component';
@@ -10,34 +10,34 @@ import { LpuService } from '../../services/lpu.service';
   imports: [CommonModule, HomePcComponent, HomeMobileComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
-  providers: [Size],
+  providers: [],
   encapsulation: ViewEncapsulation.None
 
 })
 export class HomeComponent implements OnInit{
   lpuS = inject(LpuService);
+  private sizeS = inject(Size);
 
-  public deviceType: string = '';
+  deviceType = signal<string>('');
 
-  constructor(private size: Size,
+  constructor(
   ){
-    this.deviceType = this.size.getDeviceType();
-    console.log('HomeComponent this.deviceType =', this.deviceType);
     this.lpuS.loadLpuList()
-      .subscribe(res => {});
-
+      .subscribe(res => {
+        this.deviceType.set(this.sizeS.getDeviceType());
+      });
   }
 
   ngOnInit(): void {
-    this.deviceType = this.size.getDeviceType();
+//    this.deviceType.set(this.size.getDeviceType());
   };
 
   size_pc = ():string => {
-    return this.size.pc;
+    return this.sizeS.pc;
   }
 
   size_mobile = ():string => {
-    return this.size.mobile;
+    return this.sizeS.mobile;
   }
 
 }

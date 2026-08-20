@@ -80,10 +80,12 @@ export class DoctorsComponent implements OnInit {
           });
 
 
+/*
 console.log('this.doctor=', this.doctor);
 console.log('this.rnumb_listTrueConf=', this.rnumb_listTrueConf());
 console.log('this.rnumb_listPAY=', this.rnumb_listPAY());
 console.log('this.rnumb_listNOTPAY=', this.rnumb_listNOTPAY());
+*/
 
 
 

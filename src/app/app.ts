@@ -33,11 +33,18 @@ export class App {
     this.iconRegistry.addSvgIcon('pdf', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/pdf.svg'));
 
     // Menu
-    this.iconRegistry.addSvgIcon('recdoc', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/menu/recdoc.svg'));
-    this.iconRegistry.addSvgIcon('meddoc', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/menu/meddoc.svg'));
     this.iconRegistry.addSvgIcon('fin', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/menu/fin.svg'));
-    this.iconRegistry.addSvgIcon('review', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/menu/review.svg'));
-    this.iconRegistry.addSvgIcon('info', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/menu/info.svg'));
+    this.iconRegistry.addSvgIcon('fin_color', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/menu/fin_color.svg'));
+    this.iconRegistry.addSvgIcon('medcard', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/menu/medcard.svg'));
+    this.iconRegistry.addSvgIcon('medcard_color', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/menu/medcard_color.svg'));
+    this.iconRegistry.addSvgIcon('myrec', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/menu/myrec.svg'));
+    this.iconRegistry.addSvgIcon('myrec_color', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/menu/myrec_color.svg'));
+    this.iconRegistry.addSvgIcon('rec', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/menu/rec.svg'));
+    this.iconRegistry.addSvgIcon('rec_color', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/menu/rec_color.svg'));
+    this.iconRegistry.addSvgIcon('action_color', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/menu/action_color.svg'));
+    this.iconRegistry.addSvgIcon('exit_color', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/menu/exit_color.svg'));
+    this.iconRegistry.addSvgIcon('info_color', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/menu/info_color.svg'));
+    this.iconRegistry.addSvgIcon('myprofil_color', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/menu/myprofil_color.svg'));
 
     this.iconRegistry.addSvgIcon('location', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/location.svg'));
 

@@ -1,7 +1,9 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark">
   <div class="container">
-    <a class="navbar-brand" href="#">Личный кабинет</a>
+    <div class="app-home-header_logo app-cp" (click)="goHome()">
+      <mat-icon svgIcon="logo" class="app-svg-logo"></mat-icon>
+    </div>
 
     <!-- Кнопка "Бутерброд" -->
     <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,21 +12,11 @@
 
     <!-- Выпадающий блок -->
     <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse" id="navbarSupportedContent">
-      <app-menu [isMobile]=true class="navbar-nav ms-auto mb-2 mb-lg-0" style="height: 94vh;"></app-menu>
-<!--
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0" style="height: 94vh;">
-
-        <li class="nav-item" (click)="goToMenu(menu)" *ngFor="let menu of menuList;">
-          <a class="nav-link "
-             [ngClass]="{ 'active': menu.active}"
-             aria-current="page">{{menu.name}}</a>
-        </li>
-      </ul>
--->
+      <app-menu-mobile class="navbar-nav ms-auto mb-2 mb-lg-0" style="height: 94vh;"></app-menu-mobile>
     </div>
   </div>
 </nav>
 
 <div class="app-home-mobile_content">
-  <app-patient-info></app-patient-info>
+  <router-outlet></router-outlet>
 </div>

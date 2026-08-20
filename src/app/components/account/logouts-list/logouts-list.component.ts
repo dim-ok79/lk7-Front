@@ -162,7 +162,6 @@ console.log('EL=', el)
     this.dtBegin = dt.begin;
     this.dtEnd = dt.end;
 //    this.getServicesSize();
-console.log('LL changePeriod=', dt);
     this.setPeriodText();
     this.getPatientLog(1, this.patientLogsCountRectoPage, this.dtBegin, this.dtEnd);
 
@@ -170,7 +169,6 @@ console.log('LL changePeriod=', dt);
 
   /* Событие выбора страницы */
   changedPage(page: any) {
-console.log('!!! page=', page);
     if (page == 1) {
       this.getPatientLog(1, this.patientLogsCountRectoPage, this.dtBegin, this.dtEnd);
     } else {

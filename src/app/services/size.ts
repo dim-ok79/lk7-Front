@@ -9,7 +9,10 @@ import { IHeightSize } from '../interfaces/application.interface';
 
 const storeKey = 'WEB_LK_DEVICE_TYPE';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
+
 export class Size {
   private h :IHeightSize = {outletH: 0, blockHeaderH:91};
   private width: number = 0;

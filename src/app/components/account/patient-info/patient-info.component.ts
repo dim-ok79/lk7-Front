@@ -59,8 +59,14 @@ export class PatientInfoComponent implements OnInit{
 
   getPatientFIO(pat: IPatient | null): string {
     let res = '';
-    if (pat && pat.lastname && pat.firstname){
-      res = pat.lastname +' '+ pat.firstname + ' ' + pat.secondname!;
+    if (this.viewFull){
+      if (pat && pat.lastname && pat.firstname){
+        res = pat.lastname +' '+ pat.firstname + ' ' + pat.secondname!;
+      }
+    } else {
+      if (pat && pat.lastname && pat.firstname){
+        res = pat.firstname;
+      }
     }
     return res;
   }

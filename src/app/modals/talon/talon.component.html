@@ -5,14 +5,18 @@
     <ng-template [ngSwitchCase]="0">
       <h4 class="modal-title">Информация о талоне</h4>
     </ng-template>
+    <ng-template [ngSwitchCase]="1">
+      <h4 class="modal-title">Запись на талон</h4>
+    </ng-template>
   </ng-container>
   <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
 </div>
 
 <div class="modal-body">
   <div class="cls-doc row">
-    <div class="col-sm-4" style="height: 100%">
+    <div class="col-sm-4" style="height: 100%;">
       <img [src]="imgS.getImgSrcDoc(talon()?.doctor_id)" (error)="imgS.errorHandlerIMG($event, 'doc')"
+           class="cls-img-doc-photo"
             height="100%" width="auto">
     </div>
 

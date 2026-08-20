@@ -7,7 +7,8 @@
 .app-menu-item-text{
   font-size: 12px;
   font-weight: 500;
-  color: white;
+  color: #878282;
+  text-transform: uppercase;
 }
 
 .app-sub-menu{
@@ -31,4 +32,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.app-menu-mobile-block{
+  text-align: center;
+  border: 1px solid #65bfc3;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  box-shadow: 5px 5px 4px 0px rgba(212, 212, 212, 0.5);
+  padding-bottom: 11px;
+  height: 130px;
+}
+
+.app-mat-icon-menu-mobile{
+  width: 60px;
+  height: 60px;
 }

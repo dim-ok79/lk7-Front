@@ -1,7 +1,7 @@
 <div class="row app-doc" *ngIf="isShow">
   <div class="col-md-7 row">
     <div class="col-md-5" style="text-align: center">
-      <img *ngIf="doctor" class="doc-img" [src]="imgS.getImgSrcDoc(doctor?.doctorid)" (error)="imgS.errorHandlerIMG($event, 'doc')">
+      <img *ngIf="doctor" class="cls-img-doc-photo" [src]="imgS.getImgSrcDoc(doctor?.doctorid)" (error)="imgS.errorHandlerIMG($event, 'doc')">
     </div>
 
     <div class="col-md-7 app-doc-info">

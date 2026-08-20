@@ -99,6 +99,10 @@ export class LpuService {
     }
   }
 
+  getLpuList(): Ilpu[] {
+    return this._lpuList;
+  }
+
   public getLpuList$(): Observable<Ilpu[]> {
     return this.httpApp.get(`/${prefix_module}/list`, this.auth.token)
   }

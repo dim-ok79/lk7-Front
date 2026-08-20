@@ -3,7 +3,10 @@
     <mat-icon svgIcon="logo" class="app-svg-logo"></mat-icon>
   </div>
   <div class="app-home-header_exit app-cp" (click)="logout()" >
-    <mat-icon svgIcon="exit" class="app-svg-exit"></mat-icon><span>Выход из ЛК</span>
+    <ng-template #tipContent let-greeting="greeting">Выход из ЛК</ng-template>
+    <mat-icon svgIcon="exit" class="app-svg-exit" placement="left" [ngbTooltip]="tipContent" tooltipClass="tooltipPanel"></mat-icon>
+
+<!--    <mat-icon svgIcon="exit" class="app-svg-exit"></mat-icon><span>Выход из ЛК</span>-->
   </div>
 </div>
 
