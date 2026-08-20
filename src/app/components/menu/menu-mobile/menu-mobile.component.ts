@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, Output, signal, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { IMenu } from '../../../interfaces/menu.interface';
@@ -14,6 +14,7 @@ import { AppMenuService } from '../../../services/menu.service';
 })
 export class MenuMobileComponent {
   menuList: IMenu[] = []; // Список меню
+  @Input() p_isMenuCollapsed = signal<boolean>(true);
 
   constructor(
     private menuS: AppMenuService
@@ -23,6 +24,7 @@ export class MenuMobileComponent {
 
   goToMenu(m: IMenu){
     this.menuS.goToMenu(m);
+    this.p_isMenuCollapsed.set(true); // Скрываем меню
   }
 
 }

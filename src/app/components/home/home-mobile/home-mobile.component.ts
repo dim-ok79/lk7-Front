@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, signal, ViewEncapsulation } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { MenuMobileComponent } from '../../menu/menu-mobile/menu-mobile.component';
@@ -15,7 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
   encapsulation: ViewEncapsulation.None
 })
 export class HomeMobileComponent {
-  isMenuCollapsed = true;
+  isMenuCollapsed = signal<boolean>(true);
   constructor(
     private router: Router
   ){

@@ -4,6 +4,7 @@ import { HomePcComponent } from '../../components/home/home-pc/home-pc.component
 import { HomeMobileComponent } from '../../components/home/home-mobile/home-mobile.component';
 import { CommonModule } from '@angular/common';
 import { LpuService } from '../../services/lpu.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -21,15 +22,28 @@ export class HomeComponent implements OnInit{
   deviceType = signal<string>('');
 
   constructor(
+    private router: Router
   ){
     this.lpuS.loadLpuList()
       .subscribe(res => {
-        this.deviceType.set(this.sizeS.getDeviceType());
-      });
+        this.setDeviceType();
+      },
+        err => {
+          this.setDeviceType();
+        console.log('ERROR');
+        });
   }
 
+  setDeviceType(){
+    this.deviceType.set(this.sizeS.getDeviceType());
+    console.log('HOME this.deviceType()=', this.deviceType());
+    if (this.deviceType() == this.size_mobile()){
+      this.router.navigate(['/home-mobile']);
+    } else {
+    }
+  }
+  
   ngOnInit(): void {
-//    this.deviceType.set(this.size.getDeviceType());
   };
 
   size_pc = ():string => {

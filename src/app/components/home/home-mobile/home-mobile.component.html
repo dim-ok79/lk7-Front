@@ -6,13 +6,13 @@
     </div>
 
     <!-- Кнопка "Бутерброд" -->
-    <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" (click)="isMenuCollapsed.set(!isMenuCollapsed())" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <!-- Выпадающий блок -->
-    <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse" id="navbarSupportedContent">
-      <app-menu-mobile class="navbar-nav ms-auto mb-2 mb-lg-0" style="height: 94vh;"></app-menu-mobile>
+    <div [ngbCollapse]="isMenuCollapsed()" class="collapse navbar-collapse" id="navbarSupportedContent">
+      <app-menu-mobile class="navbar-nav ms-auto mb-2 mb-lg-0" style="height: 94vh;" [p_isMenuCollapsed]="isMenuCollapsed"></app-menu-mobile>
     </div>
   </div>
 </nav>
