@@ -49,6 +49,11 @@
 <div class="modal-footer">
 
   <app-btn class="app-btn-filter"
+           text="Отменить талон"
+           (click)="onCanselRecord()"
+           *ngIf="typeTalon==0">
+  </app-btn>
+  <app-btn class="app-btn-filter"
            text="Закрыть"
            (click)="closeTalon()"
            *ngIf="typeTalon==0">

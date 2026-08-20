@@ -245,4 +245,32 @@ export class TalonComponent implements OnInit{
     this.activeModal.close({record: false, rnumbID: this.rnumbID});
   }
 
+  onCanselRecord(){
+    if (this.rnumbID){
+      this.loading.set(true);
+      this.recordS.getRnumbCancel(this.rnumbID)
+        .subscribe(resCansel => {
+            if (resCansel && resCansel.err_code === 0){
+              this.alert.success('Талон успешно отменен.');
+              this.activeModal.close({record: false, rnumbID: this.rnumbID, canselRes: true}); // Закрываем
+//              this.dialogRef.close({rnumbID: this.params?.rnumbID, canselRes: true});
+            } else {
+              if (resCansel && resCansel.err_text){
+                this.alert.danger(resCansel.err_text);
+              } else {
+                this.alert.danger('Чтото пошло не так, попробуйте позже.');
+              }
+            }
+            this.loading.set(false);
+          },
+          errCansel => {
+            console.error('getRnumbCancel ERRROr=', errCansel);
+            this.loading.set(false);
+          })
+    } else {
+      this.alert.danger('Нет номерка.')
+    }
+
+  }
+
 }

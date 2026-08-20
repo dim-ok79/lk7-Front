@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit{
     } else {
     }
   }
-  
+
   ngOnInit(): void {
   };
 
