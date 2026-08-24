@@ -1,3 +1,12 @@
+.app-modal-header{
+}
+
+.app-modal-title{
+  width: 100%;
+  text-align: center;
+  margin: 0;
+}
+
 .cls-doc{
   img{
     max-width: 110px;
@@ -18,4 +27,15 @@
   display: flex;
   align-content: center;
   flex-wrap: wrap;
+}
+
+.cls-talon-srvList{
+  border-radius: 8px;
+  border: 3px solid #d7cdcd;
+  margin: 8px;
+}
+
+.cls-talon-pay-info{
+  text-align: center;
+  color: #F31111;
 }

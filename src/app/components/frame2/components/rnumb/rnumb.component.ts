@@ -355,8 +355,13 @@ console.log('tmpDt=', tmpDt);
 
   openDialog(rnum: IRnumb): void {
     console.log('Open r=', rnum);
+    console.log('Open doctor=', this.doctor);
 //    console.log('open rnumb=', rnumb);
-    const modalRef = this.modalService.open(TalonComponent);
+    const modalRef = this.modalService.open(TalonComponent, {
+      backdrop: 'static',
+      keyboard: false
+    });
+    modalRef.componentInstance.srvlist = this.doctor?.srvlist;
     modalRef.componentInstance.rnumbID = rnum.rnumbid;
     modalRef.componentInstance.typeTalon = 1; // Запись
 

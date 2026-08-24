@@ -1,15 +1,15 @@
 
 <app-loading [loading]="loading()"></app-loading>
-<div class="modal-header">
+<div class="modal-header app-bg-color">
   <ng-container [ngSwitch]="typeTalon">
     <ng-template [ngSwitchCase]="0">
-      <h4 class="modal-title">Информация о талоне</h4>
+      <h4 class="app-modal-title">Информация о талоне</h4>
     </ng-template>
     <ng-template [ngSwitchCase]="1">
-      <h4 class="modal-title">Запись на талон</h4>
+      <h4 class="app-modal-title">Запись на талон</h4>
     </ng-template>
   </ng-container>
-  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+  <button type="button" class="btn-close" aria-label="Close" (click)="closeModal(false, 'X_click')"></button>
 </div>
 
 <div class="modal-body">
@@ -44,6 +44,14 @@
     </div>
   </div>
 
+  <div class="row cls-talon-srvList" *ngIf="srvlist.length>0">
+    <div class="col-sm-9">{{srvlist[0].text}}</div>
+    <div class="col-sm-3">{{srvlist[0].price}} р.</div>
+  </div>
+  <div class="cls-talon-pay-info">
+    Внимание! Данная услуга обязательна к оплате онлайн. Если услуга не будет оплачена в течение {{WEB_LK_PAY_LIFETIME}} минут, запись на прием будет автоматически удалена.
+  </div>
+
 </div>
 
 <div class="modal-footer">
@@ -60,10 +68,16 @@
   </app-btn>
 
   <app-btn class="app-btn-filter"
-           text="Записаться"
+           text="Записаться к врачу"
            (click)="recordTalon()"
            *ngIf="typeTalon==1">
   </app-btn>
+  <app-btn class="app-btn-filter"
+           text="Оплатить"
+           (click)="goToPay()"
+           *ngIf="recToPay">
+  </app-btn>
+
 
 <!--  <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Закрыть</button>-->
 </div>

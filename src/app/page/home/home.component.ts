@@ -5,10 +5,11 @@ import { HomeMobileComponent } from '../../components/home/home-mobile/home-mobi
 import { CommonModule } from '@angular/common';
 import { LpuService } from '../../services/lpu.service';
 import { Router } from '@angular/router';
+import { NgbdToastGlobal } from '../../utils/toast/toast-global.component';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, HomePcComponent, HomeMobileComponent],
+  imports: [CommonModule, HomePcComponent, HomeMobileComponent, NgbdToastGlobal],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   providers: [],
