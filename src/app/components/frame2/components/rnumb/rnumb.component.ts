@@ -361,7 +361,7 @@ console.log('tmpDt=', tmpDt);
       backdrop: 'static',
       keyboard: false
     });
-    modalRef.componentInstance.srvlist = this.doctor?.srvlist;
+    modalRef.componentInstance.srvlist.set(this.doctor?.srvlist);
     modalRef.componentInstance.rnumbID = rnum.rnumbid;
     modalRef.componentInstance.typeTalon = 1; // Запись
 

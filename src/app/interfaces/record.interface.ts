@@ -120,6 +120,7 @@ export interface ITalonInfo {
   is_telemed: number | null;         // Флаг телемед
   url_telemed: string | null;        // Ссылка на теле-конференцию
   lpu_id? : number;                 // ID ЛПУ
+  doc_dolgnost? : string;         // должность доктора
 }
 
 export interface ITalonResBlStatus {

@@ -6,6 +6,7 @@ import { IServ, ITalonInfo } from '../interfaces/record.interface';
 import { AppHttpService } from './application/app-http.service';
 import { map } from 'rxjs/operators';
 import { strToDate } from '../utils/global.function';
+import { Isrvlist } from '../interfaces/frame2/lpu.interface';
 
 @Injectable({
   providedIn: 'root'
