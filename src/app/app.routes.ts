@@ -8,6 +8,8 @@ import { PaymentsComponent } from './page/payments/payments.component';
 import { RecordComponent } from './page/record/record.component';
 import { HomeMobileComponent } from './components/home/home-mobile/home-mobile.component';
 import { IndexMobileComponent } from './components/home/home-mobile/index-mobile/index-mobile.component';
+import { ActionsPageComponent } from './page/actions-page/actions-page.component';
+import { PolzInformationsComponent } from './page/polz-informations/polz-informations.component';
 
 const routesHomeChildren: Route[] = [
   /**
@@ -38,6 +40,23 @@ const routesHomeChildren: Route[] = [
     path: 'record',
     component: RecordComponent
   },
+  /**
+   * Акции
+   */
+  {
+    path: 'actions',
+    component: ActionsPageComponent
+  },
+  /**
+   * Полезная информация
+   */
+  {
+    path: 'plz-info',
+    component: PolzInformationsComponent
+  },
+
+
+
   ];
 
 export const routes: Routes = [

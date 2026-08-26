@@ -22,8 +22,8 @@ export class AppMenuService {
     this.menuList.push({id: 3, name: 'Медицинская карта', active: false, url: '/rec', svgName: 'medcard', svgNameColor: 'medcard_color', mobile_only: false});
     this.menuList.push({id: 4, name: 'Финансы', active: false, url: '/payments', svgName: 'fin', svgNameColor: 'fin_color', mobile_only: false});
     this.menuList.push({id: 5, name: 'Мой профиль', active: false, url: '/account', svgName: '', svgNameColor: 'myprofil_color', mobile_only: true});
-    this.menuList.push({id: 6, name: 'Акции', active: false, url: '/payments', svgName: '', svgNameColor: 'action_color', mobile_only: true});
-    this.menuList.push({id: 7, name: 'Полезная информация', active: false, url: '/payments', svgName: '', svgNameColor: 'info_color', mobile_only: true});
+    this.menuList.push({id: 6, name: 'Акции', active: false, url: '/actions', svgName: '', svgNameColor: 'action_color', mobile_only: true});
+    this.menuList.push({id: 7, name: 'Полезная информация', active: false, url: '/plz-info', svgName: '', svgNameColor: 'info_color', mobile_only: true});
     this.menuList.push({id: 8, name: 'Выход', active: false, url: 'login', svgName: '', svgNameColor: 'exit_color', mobile_only: true});
 
     this.deviceType.set(this.sizeS.getDeviceType());
