@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-// import {environment} from '../../../environments/environment';
 import {Observable} from "rxjs";
-//import {findValueCookie} from "../../components/application/global.function";
 import {Router} from "@angular/router";
 import {StoreService} from "./store.service";
 import { ConfigService } from './config.service';
@@ -45,6 +43,7 @@ export class AppHttpService {
 console.log('err=', err);
             if ((!err.success && err.error && err.error.data && err.error.data.errorCode && err.error.data.errorCode === 'AuthenticationException') || (err.status === 401)) {
               if (location.pathname.indexOf('/login') === -1) {
+                StoreService.clearAllStore();
                 this.router.navigate(['/login'])
               }
 //              StoreService.clearAllStore();

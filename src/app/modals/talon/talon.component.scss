@@ -1,3 +1,5 @@
+@use 'variables' as v;
+
 .app-modal-header{
 }
 
@@ -9,7 +11,7 @@
 
 .cls-doc{
   img{
-    max-width: 110px;
+    max-width: 150px;
     /*    height: max-content;*/
     height: 100%;
   }
@@ -35,7 +37,7 @@
 
 .srv-name{
   border-radius: 8px;
-  border: 3px solid #66d5cd;
+  border: 3px solid v.$color-btn-bg;
   text-align: center;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -72,4 +74,34 @@
 .cls-talon-pay-info{
   text-align: center;
   color: #F31111;
+}
+
+.modal-footer{
+  display: block;
+}
+
+.app-pay-email{
+  width: 70%;
+  margin-right: 20px;
+}
+.app-pay-summ{
+  color: v.$color-btn-bg; //#676767;
+  border-radius: 8px;
+  border: 3px solid v.$color-btn-bg;
+  padding: 11px;
+  padding-top: 6px;
+  font-size: 22px;
+  display: inline-flex;
+}
+
+.app-input-pay{
+  text-align: center;
+}
+
+.app-btn-pay{
+  text-align: center;
+}
+
+.app-btn-pay > app-btn{
+  margin-right: 8px;
 }

@@ -1,5 +1,6 @@
+@use 'variables' as v;
 .app-btn{
-  background-color: #60bdc2;
+  background-color: v.$color-btn-bg;
   color: white;
   border-width: 3px;
 

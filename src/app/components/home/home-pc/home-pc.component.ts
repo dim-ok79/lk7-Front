@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { NgbdToastGlobal } from '../../../utils/toast/toast-global.component';
 import { AuthService } from '../../../services/auth.service';
 import { IMenu } from '../../../interfaces/menu.interface';
@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MenuComponent } from '../../menu/menu.component';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-home-pc',
@@ -28,7 +28,6 @@ export class HomePcComponent {
     private router: Router
   ){
     this.menuList = this.menuS.getListMenu();
-
   }
 
   goToMenu(m: IMenu){

@@ -21,6 +21,9 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
+            "stylePreprocessorOptions": {
+              "includePaths": ["src"]
+            },
             "browser": "src/main.ts",
 	          "polyfills": ["@angular/localize/init"],
             "tsConfig": "tsconfig.app.json",

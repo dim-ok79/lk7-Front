@@ -1,7 +1,7 @@
 import { Component, inject, Input, OnInit, signal, ViewEncapsulation } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { RnumbService } from '../../services/rnumb.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 import { IResRecord, ITalonInfo, ITalonResAttrs } from '../../interfaces/record.interface';
 import {getNameDay, strToDate} from "../../utils/global.function";
 import { ConfigService } from '../../services/application/config.service';
@@ -21,10 +21,11 @@ import { PaymentsService } from '../../services/payments.service';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
+import { PriceSpacePipe } from '../../directives/priceSpace.pipe';
 
 @Component({
   selector: 'app-talon',
-  imports: [CommonModule, MatIconModule, BtnComponent, LoadingComponent, MatFormFieldModule, MatInputModule, FormsModule],
+  imports: [CommonModule, MatIconModule, BtnComponent, LoadingComponent, MatFormFieldModule, MatInputModule, FormsModule, PriceSpacePipe],
   templateUrl: './talon.component.html',
   styleUrl: './talon.component.scss',
   providers: [NgbdToastGlobal],
@@ -45,6 +46,15 @@ export class TalonComponent implements OnInit{
   patientS = inject(PatientService);
   paymentsS = inject(PaymentsService);
   lpu : Ilpu | null = null;
+  pageStatus = signal<string>('talon'); //
+  /*
+  'talon', - информация о талоне
+   'record' - Запись на талон
+   'pay'  - Оплата талона
+   'payinfo' - после оплаты информация
+   */
+  // ['talon', 'record', 'pay', 'canselOK']; // какую страницу показывать
+
   page = signal<string>('talon'); // ['talon', 'record', 'pay', 'canselOK']; // какую страницу показывать
 
   paymentid: number = 0;  // Номер платежа
@@ -74,7 +84,7 @@ export class TalonComponent implements OnInit{
   }
   talon = signal<ITalonInfo>(this.talonDef);
 
-  payParam: IPay = {phone: '', email: '', sum: 0, abon_id: 0};          // Оплата
+  payParam: IPay = {phone: '', email: '', sum: 123456, abon_id: 0};          // Оплата
   attrTalonRec:ITalonResAttrs | null = null; // Аттрибуты талона
   private paySystemDef = {code: '', requiredFieldCodes: [], isEmail: false, isPhone: false};
   paySystem = signal<IPaySystem>(this.paySystemDef); // Тип платежной системы
@@ -90,13 +100,16 @@ export class TalonComponent implements OnInit{
     this.getInfo(this.rnumbID);
     this.getPatientInfo();
     this.getPaySystem();
-    this.page.set('pay');
+// test
+//    this.pageStatus.set('pay');
   }
 
   /* Получить тип платежной системы телефон почта !*/
   getPaySystem() {
     this.paySystem.set(this.paySystemDef);
 //    this.paySystemField ='';
+// test
+    this.paySystem.update(val => ({...val, isEmail: true}));
 
     this.paymentsS.getPaySystem()
       .subscribe( info => {
@@ -210,10 +223,10 @@ export class TalonComponent implements OnInit{
         s = talon.lastname;
       }
       if (talon.firstname && talon.firstname.length>0){
-        s = s + ' ' + talon.firstname + '.';
+        s = s + ' ' + talon.firstname ;
       }
       if (talon.secondname && talon.secondname.length>0){
-        s = s + ' ' + talon.secondname + '.';
+        s = s + ' ' + talon.secondname;
       }
     }
     return s;
@@ -230,7 +243,8 @@ export class TalonComponent implements OnInit{
           console.log('setRnumbBlStatus res=', res)
           let srvId = null;
           if (this.srvlist() && this.srvlist().length>0){
-            srvId = this.srvlist()[0].keyid
+            srvId = this.srvlist()[0].keyid;
+            this.payParam.sum = this.srvlist()[0].price;
           }
 
           // Записываемся на этот талон
@@ -244,12 +258,13 @@ export class TalonComponent implements OnInit{
                     this.recordS.getAttrs(this.rnumbID, srvId)
                       .subscribe(resAttr => {
                           this.attrTalonRec = resAttr;
-                          this.page.set('record');
+//                          this.page.set('record');
+                          this.pageStatus.set('record');
                           if (resAttr.is_online_pay == 0 && resAttr.is_create_pay_order == 0) {
                             this.recToPay = true;
                             this.isResRecord.recTalon = true;
-                            this.page.set('pay');
                           } else {
+                            this.pageStatus.set('pay');
                             if (resAttr.is_create_pay_order == 1) {
                               if (resAttr.is_telemed == 1) {
                                 this.recordS.getСreateConference(this.rnumbID)
@@ -346,122 +361,13 @@ export class TalonComponent implements OnInit{
           this.loading.set(false);
         }
       );
-
-/*
-      this.paymentid = 0;
-      if (this.params) {
-        let rnumbID = this.params.rnumbID;
-        let srvId: number | null = null;
-        if (this.params && this.params.srv && this.params.srv.keyid){
-          srvId = this.params.srv.keyid;
-          this.payParam.sum = this.params.srv.price;
-        }
-
-        this.recordS.setAppointment(rnumbID, srvId)
-          .subscribe(res => {
-              if (res.err_code == 0){
-                this.f_appoitment = true;
-//              if (this.params && this.params.srv && this.params.srv.keyid && this.params.srv.price > 0) { // С услугой
-                if (this.params && this.params.srv && this.params.srv.keyid) { // С услугой цену проверяет сама процедура 07,02,2023
-                  this.recordS.getAttrs(rnumbID, srvId)
-                    .subscribe(resAttr => {
-                        this.attrTalonRec = resAttr;
-                        if (resAttr.is_online_pay == 0 && resAttr.is_create_pay_order == 0) {
-//                      this.dialogRef.close(true);  // Закрываем
-                          this.recToPay = true;
-                          this.page = 'record';
-                          this.isResRecord.recTalon = true;
-                        } else {
-                          if (resAttr.is_create_pay_order == 1) {
-                            if (resAttr.is_telemed == 1) {
-                              this.recordS.getСreateConference(rnumbID)
-                                .subscribe(resCreateTC => {
-//                                console.info('Create TrueConf=', resCreateTC);
-                                    this.recordS.getCPbyR(rnumbID, srvId)
-                                      .subscribe(resCPbyR => {
-                                          if (resCPbyR.paymentid && resCPbyR.paymentid >0 ) {
-                                            this.paymentid = resCPbyR.paymentid;
-                                            this.recToPay = true;
-                                            this.loading.set(false);
-                                          } else {
-                                            this.loading.set(false);
-                                          }
-                                        },
-                                        errCPbyR => {
-                                          console.error('getCPbyR ERRROr=', errCPbyR);
-                                          this.loading.set(false);
-                                          this.alert.danger(errCPbyR);
-                                          this.dialogRef.close({rnumbID: rnumbID, canselTalon: true});  // Закрываем и отменяем талон
-                                        })
-
-                                  },
-                                  errCreateTC => {
-                                    this.loading.set(false);
-                                    console.error('Create TrueConf ERRROr=', errCreateTC);
-//                                this.alertService.error(errCreateTC);
-                                    this.alert.danger('Ошибка создания видео конференции, попробуйте через 5 минут.');
-                                    this.dialogRef.close({rnumbID: rnumbID, canselTalon: true});  // Закрываем и отменяем талон
-                                  })
-                            } else {
-                              this.recordS.getCPbyR(rnumbID, srvId)
-                                .subscribe(resCPbyR => {
-                                    if (resCPbyR.paymentid) {
-                                      this.paymentid = resCPbyR.paymentid;
-                                      this.recToPay = true;
-                                    }
-                                    this.loading.set(false);
-                                  },
-                                  errCPbyR => {
-                                    this.recToPay = true;
-                                    this.loading.set(false);
-                                    console.error('getCPbyR ERRROr=', errCPbyR);
-                                  })
-                            }
-                          } else {
-                            this.recToPay = true;
-                            if (resAttr.is_online_pay == 1){
-                              this.loading.set(false);
-                            }
-                            if (resAttr.is_online_pay != 1 && resAttr.is_create_pay_order != 1){ // Успешно записан без оплат с услугой
-                              this.loading.set(false);
-                            }
-                          }
-
-                        }
-
-                      },
-                      errAttr => {
-                        this.loading.set(false);
-                        console.error('getAttrs ERRROr=', errAttr);
-                      })
-
-                } else {  // Без услуг
-                  this.loading.set(false);
-                  this.page = 'record';
-                  this.isResRecord.recTalon = true;
-                }
-
-              } else {
-                this.loading.set(false);
-                if (res.err_text){
-                  this.alert.danger(res.err_text);
-                } else {
-                  this.alert.danger('Чтото пошло не так, повторите попытку позже.');
-                }
-              }
-            },
-            err => {
-              this.alert.danger('Чтото пошло не так, повторите попытку позже.');
-              console.error('setAppointment ERRROr=', err);
-            })
-      } else {
-        this.loading.set(false);
-      }
- */
-
   }
 
   goPay(){
+    if (this.paySystem().code.length == 0){
+      this.alert.danger('Извините, платежный сервис временно не работает, попробуйте позже.');
+      return;
+    }
 
     if (this.rnumbID){
       let rnumbID = this.rnumbID;

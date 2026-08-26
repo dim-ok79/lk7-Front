@@ -1,11 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
 import { IPatient } from '../../../../interfaces/patient.interface';
 import { PatientService } from '../../../../services/patient.service';
-import { Router } from '@angular/router';
+import { ActionsComponent } from '../../../actions/actions.component';
 
 @Component({
   selector: 'app-index-mobile',
-  imports: [],
+  imports: [ActionsComponent],
   templateUrl: './index-mobile.component.html',
   styleUrl: './index-mobile.component.scss',
 })

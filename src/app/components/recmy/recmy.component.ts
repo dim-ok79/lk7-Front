@@ -72,14 +72,21 @@ export class RecmyComponent implements OnInit, AfterViewInit{
 
   openTalon(rnumb: IRnumbList){
     console.log('open rnumb=', rnumb);
-    const modalRef = this.modalService.open(TalonComponent);
+    const modalRef = this.modalService.open(TalonComponent, {
+      backdrop: 'static',
+      keyboard: false,
+    });
     modalRef.componentInstance.rnumbID = rnumb.rnumb_id;
     modalRef.componentInstance.typeTalon = 0;
 
     modalRef.result.then(
       (result) => {
         // Действие при закрытии (close)
-        console.log(`Закрыто с результатом: ${result}`);
+        console.log('Закрыто с результатом:', result);
+        if (result.canselRes == true) {
+          this.onClickType(1); // Обновляем список
+        }
+
       },
       (reason) => {
         // Действие при отмене/закрытии крестиком (dismiss)

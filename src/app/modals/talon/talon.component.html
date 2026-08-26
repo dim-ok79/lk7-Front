@@ -1,14 +1,14 @@
 
 <app-loading [loading]="loading()"></app-loading>
 <div class="modal-header app-bg-color">
-  <ng-container [ngSwitch]="typeTalon">
-    <ng-template [ngSwitchCase]="0">
+  <ng-container [ngSwitch]="pageStatus()">
+    <ng-template ngSwitchCase="talon">
       <h4 class="app-modal-title">Информация о талоне</h4>
     </ng-template>
-    <ng-template [ngSwitchCase]="1">
+    <ng-template ngSwitchCase="record">
       <h4 class="app-modal-title">Запись на талон</h4>
     </ng-template>
-    <ng-template [ngSwitchCase]="2">
+    <ng-template ngSwitchCase="pay">
       <h4 class="app-modal-title">Вы забронировали талон</h4>
     </ng-template>
   </ng-container>
@@ -18,12 +18,15 @@
 <div class="modal-body">
 
   <div class="cls-doc row">
-    <div class="col-3">
+    <div class="col-3" style="text-align: center;">
       <img [src]="imgS.getImgSrcDoc(talon()?.doctor_id)" (error)="imgS.errorHandlerIMG($event, 'doc')"
            class="cls-img-doc-photo"
-           height="100%" width="auto">
+           height="auto" width="100%">
     </div>
-    <div class="col-9">
+    <div class="col-9" style="display: flex;
+    align-content: space-between;
+    justify-content: center;
+    flex-direction: column;">
       <div class="cls-ta-center cls-doc-fio">{{getFIODoc(talon())}}</div>
       <div class="cls-ta-center cls-doc-spec">{{talon().doc_dolgnost}}</div>
       <div class="cls-ta-center cls-doc-spec">{{talon().spec}}</div>
@@ -41,7 +44,7 @@
       </div>
       <div class="icon-info srv-price" >
         <mat-icon svgIcon="price" *ngIf="srvlist().length>0"></mat-icon>
-        <span *ngIf="srvlist().length>0">Стоимость услуги:{{srvlist()[0]?.price }} р.</span>
+        <span *ngIf="srvlist().length>0">Стоимость услуги: {{srvlist()[0]?.price | priceSpace:'.2'}} р.</span>
       </div>
     </div>
     <div class="col-md-5">
@@ -57,10 +60,10 @@
   </div>
 
 
-  <ng-container [ngSwitch]="page()">
+  <ng-container [ngSwitch]="pageStatus()">
     <ng-template ngSwitchCase="pay">
       <div class="cls-talon-pay-info">
-        Внимание! Данная услуга обязательна к оплате онлайн. Если услуга не будет оплачена в течение {{WEB_LK_PAY_LIFETIME}} минут, запись на прием будет автоматически удалена.
+        Внимание! <br>Данная услуга обязательна к оплате онлайн. Если услуга не будет оплачена в течение {{WEB_LK_PAY_LIFETIME}} минут, запись на прием будет автоматически удалена.
       </div>
     </ng-template>
 
@@ -70,22 +73,52 @@
 
 <div class="modal-footer">
 
-  <ng-container [ngSwitch]="page()">
+  <ng-container [ngSwitch]="pageStatus()">
     <ng-template ngSwitchCase="pay">
-      <mat-form-field class="cls-pay-email" *ngIf="paySystem()?.isEmail">
-        <input matInput cdkFocusInitial placeholder="Адрес почты" [(ngModel)]="payParam.email" class="cls-pay-input">
-        <mat-hint align="start">Почта для получения чека</mat-hint>
-      </mat-form-field>
+        <div class="app-input-pay row">
+          <div class="col-sm-8">
+            <mat-form-field class="app-pay-email" *ngIf="paySystem()?.isEmail">
+              <input matInput cdkFocusInitial placeholder="Адрес почты" [(ngModel)]="payParam.email" class="cls-pay-input">
+              <mat-hint align="start">Почта для получения чека</mat-hint>
+            </mat-form-field>
+          </div>
 
-      <app-btn class="app-btn-filter"
-               text="Оплатить"
-               (click)="goPay()">
-      </app-btn>
-      <app-btn class="app-btn-filter"
-               text="Оплатить позже"
-               [isBtnSecond]='true'
-               (click)="closeTalon()">
-      </app-btn>
+          <div class="col-sm-4">
+          <span class="app-pay-summ">
+            {{payParam.sum | priceSpace:'.2'}} руб.
+          </span>
+
+          </div>
+        </div>
+
+        <div class="app-btn-pay">
+        <app-btn class="app-btn-filter"
+                 text="Оплатить"
+                 (click)="goPay()">
+        </app-btn>
+        <app-btn class="app-btn-filter"
+                 text="Оплатить позже"
+                 [isBtnSecond]='true'
+                 (click)="closeTalon()">
+        </app-btn>
+
+      </div>
+
+    </ng-template>
+
+    <ng-template ngSwitchCase="talon">
+      <div style="text-align: center;">
+        <app-btn class="app-btn-filter"
+                 text="Записаться к врачу"
+                 (click)="recordTalon()"
+                 *ngIf="typeTalon==1">
+        </app-btn>
+        <app-btn class="app-btn-filter"
+                 text="Закрыть"
+                 (click)="closeTalon()"
+                 *ngIf="typeTalon==0">
+        </app-btn>
+      </div>
     </ng-template>
 
     <ng-template ngSwitchDefault>
@@ -93,16 +126,6 @@
                text="Отменить талон"
                (click)="onCanselRecord()"
                *ngIf="typeTalon==0">
-      </app-btn>
-      <app-btn class="app-btn-filter"
-               text="Закрыть"
-               (click)="closeTalon()"
-               *ngIf="typeTalon==0">
-      </app-btn>
-      <app-btn class="app-btn-filter"
-               text="Записаться к врачу"
-               (click)="recordTalon()"
-               *ngIf="typeTalon==1">
       </app-btn>
     </ng-template>
 

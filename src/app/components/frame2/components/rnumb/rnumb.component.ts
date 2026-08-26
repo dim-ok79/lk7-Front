@@ -359,7 +359,8 @@ console.log('tmpDt=', tmpDt);
 //    console.log('open rnumb=', rnumb);
     const modalRef = this.modalService.open(TalonComponent, {
       backdrop: 'static',
-      keyboard: false
+      keyboard: false,
+      modalDialogClass: 'cls-modal-talon-width'
     });
     modalRef.componentInstance.srvlist.set(this.doctor?.srvlist);
     modalRef.componentInstance.rnumbID = rnum.rnumbid;

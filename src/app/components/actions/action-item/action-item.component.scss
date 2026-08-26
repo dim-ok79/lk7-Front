@@ -1,0 +1,10 @@
+
+.app-action-item > img{
+  max-width: 100%;
+}
+
+@media (max-width: 600px) {
+  .app-action-item{
+    margin: 30px;
+  }
+}
