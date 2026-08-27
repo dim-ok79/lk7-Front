@@ -15,61 +15,86 @@
     <ng-container *ngIf="getCurrentTypeMyRec().id>1; then showHistory else showHistoryPred"></ng-container>
 
     <ng-template #showHistory>
-      <app-panel-table-pagination nameBlock="" (onChangePeriod)="changePeriod($event)"
-                                  [dtBegin]="dtBegin"
-                                  [dtEnd]="dtEnd"
-                                  textItogo=""
-                                  [CountRec]="historyCountRec()"
-                                  [CountRecPage]="historyCountRectoPage"
-                                  (onChangedPage)="changedPage($event)"
-      >
+      <ng-container [ngSwitch]="deviceType()">
+        <ng-template [ngSwitchCase]="sizeS.pc">
+          <app-panel-table-pagination nameBlock="" (onChangePeriod)="changePeriod($event)"
+                                      [dtBegin]="dtBegin"
+                                      [dtEnd]="dtEnd"
+                                      textItogo=""
+                                      [CountRec]="historyCountRec()"
+                                      [CountRecPage]="historyCountRectoPage"
+                                      (onChangedPage)="changedPage($event)"
+          >
 
-        <ng-container *ngIf="historyCountRec()>0; then showTable else showNotRec"></ng-container>
+            <ng-container *ngIf="historyCountRec()>0; then showTable else showNotRec"></ng-container>
 
-        <ng-template #showNotRec>
-          <div class="cls-not-rec"> Нет завершенных посещений</div>
+            <ng-template #showNotRec>
+              <div class="cls-not-rec"> Нет завершенных посещений</div>
+            </ng-template>
+
+            <ng-template #showTable>
+              <div class="tableFixHead">
+                <table class="table table-borderless table-hover table-fixed">
+                  <thead>
+                  <tr>
+                    <th scope="col" class="app-bg-color cls-header-table-dt logout-td-yeer" >Дата посещения</th>
+                    <th scope="col" class="app-bg-color app-table-th-center">Врач</th>
+                    <th scope="col" class="app-bg-color app-table-th-center">Услуга</th>
+                    <th scope="col" class="app-bg-color app-table-th-center">Оценить</th>
+                    <th scope="col" class="app-bg-color app-table-th-center">Документы</th>
+                  </tr>
+                  </thead>
+                  <tbody [style.max-height.px]="testHeightBlock()">
+                  <tr *ngFor="let his of historyList()">
+                    <td class="logout-td-yeer">
+                      {{getTekDay(his.dtSort)}} в {{getTime(his.dtSort)}}
+                      <div style="color: #c5c5c5;">{{getNameDay(his.dtSort)}}</div>
+                    </td>
+                    <td class="logout-td-text">{{his.doctor}}</td>
+                    <td class="logout-td-text">{{his.typetext}}</td>
+                    <td class="logout-td-text">
+                      <app-btn class="app-btn-filter"
+                               text="Оценить врача"
+                      >
+                      </app-btn>
+                    </td>
+                    <td class="logout-td-info">
+                      <mat-icon svgIcon="pdf" class="cls-mat-icon cls-mat-icon-info app-icon-info"
+                                (click)="gotToDownload(his.keyid, his.typehistory)">
+
+                      </mat-icon>
+                    </td>
+                  </tr>
+
+                  </tbody>
+                </table>
+              </div>
+            </ng-template>
+
+          </app-panel-table-pagination>
+
         </ng-template>
 
-        <ng-template #showTable>
-          <div class="tableFixHead">
-            <table class="table table-borderless table-hover table-fixed">
-              <thead>
-              <tr>
-                <th scope="col" class="app-bg-color cls-header-table-dt logout-td-yeer" >Дата посещения</th>
-                <th scope="col" class="app-bg-color app-table-th-center">Врач</th>
-                <th scope="col" class="app-bg-color app-table-th-center">Услуга</th>
-                <th scope="col" class="app-bg-color app-table-th-center">Оценить</th>
-                <th scope="col" class="app-bg-color app-table-th-center">Документы</th>
-              </tr>
-              </thead>
-              <tbody [style.max-height.px]="testHeightBlock()">
-              <tr *ngFor="let his of historyList()">
-                <td class="logout-td-yeer">
-                  {{getTekDay(his.dtSort)}} в {{getTime(his.dtSort)}}
-                  <div style="color: #c5c5c5;">{{getNameDay(his.dtSort)}}</div>
-                </td>
-                <td class="logout-td-text">{{his.doctor}}</td>
-                <td class="logout-td-text">{{his.typetext}}</td>
-                <td class="logout-td-text">
-                  <app-btn class="app-btn-filter"
-                           text="Оценить врача"
-                           >
-                  </app-btn>
-                </td>
-                <td class="logout-td-info">
-                  <mat-icon svgIcon="pdf" class="cls-mat-icon cls-mat-icon-info app-icon-info"
-                            (click)="gotToDownload(his.keyid, his.typehistory)">
+        <ng-template [ngSwitchCase]="sizeS.mobile">
+          <div class="row" style="margin-top: 15px; text-align: left;">
+            <app-block-mobile class="col-sm-6" style="margin-bottom: 15px"
+                              *ngFor="let his of historyList()">
+              <div>Дата посещения: {{getTekDay(his.dtSort)}} в {{getTime(his.dtSort)}}</div>
+              <div>Врач: {{his.doctor}}</div>
+              <div>Услуга: {{his.typetext}}</div>
+              <div style="display: flex">
+                <mat-icon svgIcon="pdf" class="col-6 cls-mat-icon cls-mat-icon-info app-icon-info"
+                          (click)="gotToDownload(his.keyid, his.typehistory)">
 
-                  </mat-icon>
-                </td>
-              </tr>
+                </mat-icon>
+                <span style="margin-top: 30px" (click)="gotToDownload(his.keyid, his.typehistory)">Скачать документ</span>
+              </div>
 
-              </tbody>
-            </table>
+            </app-block-mobile>
           </div>
         </ng-template>
 
-      </app-panel-table-pagination>
+      </ng-container>
 
     </ng-template>
 
@@ -122,25 +147,6 @@
               <div>Дата посещения: {{getTekDay(rnumb.beginDate!)}} в {{getTime(rnumb.beginDate!)}}</div>
               <div>Кабинет: {{rnumb.cab}}</div>
               <div>Врач: {{getFIODoc(rnumb.lastname, rnumb.firstname, rnumb.secondname)}}</div>
-
-              <!--
-                            <div class="row">
-                              <div class="col-6">
-                                <div>Дата посещения</div>
-                                <div>{{getTekDay(rnumb.beginDate!)}} в {{getTime(rnumb.beginDate!)}}</div>
-                              </div>
-                              <div class="col-6">
-                                <div>Врач</div>
-                                <div>{{getFIODoc(rnumb.lastname, rnumb.firstname, rnumb.secondname)}}</div>
-                              </div>
-                              <ng-template *ngIf="rnumb.srv_text">
-                                <div>Услуга</div>
-                                <div>{{rnumb.srv_text}}</div>
-                              </ng-template>
-
-                            </div>
-              -->
-
             </app-block-mobile>
           </div>
 
