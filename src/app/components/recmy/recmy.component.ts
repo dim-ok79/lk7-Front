@@ -23,10 +23,13 @@ import { ConfigService } from '../../services/application/config.service';
 import { TalonComponent } from '../../modals/talon/talon.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BtnComponent } from '../common/btn/btn.component';
+import { Size } from '../../services/size';
+import { BlockMobileComponent } from '../common/block-mobile/block-mobile.component';
+import { ITalonInfo } from '../../interfaces/record.interface';
 
 @Component({
   selector: 'app-recmy',
-  imports: [CommonModule, PanelTablePaginationComponent, MatIconModule, BtnComponent],
+  imports: [CommonModule, PanelTablePaginationComponent, MatIconModule, BtnComponent, BlockMobileComponent],
   templateUrl: './recmy.component.html',
   styleUrl: './recmy.component.scss',
   encapsulation: ViewEncapsulation.None
@@ -35,6 +38,9 @@ import { BtnComponent } from '../common/btn/btn.component';
 export class RecmyComponent implements OnInit, AfterViewInit{
   @ViewChild('ContentBlockLog') ContentBlocklogEL: ElementRef|undefined;
   private modalService = inject(NgbModal);
+
+  public sizeS = inject(Size);
+  deviceType = signal<string>('');
 
   testHeightBlock = signal(100);
 
@@ -51,11 +57,14 @@ export class RecmyComponent implements OnInit, AfterViewInit{
   historyCountRec = signal(0);            // Всего записей
   rnumbCountRec = signal(0);            // Всего записей
 
+  private configS = inject(ConfigService);
+  private historyS = inject(HistoryService);
+  private rnumbS = inject(RnumbService);
+
   constructor(
-    private historyS: HistoryService,
-    private rnumbS: RnumbService,
-    private configS: ConfigService,
   ){
+    this.setDeviceType();
+
     this.dtBegin = new Date();
     this.dtEnd = new Date();
     this.dtBegin.setDate(this.dtBegin.getDate() - 30);
@@ -69,6 +78,9 @@ export class RecmyComponent implements OnInit, AfterViewInit{
     this.calcTableH();
   };
 
+  setDeviceType(){
+    this.deviceType.set(this.sizeS.getDeviceType());
+  }
 
   openTalon(rnumb: IRnumbList){
     console.log('open rnumb=', rnumb);
@@ -205,5 +217,18 @@ export class RecmyComponent implements OnInit, AfterViewInit{
     return getTime(dt);
   }
 
+  getFIODoc(lastname: string, firstname: string, secondname:string): string{
+    let s = '';
+      if (lastname && lastname.length>0){
+        s = lastname;
+      }
+      if (firstname && firstname.length>0){
+        s = s + ' ' + firstname[0] + '.';
+      }
+      if (secondname && secondname.length>0){
+        s = s + ' ' + secondname[0] + '.';
+      }
+    return s;
+  }
 
 }

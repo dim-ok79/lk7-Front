@@ -1,22 +1,14 @@
-<div style="height: 90vh" #ContentBlockLog>
-  <span>МОИ ПОСЕЩЕНИЯ</span>
+<div class="app-mobile-text-center" style="height: 90vh" #ContentBlockLog>
+  <div >МОИ ПОСЕЩЕНИЯ</div>
   <div *ngIf="loading()" class="loading"><img src="./assets/loading.gif" alt="Загрузка..."></div>
 
   <div>
-<!--
-    <button *ngFor="let typeMR of typeMyRec();"
-            class="btn app-btn-filter"
-            [ngClass]="{ 'active': typeMR.active}"
-            (click)="onClickType(typeMR.id)">{{typeMR.name}}
-    </button>
--->
     <app-btn class="app-btn-filter" *ngFor="let typeMR of typeMyRec();"
             [text]="typeMR.name"
             [active]="typeMR.active"
             (click)="onClickType(typeMR.id)">
     </app-btn>
 
-<!--    <app-btn text="Примерр" (click)="onClickType(5)"></app-btn>-->
   </div>
 
   <div>
@@ -82,43 +74,80 @@
     </ng-template>
 
     <ng-template #showHistoryPred>
-      <app-panel-table-pagination nameBlock="asdas" (onChangePeriod)="changePeriod($event)"
-                                  textItogo=""
-                                  textNotREC="Нет Пасещений"
-                                  [HeaderHide]="true"
-                                  [CountRec]="rnumbCountRec()"
-                                  [CountRecPage]="historyCountRectoPage"
-                                  (onChangedPage)="changedPage($event)"
-      >
+      <ng-container [ngSwitch]="deviceType()">
+        <ng-template [ngSwitchCase]="sizeS.pc">
+          <app-panel-table-pagination (onChangePeriod)="changePeriod($event)"
+                                      textNotREC="Нет Пасещений"
+                                      [HeaderHide]="true"
+                                      [CountRec]="rnumbCountRec()"
+                                      [CountRecPage]="historyCountRectoPage"
+                                      (onChangedPage)="changedPage($event)"
+          >
 
-          <div class="tableFixHead">
-            <table class="table table-borderless table-hover table-fixed">
-              <thead>
-              <tr>
-                <th scope="col" class="app-bg-color cls-header-table-dt logout-td-yeer" >Дата посещения</th>
-                <th scope="col" class="app-bg-color app-table-th-center">Кабинет</th>
-                <th scope="col" class="app-bg-color app-table-th-center">Врач</th>
-                <th scope="col" class="app-bg-color app-table-th-center">Услуга</th>
-                <th scope="col" class="app-bg-color app-table-th-center">Отделение</th>
-              </tr>
-              </thead>
-              <tbody [style.max-height.px]="testHeightBlock()">
-              <tr *ngFor="let rnumb of rnumbList()"  (click)="openTalon(rnumb)" class="app-cp">
-                <td class="logout-td-yeer">
-                  {{getTekDay(rnumb.beginDate!)}} в {{getTime(rnumb.beginDate!)}}
-                  <div style="color: #c5c5c5;">{{getNameDay(rnumb.beginDate!)}}</div>
-                </td>
-                <td class="logout-td-text">{{rnumb.cab}}</td>
-                <td class="logout-td-text">{{rnumb.lastname}} {{rnumb.firstname}} {{rnumb.secondname}}</td>
-                <td class="logout-td-text">{{rnumb.srv_text}}</td>
-                <td class="logout-td-text">{{rnumb.spec}}</td>
-              </tr>
+            <div class="tableFixHead">
+              <table class="table table-borderless table-hover table-fixed">
+                <thead>
+                <tr>
+                  <th scope="col" class="app-bg-color cls-header-table-dt logout-td-yeer" >Дата посещения</th>
+                  <th scope="col" class="app-bg-color app-table-th-center">Кабинет</th>
+                  <th scope="col" class="app-bg-color app-table-th-center">Врач</th>
+                  <th scope="col" class="app-bg-color app-table-th-center">Услуга</th>
+                  <th scope="col" class="app-bg-color app-table-th-center">Отделение</th>
+                </tr>
+                </thead>
+                <tbody [style.max-height.px]="testHeightBlock()">
+                <tr *ngFor="let rnumb of rnumbList()"  (click)="openTalon(rnumb)" class="app-cp">
+                  <td class="logout-td-yeer">
+                    {{getTekDay(rnumb.beginDate!)}} в {{getTime(rnumb.beginDate!)}}
+                    <div style="color: #c5c5c5;">{{getNameDay(rnumb.beginDate!)}}</div>
+                  </td>
+                  <td class="logout-td-text">{{rnumb.cab}}</td>
+                  <td class="logout-td-text">{{rnumb.lastname}} {{rnumb.firstname}} {{rnumb.secondname}}</td>
+                  <td class="logout-td-text">{{rnumb.srv_text}}</td>
+                  <td class="logout-td-text">{{rnumb.spec}}</td>
+                </tr>
 
-              </tbody>
-            </table>
+                </tbody>
+              </table>
+            </div>
+
+          </app-panel-table-pagination>
+
+        </ng-template>
+
+        <ng-template [ngSwitchCase]="sizeS.mobile">
+          <div class="row" style="margin-top: 15px; text-align: left;">
+            <app-block-mobile class="col-sm-6" style="margin-bottom: 15px"
+                              *ngFor="let rnumb of rnumbList()" (click)="openTalon(rnumb)">
+              <div>Дата посещения: {{getTekDay(rnumb.beginDate!)}} в {{getTime(rnumb.beginDate!)}}</div>
+              <div>Кабинет: {{rnumb.cab}}</div>
+              <div>Врач: {{getFIODoc(rnumb.lastname, rnumb.firstname, rnumb.secondname)}}</div>
+
+              <!--
+                            <div class="row">
+                              <div class="col-6">
+                                <div>Дата посещения</div>
+                                <div>{{getTekDay(rnumb.beginDate!)}} в {{getTime(rnumb.beginDate!)}}</div>
+                              </div>
+                              <div class="col-6">
+                                <div>Врач</div>
+                                <div>{{getFIODoc(rnumb.lastname, rnumb.firstname, rnumb.secondname)}}</div>
+                              </div>
+                              <ng-template *ngIf="rnumb.srv_text">
+                                <div>Услуга</div>
+                                <div>{{rnumb.srv_text}}</div>
+                              </ng-template>
+
+                            </div>
+              -->
+
+            </app-block-mobile>
           </div>
 
-      </app-panel-table-pagination>
+        </ng-template>
+
+      </ng-container>
+
     </ng-template>
 
 
