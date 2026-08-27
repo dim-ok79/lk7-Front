@@ -2,54 +2,92 @@
 <div class="loading-group">
   <div *ngIf="loading()" class="loading"><img src="./assets/loading.gif" alt="Загрузка..."></div>
 
-  <app-panel-table-pagination nameBlock="ВХОД В ЛИЧНЫЙ КАБИНЕТ" (onChangePeriod)="changePeriod($event)"
-                              [dtBegin]="dtBegin"
-                              [dtEnd]="dtEnd"
-                              textItogo="входов"
-                              [CountRec]="patientLogsCountRec()"
-                              [CountRecPage]="patientLogsCountRectoPage"
-                              (onChangedPage)="changedPage($event)"
-  >
+  <ng-container [ngSwitch]="deviceType()">
+    <ng-template [ngSwitchCase]="sizeS.pc">
+      <app-panel-table-pagination nameBlock="ВХОД В ЛИЧНЫЙ КАБИНЕТ" (onChangePeriod)="changePeriod($event)"
+                                  [dtBegin]="dtBegin"
+                                  [dtEnd]="dtEnd"
+                                  [CountRec]="patientLogsCountRec()"
+                                  [CountRecPage]="patientLogsCountRectoPage"
+                                  (onChangedPage)="changedPage($event)"
+      >
 
-    <ng-container *ngIf="patientLogsCountRec()>0; then showTable else showNotRec"></ng-container>
+        <ng-container *ngIf="patientLogsCountRec()>0; then showTable else showNotRec"></ng-container>
 
-    <ng-template #showNotRec>
-      <div class="cls-not-rec"> Нет входов</div>
-    </ng-template>
+        <ng-template #showNotRec>
+          <div class="cls-not-rec"> Нет входов</div>
+        </ng-template>
 
-    <ng-template #showTable>
-      <div class="tableFixHead">
-      <table class="table table-borderless table-hover table-fixed">
-        <thead>
-        <tr>
-          <th scope="col" class="app-bg-color cls-header-table-dt logout-td-yeer" >Дата и время</th>
-          <th scope="col" class="app-bg-color logout-td-text">Событие</th>
-          <th scope="col" class="app-bg-color logout-td-info">Инфо</th>
-        </tr>
-        </thead>
-        <tbody [style.height.px]="testHeightBlock()">
-        <tr *ngFor="let log of patientLogs">
-          <td class="logout-td-yeer">{{getDateTime(log.date)}}</td>
-          <td class="logout-td-text">{{log.text}}</td>
-          <td class="logout-td-info">
-            <ng-template #tipContent let-greeting="greeting">OS: {{log.os}} <br>Браузер: {{log.browser}}<br> IP адрес:{{log.ip_address}}</ng-template>
-            <mat-icon svgIcon="logInfo" class="cls-mat-icon cls-mat-icon-info app-icon-info" placement="left" [ngbTooltip]="tipContent" tooltipClass="tooltipPanel"></mat-icon>
-          </td>
-        </tr>
-
-        <!--
-            <ng-container *ngFor="let serv of servicesList;let i = index">
-              <tr *ngIf="isBlockYear(i);">
-                <td colspan="6" class="cls-td-yeer">{{getYear(i)}}</td>
+        <ng-template #showTable>
+          <div class="tableFixHead">
+            <table class="table table-borderless table-hover table-fixed">
+              <thead>
+              <tr>
+                <th scope="col" class="app-bg-color cls-header-table-dt logout-td-yeer" >Дата и время</th>
+                <th scope="col" class="app-bg-color logout-td-text">Событие</th>
+                <th scope="col" class="app-bg-color logout-td-info">Инфо</th>
               </tr>
-            </ng-container>
-        -->
-        </tbody>
-      </table>
+              </thead>
+              <tbody [style.height.px]="testHeightBlock()">
+              <tr *ngFor="let log of patientLogs">
+                <td class="logout-td-yeer">{{getDateTime(log.date)}}</td>
+                <td class="logout-td-text">{{log.text}}</td>
+                <td class="logout-td-info">
+                  <ng-template #tipContent let-greeting="greeting">OS: {{log.os}} <br>Браузер: {{log.browser}}<br> IP адрес:{{log.ip_address}}</ng-template>
+                  <mat-icon svgIcon="logInfo" class="cls-mat-icon cls-mat-icon-info app-icon-info" placement="left" [ngbTooltip]="tipContent" tooltipClass="tooltipPanel"></mat-icon>
+                </td>
+              </tr>
+
+              <!--
+                  <ng-container *ngFor="let serv of servicesList;let i = index">
+                    <tr *ngIf="isBlockYear(i);">
+                      <td colspan="6" class="cls-td-yeer">{{getYear(i)}}</td>
+                    </tr>
+                  </ng-container>
+              -->
+              </tbody>
+            </table>
+          </div>
+        </ng-template>
+
+
+      </app-panel-table-pagination>
+
+    </ng-template>
+    <ng-template [ngSwitchCase]="sizeS.mobile">
+      <p style="margin-top: 15px; text-align: center">ВХОД В ЛИЧНЫЙ КАБИНЕТ</p>
+      <div class="row">
+        <app-block-mobile class="col-sm-6" style="margin-bottom: 15px"
+                          *ngFor="let log of patientLogs">
+          <div class="row">
+            <div class="col-10 app-block-lg-text">
+              <div>Дата и время</div>
+              <div>{{getDateTime(log.date)}}</div>
+              <br/>
+              <div>Событие</div>
+              <div>{{log.text}}</div>
+            </div>
+            <div class="col-2 app-block-lg-info">
+              <ng-template #tipContent let-greeting="greeting">OS: {{log.os}} <br>Браузер: {{log.browser}}<br> IP адрес:{{log.ip_address}}</ng-template>
+              <mat-icon svgIcon="logInfo" class="cls-mat-icon cls-mat-icon-info app-icon-info" placement="left" [ngbTooltip]="tipContent" tooltipClass="tooltipPanel"></mat-icon>
+            </div>
+          </div>
+
+        </app-block-mobile>
       </div>
+      <app-pagination
+        textItogo="активностей"
+        [currentPage]="1"
+        [countRecPage]="patientLogsCountRectoPage"
+        [countRec]="patientLogsCountRec()"
+        (onChangedPage)="changedPage($event)">
+      </app-pagination>
+
     </ng-template>
 
-  </app-panel-table-pagination>
+  </ng-container>
+
+
 
 </div>
 

@@ -66,45 +66,6 @@ MJF1R5QSAC
         }
       )
 
-/*
-    this.auth.login$(this.frm.username, this.frm.password)
-      .subscribe(
-        (result: any) => {
-console.log('$$result=', result);
-          if (result.token && result.patientId) {
-            this.loading = false;
-            this.tmpToken = {token: result.token, patientId: result.patientId};
-            this.paS.loadServer(result.token)
-              .subscribe(res=>{
-                  if (result.ext){
-                    // @ts-ignore
-                    this.tmpToken.ext = result.ext;
-                  }
-//                  this.showDoglist = true;
-
-                },
-                err=>{
-                  if (result.ext){
-                    // @ts-ignore
-                    this.tmpToken.ext = result.ext;
-                  }
-//                  this.showDoglist = true;
-
-                });
-//            this.loginDoc(result.token);
-          }
-        },
-        (error: any) => {
-          if (error.error && error.error.data && error.error.data.errorMsg) {
-//            this.errText = error.error.data.errorMsg;
-            this.onError.emit(error.error.data.errorMsg);
-          } else {
-            this.onError.emit('Неверный логин или пароль');
-          };
-          this.loading = false;
-        }
-      )
-*/
   }
 
 

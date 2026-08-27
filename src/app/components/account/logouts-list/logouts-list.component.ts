@@ -1,7 +1,7 @@
 import {
   AfterViewInit,
   Component,
-  ElementRef,
+  ElementRef, inject,
   Input,
   signal,
   viewChild,
@@ -17,11 +17,14 @@ import { IInetuserLog } from '../../../interfaces/patient.interface';
 import { dateMinusDay, strToDate } from '../../../utils/global.function';
 import { MatIconModule} from '@angular/material/icon';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { Size } from '../../../services/size';
+import { PaginationComponent } from '../../common/pagination/pagination.component';
+import { BlockMobileComponent } from '../../common/block-mobile/block-mobile.component';
 
 
 @Component({
   selector: 'app-logouts-list',
-  imports: [CommonModule, PanelTablePaginationComponent, MatIconModule, NgbTooltipModule ],
+  imports: [CommonModule, PanelTablePaginationComponent, MatIconModule, NgbTooltipModule, PaginationComponent, BlockMobileComponent ],
   templateUrl: './logouts-list.component.html',
   styleUrl: './logouts-list.component.scss',
   encapsulation: ViewEncapsulation.None,
@@ -29,6 +32,9 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 })
 export class LogoutsListComponent implements AfterViewInit {
 //  @Input() HeightBlock = 0;      // указать высоту блока
+  public sizeS = inject(Size);
+
+  deviceType = signal<string>('');
 
   _HeightBlock: number = 0;
   @Input()      // Высота блока
@@ -72,7 +78,7 @@ export class LogoutsListComponent implements AfterViewInit {
     this.dtEnd = dateMinusDay(new Date(), 0);
     this.dtBegin = dateMinusDay(this.dtEnd, 20);
     this.getPatientLog(1, this.patientLogsCountRectoPage, this.dtBegin, this.dtEnd);
-
+    this.setDeviceType();
   }
 
   ngAfterViewInit() {
@@ -89,6 +95,10 @@ console.log('EL=', el)
     }
 */
 
+  }
+
+  setDeviceType(){
+    this.deviceType.set(this.sizeS.getDeviceType());
   }
 
   getLogSize(){

@@ -2,7 +2,6 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
-  HostListener,
   OnInit, signal,
   ViewChild,
   ViewEncapsulation
@@ -24,9 +23,15 @@ export class AccountComponent implements AfterViewInit {
   @ViewChild('ContentBlockLog') ContentBlocklogEL: ElementRef|undefined;
   public varHeightBlock = signal(0);
 
+
+  constructor(
+  ){
+  }
+
   ngAfterViewInit() {
     this.calcTableH();
   };
+
 
 
   /* расчет высоты блока относительно */
@@ -64,4 +69,5 @@ export class AccountComponent implements AfterViewInit {
     this.isShown.update((value) => !value);
   }
 */
+
 }

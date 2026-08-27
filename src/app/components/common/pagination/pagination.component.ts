@@ -155,4 +155,11 @@ console.log('this.arrayPage=', this.arrayPage);
     }
   }
 
+  isShowTextItogo(): boolean{
+    if (this.textItogo == ''){
+      return false;
+    } else {
+      return true;
+    }
+  }
 }

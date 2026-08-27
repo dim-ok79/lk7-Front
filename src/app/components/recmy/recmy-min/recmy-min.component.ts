@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import {getTekDay, getNameDay, getTime} from "../../../utils/global.function";
 import { TalonComponent } from '../../../modals/talon/talon.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import moment from 'moment';
 
 @Component({
   selector: 'app-recmy-min',
@@ -65,6 +66,10 @@ export class RecmyMinComponent implements OnInit{
         console.log(`Отклонено по причине: ${reason}`);
       }
     );
+  }
+
+  formatDate(dt: Date): string {
+    return moment(dt).format('DD.MM.YYYY HH:mm');
   }
 
 }

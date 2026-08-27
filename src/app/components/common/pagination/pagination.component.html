@@ -1,7 +1,4 @@
-<!--
-<div class="cls-pg-itogo">{{_countRec}} {{textItogo}}</div>
--->
-<div class="cls-pg-itogo">{{_countRec}} {{getTextItogo()}}</div>
+<div class="cls-pg-itogo" *ngIf="isShowTextItogo()">{{_countRec}} {{getTextItogo()}}</div>
 <ul class="cls-pagination" *ngIf="countPage>0">
   <li class="cls-pag-first" (click)="prevPage()"> < </li>
 

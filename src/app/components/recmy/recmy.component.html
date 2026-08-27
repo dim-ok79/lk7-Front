@@ -26,7 +26,7 @@
       <app-panel-table-pagination nameBlock="" (onChangePeriod)="changePeriod($event)"
                                   [dtBegin]="dtBegin"
                                   [dtEnd]="dtEnd"
-                                  textItogo="посещений"
+                                  textItogo=""
                                   [CountRec]="historyCountRec()"
                                   [CountRecPage]="historyCountRectoPage"
                                   (onChangedPage)="changedPage($event)"
@@ -82,8 +82,8 @@
     </ng-template>
 
     <ng-template #showHistoryPred>
-      <app-panel-table-pagination nameBlock="" (onChangePeriod)="changePeriod($event)"
-                                  textItogo="посещений"
+      <app-panel-table-pagination nameBlock="asdas" (onChangePeriod)="changePeriod($event)"
+                                  textItogo=""
                                   textNotREC="Нет Пасещений"
                                   [HeaderHide]="true"
                                   [CountRec]="rnumbCountRec()"
