@@ -6,10 +6,11 @@ import {getTekDay, getNameDay, getTime} from "../../../utils/global.function";
 import { TalonComponent } from '../../../modals/talon/talon.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import moment from 'moment';
+import { BlockGoyComponent } from '../../common/block-goy/block-goy.component';
 
 @Component({
   selector: 'app-recmy-min',
-  imports: [CommonModule],
+  imports: [CommonModule, BlockGoyComponent],
   templateUrl: './recmy-min.component.html',
   styleUrl: './recmy-min.component.scss',
 })

@@ -1,10 +1,26 @@
+.app-action-item{
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 150px;
+}
 
-.app-action-item > img{
-  max-width: 100%;
+.app-action-info{
+  text-align: center;
+  width: 100%;
+  display: block;
+  position: absolute;
+  bottom: 0;
+  font-size: 14px;
+  color: white;
+  text-transform: uppercase;
+  background-color: rgba(128, 128, 128, 0.5);
 }
 
 @media (max-width: 600px) {
   .app-action-item{
     margin: 30px;
+    height: 236px;
   }
 }

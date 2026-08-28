@@ -1,5 +1,15 @@
+/*
+.app-block{
+  min-height: 135px;
+  max-height: 135px;
+}
+*/
+
 .block-info{
   width: 109%;
+}
+
+.block-info:not(:last-child) {
   margin-bottom: 21px;
 }
 

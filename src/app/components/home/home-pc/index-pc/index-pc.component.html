@@ -1,13 +1,17 @@
 <div class="row">
   <div class="col-md-6">
-    <app-patient-info [viewFull]="false"></app-patient-info>
-    <app-block-goy url="/home/account"></app-block-goy>
+    <div class="h-100">
+      <app-patient-info [viewFull]="false"></app-patient-info>
+    </div>
   </div>
   <div class="col-md-6">
-    <app-recmy-min style="height: 75%; display: block;"></app-recmy-min>
-    <app-block-goy url="/home/recmy"></app-block-goy>
+    <div class="h-100">
+      <app-recmy-min style="display: block;"></app-recmy-min>
+    </div>
   </div>
 </div>
+
+<app-servise-top></app-servise-top>
 
 <app-actions block="plz-info"></app-actions>
 

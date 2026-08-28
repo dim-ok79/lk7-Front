@@ -1,6 +1,13 @@
 .app-patient-info{
 }
 
+.app-patient-info{
+  height: calc(100% - 24px - 37px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .app-patient-info-text1{
   text-transform: uppercase;
 }

@@ -1,5 +1,5 @@
-<div class="app-actions-name">{{action()?.name}}</div>
+<div class="app-actions-name cls-block-header-text">{{action()?.name}}</div>
 <div class="app-actions-list row">
-  <app-action-item *ngFor="let act of action()?.list;" [action]="act" class="col-sm-2"></app-action-item>
+  <app-action-item *ngFor="let act of action()?.list;" [action]="act" class="col-sm-3"></app-action-item>
 </div>
 <app-block-goy [url]='urlAll' ></app-block-goy>

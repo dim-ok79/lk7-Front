@@ -3,10 +3,11 @@ import { PatientService } from '../../../services/patient.service';
 import { IPatient } from '../../../interfaces/patient.interface';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { BlockGoyComponent } from '../../common/block-goy/block-goy.component';
 
 @Component({
   selector: 'app-patient-info',
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, BlockGoyComponent],
   templateUrl: './patient-info.component.html',
   styleUrl: './patient-info.component.scss',
   providers: [PatientService],

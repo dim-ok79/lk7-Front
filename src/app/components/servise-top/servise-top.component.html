@@ -1,0 +1,9 @@
+<div class="cls-block-header-text">СЕРВИСЫ</div>
+<div class="row" style="justify-content: space-around;">
+  <div *ngFor="let menu of menuList;" class="col-md-3">
+    <div class="app-servise-top-item app-cp" (click)="goToMenu(menu)">
+      <mat-icon *ngIf="menu.svgNameColor" [svgIcon]="menu.svgNameColor" class="app-servise-top-icon-menu"></mat-icon>
+      <div class="app-servise-top-item-text">{{menu.name}}</div>
+    </div>
+  </div>
+</div>

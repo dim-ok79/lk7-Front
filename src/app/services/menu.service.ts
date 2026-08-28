@@ -1,6 +1,5 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { ConfigService } from './application/config.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { IMenu } from '../interfaces/menu.interface';
 import { Size } from './size';
 
@@ -11,20 +10,19 @@ import { Size } from './size';
 export class AppMenuService {
   menuList: IMenu[] = []; // Список меню
   private router = inject(Router);
-/*  private route = inject(ActivatedRoute);*/
   private sizeS = inject(Size);
   deviceType = signal<string>('');
 
-  constructor(private configS: ConfigService,
+  constructor(
               ) {
-    this.menuList.push({id: 1, name: 'Запись на прием', active: false, url: '/record', svgName: 'rec', svgNameColor: 'rec_color', mobile_only: false});
-    this.menuList.push({id: 2, name: 'Мои посещения', active: false, url: '/recmy', svgName: 'myrec', svgNameColor: 'myrec_color', mobile_only: false});
-    this.menuList.push({id: 3, name: 'Медицинская карта', active: false, url: '/rec', svgName: 'medcard', svgNameColor: 'medcard_color', mobile_only: false});
-    this.menuList.push({id: 4, name: 'Финансы', active: false, url: '/payments', svgName: 'fin', svgNameColor: 'fin_color', mobile_only: false});
-    this.menuList.push({id: 5, name: 'Мой профиль', active: false, url: '/account', svgName: '', svgNameColor: 'myprofil_color', mobile_only: true});
-    this.menuList.push({id: 6, name: 'Акции', active: false, url: '/actions', svgName: '', svgNameColor: 'action_color', mobile_only: true});
-    this.menuList.push({id: 7, name: 'Полезная информация', active: false, url: '/plz-info', svgName: '', svgNameColor: 'info_color', mobile_only: true});
-    this.menuList.push({id: 8, name: 'Выход', active: false, url: 'login', svgName: '', svgNameColor: 'exit_color', mobile_only: true});
+    this.menuList.push({id: 1, name: 'Запись на прием', active: false, url: '/record', svgName: 'rec', svgNameColor: 'rec_color', mobile_only: false, top: true});
+    this.menuList.push({id: 2, name: 'Мои посещения', active: false, url: '/recmy', svgName: 'myrec', svgNameColor: 'myrec_color', mobile_only: false, top: true});
+    this.menuList.push({id: 3, name: 'Медицинская карта', active: false, url: '/rec', svgName: 'medcard', svgNameColor: 'medcard_color', mobile_only: false, top: true});
+    this.menuList.push({id: 4, name: 'Финансы', active: false, url: '/payments', svgName: 'fin', svgNameColor: 'fin_color', mobile_only: false, top: true});
+    this.menuList.push({id: 5, name: 'Мой профиль', active: false, url: '/account', svgName: '', svgNameColor: 'myprofil_color', mobile_only: true, top: false});
+    this.menuList.push({id: 6, name: 'Акции', active: false, url: '/actions', svgName: '', svgNameColor: 'action_color', mobile_only: true, top: false});
+    this.menuList.push({id: 7, name: 'Полезная информация', active: false, url: '/plz-info', svgName: '', svgNameColor: 'info_color', mobile_only: true, top: false});
+    this.menuList.push({id: 8, name: 'Выход', active: false, url: 'login', svgName: '', svgNameColor: 'exit_color', mobile_only: true, top: false});
 
     this.deviceType.set(this.sizeS.getDeviceType());
     console.log('!!!!=', this.deviceType());
@@ -52,6 +50,11 @@ export class AppMenuService {
       return this.menuList.filter(item => item.mobile_only == false);
     }
   }
+
+  getListMenuTop(): IMenu[] {
+      return this.menuList.filter(item => item.top == true);
+  }
+
 
   goToMenu(m: IMenu){
     this.menuList.forEach(item =>

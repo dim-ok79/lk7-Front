@@ -18,13 +18,17 @@ body {
 body, html {
   height: 100%;
   overflow: hidden;
-/*  background: linear-gradient(181deg, #62bec2, #e2ebea);*/
+  color: variables.$color-test;
+
+  /*  background: linear-gradient(181deg, #62bec2, #e2ebea);*/
 }
 
 
+/*
 .color-text{
   color: variables.$color-test;
 }
+*/
 
 /* BTN */
 .cls-btn {
@@ -104,6 +108,18 @@ img.cls-img-doc-photo{
 
   border-radius: 8px;
 }
+
+.cls-block-header-text{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 600px) {
+  .cls-block-header-text{
+    text-align: center;
+  }
+}
+
 /* ****************/
 
 /* tooltipPanel Панель подсказка */
