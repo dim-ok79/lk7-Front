@@ -530,6 +530,18 @@ export class TalonComponent implements OnInit{
 
   }
 
+/* Возможность отмены талона */
+  isShowCanselTalon(): boolean{
+    if (this.talon().beginDate) {
+      const tmpDt = new Date()
+      // @ts-ignore
+      return tmpDt < this.talon().beginDate && this.typeTalon==0
+    } else {
+      return false;
+    }
+
+  }
+
   closeModal(success: boolean, res: any){
     if (success){
       this.activeModal.close(res); // Закрываем

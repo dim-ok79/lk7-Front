@@ -7,7 +7,7 @@ import { BlockMobileComponent } from '../../../common/block-mobile/block-mobile.
 
 @Component({
   selector: 'app-index-pc',
-  imports: [PatientInfoComponent, BlockGoyComponent, RecmyMinComponent, ActionsComponent, BlockMobileComponent],
+  imports: [PatientInfoComponent, BlockGoyComponent, RecmyMinComponent, ActionsComponent],
   templateUrl: './index-pc.component.html',
   styleUrl: './index-pc.component.scss',
   encapsulation: ViewEncapsulation.None

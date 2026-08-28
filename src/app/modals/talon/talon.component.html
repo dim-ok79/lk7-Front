@@ -113,6 +113,12 @@
                  (click)="recordTalon()"
                  *ngIf="typeTalon==1">
         </app-btn>
+        <app-btn class="app-btn-filter" style="margin-right: 8px"
+                 text="Отменить талон"
+                 (click)="onCanselRecord()"
+                 *ngIf="isShowCanselTalon()">
+        </app-btn>
+
         <app-btn class="app-btn-filter"
                  text="Закрыть"
                  (click)="closeTalon()"
@@ -122,11 +128,6 @@
     </ng-template>
 
     <ng-template ngSwitchDefault>
-      <app-btn class="app-btn-filter"
-               text="Отменить талон"
-               (click)="onCanselRecord()"
-               *ngIf="typeTalon==0">
-      </app-btn>
     </ng-template>
 
   </ng-container>
