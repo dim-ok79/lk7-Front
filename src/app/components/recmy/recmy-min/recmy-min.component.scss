@@ -20,3 +20,10 @@
 /*  margin: 8px;*/
   border-radius: 8px;
 }
+
+.app-recmy-min-panel{
+  height: calc(100% - 24px - 37px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
