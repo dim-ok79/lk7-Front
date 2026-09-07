@@ -1,0 +1,16 @@
+<div class="modal-header app-bg-color" style="text-align: center;">
+  <h1>Выберите документ для открытия</h1>
+</div>
+
+<div class="modal-body">
+  <app-loading [loading]="loading()"></app-loading>
+  <div>
+    <div *ngFor="let semd of semdList();" class="app-semd-item">
+      <app-btn class="w-100"
+               [text]="semd.text"
+               (click)="onClickSEMD(semd)"></app-btn>
+    </div>
+  </div>
+
+</div>
+

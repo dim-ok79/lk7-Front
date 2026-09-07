@@ -175,3 +175,15 @@ table.table > thead > tr > th:not(:last-child) {
 .cls-modal-talon-width {
   --bs-modal-width: 700px; /* Укажите нужную ширину */
 }
+
+
+.tableFixHead {
+  overflow-y: auto;
+}
+
+.table-fixed thead th {
+  position: sticky;
+  top: 0;
+  background-color: #fff; /* Цвет фона обязателен, чтобы текст не накладывался */
+  z-index: 1;
+}

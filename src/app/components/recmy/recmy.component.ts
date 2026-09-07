@@ -26,6 +26,8 @@ import { BtnComponent } from '../common/btn/btn.component';
 import { Size } from '../../services/size';
 import { BlockMobileComponent } from '../common/block-mobile/block-mobile.component';
 import { ITalonInfo } from '../../interfaces/record.interface';
+import { ListSemdComponent } from '../../modals/list-semd/list-semd.component';
+import { NgbdToastGlobal } from '../../utils/toast/toast-global.component';
 
 @Component({
   selector: 'app-recmy',
@@ -40,6 +42,8 @@ export class RecmyComponent implements OnInit, AfterViewInit{
   private modalService = inject(NgbModal);
 
   public sizeS = inject(Size);
+  private alert = inject(NgbdToastGlobal);
+
   deviceType = signal<string>('');
 
   testHeightBlock = signal(100);
@@ -110,7 +114,9 @@ export class RecmyComponent implements OnInit, AfterViewInit{
   /* расчет высоты блока относительно */
   private calcTableH(){
     console.log('0 calcTableH this.ContentBlocklogEL=', this.ContentBlocklogEL?.nativeElement.offsetHeight );
-    this.testHeightBlock.update(curr => curr = this.ContentBlocklogEL?.nativeElement.offsetHeight-252);
+    const resH = this.ContentBlocklogEL?.nativeElement.offsetHeight-152;
+    console.log('0 calcTableH resH=', resH);
+    this.testHeightBlock.update(curr => curr = resH);
   }
 
   /* Выбор типа выборки */
@@ -201,8 +207,12 @@ export class RecmyComponent implements OnInit, AfterViewInit{
   }
 
 
-  gotToDownload(id: number, tp: string) {
-    window.open(`${this.configS.getValue('hostBackend')}/history/events/item/${tp}/${id}.pdf`, '_blank');
+  gotToDownload(id: number, tp: string, count_files: number) {
+    if (count_files > 0) {
+      this.openVisit(id);
+    } else {
+      window.open(`${this.configS.getValue('hostBackend')}/history/events/item/${tp}/${id}.pdf`, '_blank');
+    }
   }
 
   getTekDay(dt: Date): string {
@@ -229,6 +239,26 @@ export class RecmyComponent implements OnInit, AfterViewInit{
         s = s + ' ' + secondname[0] + '.';
       }
     return s;
+  }
+
+  openVisit(visitID: number){
+    const modalRef = this.modalService.open(ListSemdComponent);
+    modalRef.componentInstance.visitID = visitID;
+
+    modalRef.result.then(
+      (result) => {
+        // Действие при закрытии (close)
+        console.log(`Закрыто с результатом: ${result}`);
+      },
+      (reason) => {
+        // Действие при отмене/закрытии крестиком (dismiss)
+        console.log(`Отклонено по причине: ${reason}`);
+      }
+    );
+  }
+
+  onClickDoctor(p_doctorid: number){
+    this.alert.success('Оценить врача, пока не доступно.');
   }
 
 }

@@ -1,5 +1,5 @@
 <div class="app-mobile-text-center" style="height: 90vh" #ContentBlockLog>
-  <div >МОИ ПОСЕЩЕНИЯ</div>
+  <div>МОИ ПОСЕЩЕНИЯ</div>
   <div *ngIf="loading()" class="loading"><img src="./assets/loading.gif" alt="Загрузка..."></div>
 
   <div>
@@ -33,7 +33,7 @@
             </ng-template>
 
             <ng-template #showTable>
-              <div class="tableFixHead">
+              <div class="tableFixHead" [style.max-height.px]="testHeightBlock()">
                 <table class="table table-borderless table-hover table-fixed">
                   <thead>
                   <tr>
@@ -44,7 +44,7 @@
                     <th scope="col" class="app-bg-color app-table-th-center">Документы</th>
                   </tr>
                   </thead>
-                  <tbody [style.max-height.px]="testHeightBlock()">
+                  <tbody>
                   <tr *ngFor="let his of historyList()">
                     <td class="logout-td-yeer">
                       {{getTekDay(his.dtSort)}} в {{getTime(his.dtSort)}}
@@ -55,14 +55,17 @@
                     <td class="logout-td-text">
                       <app-btn class="app-btn-filter"
                                text="Оценить врача"
+                               (click)="onClickDoctor(his.doctorid)"
+
                       >
                       </app-btn>
                     </td>
                     <td class="logout-td-info">
                       <mat-icon svgIcon="pdf" class="cls-mat-icon cls-mat-icon-info app-icon-info"
-                                (click)="gotToDownload(his.keyid, his.typehistory)">
+                                (click)="gotToDownload(his.keyid, his.typehistory, his.count_files)">
 
                       </mat-icon>
+                      {{his.count_files!}}
                     </td>
                   </tr>
 
@@ -84,10 +87,10 @@
               <div>Услуга: {{his.typetext}}</div>
               <div style="display: flex">
                 <mat-icon svgIcon="pdf" class="col-6 cls-mat-icon cls-mat-icon-info app-icon-info"
-                          (click)="gotToDownload(his.keyid, his.typehistory)">
+                          (click)="gotToDownload(his.keyid, his.typehistory, his.count_files)">
 
                 </mat-icon>
-                <span style="margin-top: 30px" (click)="gotToDownload(his.keyid, his.typehistory)">Скачать документ</span>
+                <span style="margin-top: 30px" (click)="gotToDownload(his.keyid, his.typehistory, his.count_files)">Скачать документ</span>
               </div>
 
             </app-block-mobile>
@@ -109,7 +112,7 @@
                                       (onChangedPage)="changedPage($event)"
           >
 
-            <div class="tableFixHead">
+            <div class="tableFixHead" [style.max-height.px]="testHeightBlock()">
               <table class="table table-borderless table-hover table-fixed">
                 <thead>
                 <tr>
@@ -120,7 +123,7 @@
                   <th scope="col" class="app-bg-color app-table-th-center">Отделение</th>
                 </tr>
                 </thead>
-                <tbody [style.max-height.px]="testHeightBlock()">
+                <tbody>
                 <tr *ngFor="let rnumb of rnumbList()"  (click)="openTalon(rnumb)" class="app-cp">
                   <td class="logout-td-yeer">
                     {{getTekDay(rnumb.beginDate!)}} в {{getTime(rnumb.beginDate!)}}

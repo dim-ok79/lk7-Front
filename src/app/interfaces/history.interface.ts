@@ -15,7 +15,7 @@ export interface IHistoryEvents {
   specid: number; // id специальности
   dep_name: string;  // Отделение
   sched_exists_for_dd_on_visit: number;  // 1-Возможна запись ОНЛАЙН
-  count_files? : number;     // Количество подписанных документов
+  count_files : number;     // Количество подписанных документов СЭМД
 }
 
 export interface IHistoryEventList {
