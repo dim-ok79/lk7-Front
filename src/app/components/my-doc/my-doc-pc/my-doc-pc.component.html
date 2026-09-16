@@ -1,0 +1,19 @@
+<div class="app-mobile-text-center" style="height: 90vh" #ContentBlockLog>
+
+  <div>МЕДИЦИНСКИЕ ДОКУМЕНТЫ</div>
+  <app-loading [loading]="loading()"></app-loading>
+  <div class="row" style="text-align: center;">
+    <app-btn class="app-btn-filter col-md-2" *ngFor="let typeMR of typeDoc();"
+             [text]="typeMR.name"
+             [active]="typeMR.active"
+             (click)="onClickType(typeMR.id)">
+    </app-btn>
+  </div>
+
+  <ng-container [ngSwitch]="getCurrentTypeDoc().id">
+    <ng-template [ngSwitchCase]="2">
+      <app-my-doc-pc-lab [testHeightBlock]="p_testHeightBlock()"></app-my-doc-pc-lab>
+    </ng-template>
+  </ng-container>
+
+</div>

@@ -265,5 +265,12 @@ export class AuthService {
     return this.httpNew.get(url,  this.token);
   }
 
+  /* Список подписанных договоров */
+  public getTmpTokenID(): Observable<any> {
+    const url = '/auth/id';
+    return this.httpNew.get(url,  this.token);
+  }
+
+
 }
 

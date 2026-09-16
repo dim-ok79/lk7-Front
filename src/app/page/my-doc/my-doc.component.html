@@ -1,0 +1,14 @@
+<ngbd-toast-global></ngbd-toast-global>
+<ng-container [ngSwitch]="deviceType()">
+  <ng-template [ngSwitchCase]="size_pc()">
+    <app-my-doc-pc></app-my-doc-pc>
+  </ng-template>
+
+  <ng-template [ngSwitchCase]="size_mobile()">
+    <app-my-doc-mobile></app-my-doc-mobile>
+  </ng-template>
+
+  <ng-template ngSwitchDefault>
+    <h1>Извините, но чтото пошло не так, обновите страницу. ={{deviceType()}}</h1>
+  </ng-template>
+</ng-container>

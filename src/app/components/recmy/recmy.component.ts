@@ -25,13 +25,15 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BtnComponent } from '../common/btn/btn.component';
 import { Size } from '../../services/size';
 import { BlockMobileComponent } from '../common/block-mobile/block-mobile.component';
-import { ITalonInfo } from '../../interfaces/record.interface';
 import { ListSemdComponent } from '../../modals/list-semd/list-semd.component';
 import { NgbdToastGlobal } from '../../utils/toast/toast-global.component';
+import { SemdService } from '../../services/semd.service';
+import { LoadingComponent } from '../frame2/components/loading/loading.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-recmy',
-  imports: [CommonModule, PanelTablePaginationComponent, MatIconModule, BtnComponent, BlockMobileComponent],
+  imports: [CommonModule, PanelTablePaginationComponent, MatIconModule, BtnComponent, BlockMobileComponent, LoadingComponent],
   templateUrl: './recmy.component.html',
   styleUrl: './recmy.component.scss',
   encapsulation: ViewEncapsulation.None
@@ -40,7 +42,9 @@ import { NgbdToastGlobal } from '../../utils/toast/toast-global.component';
 export class RecmyComponent implements OnInit, AfterViewInit{
   @ViewChild('ContentBlockLog') ContentBlocklogEL: ElementRef|undefined;
   private modalService = inject(NgbModal);
+  private authS = inject(AuthService);
 
+  private semdS = inject(SemdService);
   public sizeS = inject(Size);
   private alert = inject(NgbdToastGlobal);
 
@@ -211,7 +215,17 @@ export class RecmyComponent implements OnInit, AfterViewInit{
     if (count_files > 0) {
       this.openVisit(id);
     } else {
-      window.open(`${this.configS.getValue('hostBackend')}/history/events/item/${tp}/${id}.pdf`, '_blank');
+      this.authS.getTmpTokenID()
+        .subscribe(res => {
+          if (res && res.id){
+            window.open(`${this.configS.getValue('hostBackend')}/history/events/item/${res.id}/${tp}/${id}.pdf`, '_blank');
+          }
+          },
+          err => {
+            console.error('getTmpTokenID ERRROr=', err);
+          })
+
+//      window.open(`${this.configS.getValue('hostBackend')}/history/events/item/${tp}/${id}.pdf`, '_blank');
     }
   }
 
@@ -258,6 +272,16 @@ export class RecmyComponent implements OnInit, AfterViewInit{
   }
 
   onClickDoctor(p_doctorid: number){
+    this.semdS.getSemdTest()
+      .subscribe(
+        res => {
+          console.log('getSemdTest res=', res);
+        },
+        err => {
+          console.log('getSemdTest err=', err);
+        }
+      );
+
     this.alert.success('Оценить врача, пока не доступно.');
   }
 

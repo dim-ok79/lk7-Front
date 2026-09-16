@@ -18,12 +18,13 @@ import { NgbdToastGlobal } from '../../utils/toast/toast-global.component';
 })
 export class HomeComponent implements OnInit{
   lpuS = inject(LpuService);
+  router = inject(Router);
+
   private sizeS = inject(Size);
 
   deviceType = signal<string>('');
 
   constructor(
-    private router: Router
   ){
 console.log('!!! HOME загрузка ЛПУ');
     this.lpuS.loadLpuList()
@@ -32,7 +33,7 @@ console.log('!!! HOME загрузка ЛПУ');
       },
         err => {
           this.setDeviceType();
-        console.log('ERROR');
+          console.log('ERROR');
         });
   }
 

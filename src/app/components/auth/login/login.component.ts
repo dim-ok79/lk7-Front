@@ -1,4 +1,4 @@
-import { Component, Output, ViewEncapsulation, EventEmitter } from '@angular/core';
+import { Component, Output, ViewEncapsulation, EventEmitter, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgbdToastGlobal } from '../../../utils/toast/toast-global.component';
 import { CommonModule } from '@angular/common';
@@ -30,11 +30,11 @@ MJF1R5QSAC
 
   @Output() onAuth = new EventEmitter<ITokenAndPatientId>();   // Событие Авторизация
   @Output() onError = new EventEmitter<string | null>();   // Ошибка
+  private auth = inject(AuthService);
+  private alert = inject(NgbdToastGlobal);
 
 
   constructor(
-    private alert: NgbdToastGlobal,
-    private auth: AuthService,
   ){
   }
 

@@ -10,6 +10,7 @@ import { HomeMobileComponent } from './components/home/home-mobile/home-mobile.c
 import { IndexMobileComponent } from './components/home/home-mobile/index-mobile/index-mobile.component';
 import { ActionsPageComponent } from './page/actions-page/actions-page.component';
 import { PolzInformationsComponent } from './page/polz-informations/polz-informations.component';
+import { MyDocComponent } from './page/my-doc/my-doc.component';
 
 const routesHomeChildren: Route[] = [
   /**
@@ -54,6 +55,14 @@ const routesHomeChildren: Route[] = [
     path: 'plz-info',
     component: PolzInformationsComponent
   },
+  /**
+   * Мои документы
+   */
+  {
+    path: 'my-doc',
+    component: MyDocComponent
+  },
+
 
 
 

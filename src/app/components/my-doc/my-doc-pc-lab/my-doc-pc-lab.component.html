@@ -1,0 +1,45 @@
+<app-panel-table-pagination nameBlock="" (onChangePeriod)="changePeriod($event)"
+                            [dtBegin]="dtBegin"
+                            [dtEnd]="dtEnd"
+                            textItogo=""
+                            [CountRec]="labCountRec()"
+                            [CountRecPage]="labCountRectoPage"
+                            (onChangedPage)="changedPage($event)"
+>
+
+  <ng-container *ngIf="labCountRec()>0; then showTable else showNotRec"></ng-container>
+
+  <ng-template #showNotRec>
+    <div class="cls-not-rec"> Нет анализов</div>
+  </ng-template>
+
+  <ng-template #showTable>
+    <div class="tableFixHead" [style.max-height.px]="testHeightBlock">
+      <table class="table table-borderless table-hover table-fixed">
+        <thead>
+        <tr>
+          <th scope="col" class="app-bg-color cls-header-table-dt logout-td-yeer" >Дата посещения</th>
+          <th scope="col" class="app-bg-color app-table-th-center">Описание</th>
+          <th scope="col" class="app-bg-color app-table-th-center">Документы</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let lab of labList()" (click)="onClickOrder(lab.research_id)">
+          <td class="app-table-th-center">
+            {{lab.regdate}}
+          </td>
+          <td class="logout-td-text">{{lab.text_status}}</td>
+          <td class="app-table-th-center">
+            <mat-icon svgIcon="pdf" class="cls-mat-icon cls-mat-icon-info app-icon-info"
+                      (click)="gotToDownload()">
+
+            </mat-icon>
+          </td>
+        </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </ng-template>
+
+</app-panel-table-pagination>

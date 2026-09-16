@@ -17,7 +17,7 @@ export class AppMenuService {
               ) {
     this.menuList.push({id: 1, name: 'Запись на прием', active: false, url: '/record', svgName: 'rec', svgNameColor: 'rec_color', mobile_only: false, top: true});
     this.menuList.push({id: 2, name: 'Мои посещения', active: false, url: '/recmy', svgName: 'myrec', svgNameColor: 'myrec_color', mobile_only: false, top: true});
-    this.menuList.push({id: 3, name: 'Медицинская карта', active: false, url: '/rec', svgName: 'medcard', svgNameColor: 'medcard_color', mobile_only: false, top: true});
+    this.menuList.push({id: 3, name: 'Медицинская карта', active: false, url: '/my-doc', svgName: 'medcard', svgNameColor: 'medcard_color', mobile_only: false, top: true});
     this.menuList.push({id: 4, name: 'Финансы', active: false, url: '/payments', svgName: 'fin', svgNameColor: 'fin_color', mobile_only: false, top: true});
     this.menuList.push({id: 5, name: 'Мой профиль', active: false, url: '/account', svgName: '', svgNameColor: 'myprofil_color', mobile_only: true, top: false});
     this.menuList.push({id: 6, name: 'Акции', active: false, url: '/actions', svgName: '', svgNameColor: 'action_color', mobile_only: true, top: false});

@@ -1,7 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { AppHttpService } from './application/app-http.service';
 import { AuthService } from './auth.service';
-import { IRnumbList } from '../interfaces/rnumb.interface';
 import { map } from 'rxjs/operators';
 import { strToDate } from '../utils/global.function';
 import { Observable } from 'rxjs';
@@ -31,5 +30,16 @@ export class SemdService {
     )
   }
 
+  /**
+   * Список СЭМД
+   * @param parameters
+   */
+  public getSemdTest(): Observable<any> {
+    return this.httpApp.get('/semd/test' , this.auth.token).pipe(
+      map((res: any) => {
+        return res;
+      })
+    )
+  }
 
 }
