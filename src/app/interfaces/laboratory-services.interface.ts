@@ -1,3 +1,15 @@
+export interface ILabsList {
+  research_id: number;
+  specimen_text: string;
+  srvtext: string;
+  regdate_str: string;
+  regdate: string;  // не смотреть
+  order_num: number;
+  regdate_date?: Date;
+}
+
+  /* Старые */
+
 export interface ILaboratoryServices {
   id: number;
   code: string;

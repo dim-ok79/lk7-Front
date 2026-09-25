@@ -11,6 +11,12 @@
   </div>
 
   <ng-container [ngSwitch]="getCurrentTypeDoc().id">
+    <ng-template [ngSwitchCase]="1">
+      <app-my-doc-findings [testHeightBlock]="p_testHeightBlock()"></app-my-doc-findings>
+    </ng-template>
+  </ng-container>
+
+  <ng-container [ngSwitch]="getCurrentTypeDoc().id">
     <ng-template [ngSwitchCase]="2">
       <app-my-doc-pc-lab [testHeightBlock]="p_testHeightBlock()"></app-my-doc-pc-lab>
     </ng-template>

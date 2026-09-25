@@ -43,10 +43,9 @@ export class RecmyComponent implements OnInit, AfterViewInit{
   @ViewChild('ContentBlockLog') ContentBlocklogEL: ElementRef|undefined;
   private modalService = inject(NgbModal);
   private authS = inject(AuthService);
-
   private semdS = inject(SemdService);
-  public sizeS = inject(Size);
   private alert = inject(NgbdToastGlobal);
+  public sizeS = inject(Size);
 
   deviceType = signal<string>('');
 
@@ -224,8 +223,6 @@ export class RecmyComponent implements OnInit, AfterViewInit{
           err => {
             console.error('getTmpTokenID ERRROr=', err);
           })
-
-//      window.open(`${this.configS.getValue('hostBackend')}/history/events/item/${tp}/${id}.pdf`, '_blank');
     }
   }
 

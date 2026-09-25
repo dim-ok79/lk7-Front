@@ -1,12 +1,13 @@
-import { Component, ElementRef, inject, Input, signal, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, inject, Input, signal, ViewEncapsulation } from '@angular/core';
 import { LabService } from '../../../services/lab.service';
 import { IPeriod } from '../../../interfaces/period.interface';
-import { ILabOrder } from '../../../interfaces/lab.interface';
 import { ConfigService } from '../../../services/application/config.service';
 import { PanelTablePaginationComponent } from '../../common/panel-table-pagination/panel-table-pagination.component';
 import { MatIconModule} from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
+import { ILabsList } from '../../../interfaces/laboratory-services.interface';
+import { UtilsService } from '../../../services/application/utils.service';
 
 @Component({
   selector: 'app-my-doc-pc-lab',
@@ -29,16 +30,17 @@ export class MyDocPcLabComponent {
   }
 
 
-  private LabServiceS = inject(LabService);
-  private AuthS = inject(AuthService);
+  public LabServiceS = inject(LabService);
+  public UtilsS = inject(UtilsService);
 
+  private AuthS = inject(AuthService);
   private configS = inject(ConfigService);
 
-  dtBegin: Date | null = null;    // Дата начала
-  dtEnd: Date | null = null;    // Дата ококнчания
+  dtBegin: Date = new Date();    // Дата начала
+  dtEnd: Date = new Date();    // Дата ококнчания
   labCountRectoPage = 10;     // Количетсво записей на странице
   labCountRec = signal(0);            // Всего записей
-  labList = signal<ILabOrder[]>([]);
+  labList = signal<ILabsList[]>([]);
 
   constructor() {
     this.dtBegin = new Date();
@@ -98,12 +100,11 @@ export class MyDocPcLabComponent {
   /* выбор даты */
   changePeriod(dt: IPeriod) {
     console.log('changePeriod=', dt);
-    this.dtBegin = dt.begin;
-    this.dtEnd = dt.end;
+    this.dtBegin = dt.begin ? dt.begin : new Date();
+    this.dtEnd = dt.end ? dt.end : new Date();
     this.getLabSize();
     this.getLab(1, this.labCountRectoPage);
   }
-
 
   /* Событие выбора страницы */
   changedPage(page: any) {
@@ -120,7 +121,8 @@ export class MyDocPcLabComponent {
   getLab(pStart: number, pEnd: number){
     this.labList.update(val=> val = []);
     // По умолчанию
-    this.LabServiceS.getLaboratoryOrderList(this.dtBegin, this.dtEnd,pStart, pEnd)
+//    this.LabServiceS.getLaboratoryOrderList(this.dtBegin, this.dtEnd,pStart, pEnd)
+    this.LabServiceS.getlabsList(this.dtBegin, this.dtEnd,pStart, pEnd)
       .subscribe(
         info => {
           this.labList.update((items) => info);
@@ -132,7 +134,7 @@ export class MyDocPcLabComponent {
 
   getLabSize(){
     this.labCountRec.update(val => 0);
-    this.LabServiceS.getLaboratoryOrderSize(this.dtBegin, this.dtEnd)
+    this.LabServiceS.getlabsListSize(this.dtBegin, this.dtEnd)
       .subscribe(
         info => {
           this.labCountRec.update(val => info.size);
@@ -141,12 +143,6 @@ export class MyDocPcLabComponent {
         }
       );
   }
-
-//  gotToDownload(p_material_id: number, p_order_id: number) {
-  gotToDownload() {
-//      window.open(`${this.configS.getValue('hostBackend')}/history/events/item/${p_material_id}/${p_order_id}.pdf`, '_blank');
-  }
-
 
   onClickOrder(p_research_id: number){
 /*

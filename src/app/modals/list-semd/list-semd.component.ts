@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { BtnComponent } from '../../components/common/btn/btn.component';
 import { LoadingComponent } from '../../components/frame2/components/loading/loading.component';
 import { ConfigService } from '../../services/application/config.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-list-semd',
@@ -54,6 +55,7 @@ export class ListSemdComponent implements OnInit{
   private semdS = inject(SemdService);
   private activeModal = inject(NgbActiveModal);
   private configS = inject(ConfigService);
+  private authS = inject(AuthService);
 
 
   constructor(){
@@ -64,12 +66,20 @@ export class ListSemdComponent implements OnInit{
 
   onClickSEMD(p_semd: ISemd) {
     console.log('Open semd=', p_semd);
-    if (p_semd.code == 'def') {
-      window.open(`${this.configS.getValue('hostBackend')}/history/events/item/visit/${p_semd.semd_id}.pdf`, '_blank');
-    } else {
-      window.open(`${this.configS.getValue('hostBackend')}/semd/visit/${p_semd.semd_id}.pdf`, '_blank');
-    }
-    this.closeModal(null);
+    this.authS.getTmpTokenID()
+      .subscribe(res => {
+          if (res && res.id){
+            if (p_semd.code == 'def') {
+              window.open(`${this.configS.getValue('hostBackend')}/history/events/item/${res.id}/visit/${p_semd.semd_id}.pdf`, '_blank');
+            } else {
+              window.open(`${this.configS.getValue('hostBackend')}/semd/visit/${res.id}/${p_semd.semd_id}.pdf`, '_blank');
+            }
+          }
+          this.closeModal(null);
+        },
+        err => {
+          console.error('getTmpTokenID ERRROr=', err);
+        })
   }
 
   closeModal(res: any){

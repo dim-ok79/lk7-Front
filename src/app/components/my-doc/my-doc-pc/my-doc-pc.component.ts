@@ -4,10 +4,11 @@ import { LoadingComponent } from '../../frame2/components/loading/loading.compon
 import { BtnComponent } from '../../common/btn/btn.component';
 import { CommonModule } from '@angular/common';
 import { MyDocPcLabComponent } from '../my-doc-pc-lab/my-doc-pc-lab.component';
+import { MyDocFindingsComponent } from '../my-doc-findings/my-doc-findings.component';
 
 @Component({
   selector: 'app-my-doc-pc',
-  imports: [CommonModule, LoadingComponent, BtnComponent, MyDocPcLabComponent],
+  imports: [CommonModule, LoadingComponent, BtnComponent, MyDocFindingsComponent, MyDocPcLabComponent],
   templateUrl: './my-doc-pc.component.html',
   styleUrl: './my-doc-pc.component.scss',
 })
@@ -17,8 +18,8 @@ export class MyDocPcComponent implements OnInit{
 
   loading     = signal(false);            // Загрузка
   typeDoc   = signal<IBtnMyRec[]>([
-    {id: 1, name: 'Заключения', active: false},
-    {id: 2, name: 'Анализы', active: true},
+    {id: 1, name: 'Заключения', active: true},
+    {id: 2, name: 'Анализы', active: false},
     {id: 3, name: 'Исследования', active: false},
     {id: 4, name: 'Профосмотры', active: false},
     {id: 5, name: 'Мои документы', active: false}
