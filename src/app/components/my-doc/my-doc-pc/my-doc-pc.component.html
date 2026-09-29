@@ -12,13 +12,33 @@
 
   <ng-container [ngSwitch]="getCurrentTypeDoc().id">
     <ng-template [ngSwitchCase]="1">
-      <app-my-doc-findings [testHeightBlock]="p_testHeightBlock()"></app-my-doc-findings>
+      <app-my-doc-findings [testHeightBlock]="p_testHeightBlock()" [p_type]='1' ></app-my-doc-findings>
     </ng-template>
   </ng-container>
 
   <ng-container [ngSwitch]="getCurrentTypeDoc().id">
     <ng-template [ngSwitchCase]="2">
       <app-my-doc-pc-lab [testHeightBlock]="p_testHeightBlock()"></app-my-doc-pc-lab>
+    </ng-template>
+  </ng-container>
+
+  <ng-container [ngSwitch]="getCurrentTypeDoc().id">
+    <ng-template [ngSwitchCase]="3">
+      <app-my-doc-examinations [testHeightBlock]="p_testHeightBlock()"></app-my-doc-examinations>
+    </ng-template>
+  </ng-container>
+
+  <ng-container [ngSwitch]="getCurrentTypeDoc().id">
+    <ng-template [ngSwitchCase]="4">
+      <app-my-doc-findings [testHeightBlock]="p_testHeightBlock()" [p_type]='2' ></app-my-doc-findings>
+    </ng-template>
+  </ng-container>
+
+
+
+  <ng-container [ngSwitch]="getCurrentTypeDoc().id">
+    <ng-template [ngSwitchCase]="5">
+      <app-my-doc-mydoc [testHeightBlock]="p_testHeightBlock()"></app-my-doc-mydoc>
     </ng-template>
   </ng-container>
 

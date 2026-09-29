@@ -1,13 +1,13 @@
 import { Component, Input, signal } from '@angular/core';
 
-// Исследования
+// ПрофОсмотры
 @Component({
-  selector: 'app-my-doc-examinations',
+  selector: 'app-my-doc-prof-examinations',
   imports: [],
-  templateUrl: './my-doc-examinations.component.html',
-  styleUrl: './my-doc-examinations.component.scss',
+  templateUrl: './my-doc-prof-examinations.component.html',
+  styleUrl: './my-doc-prof-examinations.component.scss',
 })
-export class MyDocExaminationsComponent {
+export class MyDocProfExaminationsComponent {
   _testHeightBlock = signal<number>(100);
 
   @Input()
@@ -18,6 +18,5 @@ export class MyDocExaminationsComponent {
   get testHeightBlock():number {
     return this._testHeightBlock();
   }
-
 
 }

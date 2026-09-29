@@ -5,10 +5,17 @@ import { BtnComponent } from '../../common/btn/btn.component';
 import { CommonModule } from '@angular/common';
 import { MyDocPcLabComponent } from '../my-doc-pc-lab/my-doc-pc-lab.component';
 import { MyDocFindingsComponent } from '../my-doc-findings/my-doc-findings.component';
+import { MyDocMydocComponent } from '../my-doc-mydoc/my-doc-mydoc.component';
+import { MyDocExaminationsComponent } from '../my-doc-examinations/my-doc-examinations.component';
 
 @Component({
   selector: 'app-my-doc-pc',
-  imports: [CommonModule, LoadingComponent, BtnComponent, MyDocFindingsComponent, MyDocPcLabComponent],
+  imports: [CommonModule, LoadingComponent, BtnComponent,
+    MyDocFindingsComponent,
+    MyDocPcLabComponent,
+    MyDocMydocComponent,
+    MyDocExaminationsComponent,
+    ],
   templateUrl: './my-doc-pc.component.html',
   styleUrl: './my-doc-pc.component.scss',
 })

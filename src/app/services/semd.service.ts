@@ -38,7 +38,7 @@ export class SemdService {
    * Список СЭМД по пациенту
    * @param parameters
    */
-  public getSemdPatientList(pbeginDate?: Date | null, pendDate?: Date | null, pStart?: number , pEnd?: number): Observable<ISemd[]> {
+  public getSemdPatientList(pbeginDate?: Date | null, pendDate?: Date | null, pStart?: number , pEnd?: number, pType?: number): Observable<ISemd[]> {
     let url = '/semd/patient/list';
     let params = '';
     if (pStart && pEnd) {
@@ -49,6 +49,11 @@ export class SemdService {
     }
     if (pendDate) {
       params = params + `&endDate=${dateToText(pendDate)}`;
+    }
+    if (pType) {
+      params = params + `&p_type=${pType}`;
+    } else {
+      params = params + `&p_type=1`;
     }
     if (params.length>1){
       url = url + '?' + params.slice(1);
@@ -66,7 +71,7 @@ export class SemdService {
    * Список СЭМД по пациенту
    * @param parameters
    */
-  public getSemdPatientListSize(pbeginDate?: Date | null, pendDate?: Date | null): Observable<ILabSize> {
+  public getSemdPatientListSize(pbeginDate?: Date | null, pendDate?: Date | null, pType?: number): Observable<ILabSize> {
     let url = '/semd/patient/list/size';
     let params = '';
     if (pbeginDate) {
@@ -75,6 +80,12 @@ export class SemdService {
     if (pendDate) {
       params = params + `&endDate=${dateToText(pendDate)}`;
     }
+    if (pType) {
+      params = params + `&p_type=${pType}`;
+    } else {
+      params = params + `&p_type=1`;
+    }
+
     if (params.length>1){
       url = url + '?' + params.slice(1);
     }
