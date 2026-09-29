@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 import { ILabsList } from '../../../interfaces/laboratory-services.interface';
 import { UtilsService } from '../../../services/application/utils.service';
+import { ILabOrder } from '../../../interfaces/lab.interface';
 
 @Component({
   selector: 'app-my-doc-pc-lab',
@@ -33,14 +34,16 @@ export class MyDocPcLabComponent {
   public LabServiceS = inject(LabService);
   public UtilsS = inject(UtilsService);
 
+/*
   private AuthS = inject(AuthService);
   private configS = inject(ConfigService);
+*/
 
   dtBegin: Date = new Date();    // Дата начала
   dtEnd: Date = new Date();    // Дата ококнчания
   labCountRectoPage = 10;     // Количетсво записей на странице
   labCountRec = signal(0);            // Всего записей
-  labList = signal<ILabsList[]>([]);
+  labList = signal<ILabOrder[]>([]);
 
   constructor() {
     this.dtBegin = new Date();
@@ -121,8 +124,7 @@ export class MyDocPcLabComponent {
   getLab(pStart: number, pEnd: number){
     this.labList.update(val=> val = []);
     // По умолчанию
-//    this.LabServiceS.getLaboratoryOrderList(this.dtBegin, this.dtEnd,pStart, pEnd)
-    this.LabServiceS.getlabsList(this.dtBegin, this.dtEnd,pStart, pEnd)
+    this.LabServiceS.getLaboratoryOrderList(this.dtBegin, this.dtEnd, pStart, pEnd, 'desc')
       .subscribe(
         info => {
           this.labList.update((items) => info);
@@ -134,7 +136,7 @@ export class MyDocPcLabComponent {
 
   getLabSize(){
     this.labCountRec.update(val => 0);
-    this.LabServiceS.getlabsListSize(this.dtBegin, this.dtEnd)
+    this.LabServiceS.getLaboratoryOrderSize(this.dtBegin, this.dtEnd)
       .subscribe(
         info => {
           this.labCountRec.update(val => info.size);
@@ -144,24 +146,16 @@ export class MyDocPcLabComponent {
       );
   }
 
-  onClickOrder(p_research_id: number){
-/*
-    this.AuthS.getTmpTokenID()
-      .subscribe(res => {
-          console.log('getTmpTokenID res=', res);
-        },
-        err => {
-          console.error('getTmpTokenID ERRROr=', err);
-        })
-*/
-
-    this.LabServiceS.getLaboratoryResearch(p_research_id)
-      .subscribe(res => {
-          console.log('getLaboratoryResearch res=', res);
-        },
-        err => {
-          console.error('getLaboratoryResearch ERRROr=', err);
-        })
+  test(p_research_id: number){
+    this.LabServiceS.getResearchFileList(p_research_id)
+      .subscribe(
+        info => {
+          console.log('res=', info);
+        }, err => {
+          console.log('ERR=', err);
+        }
+      );
 
   }
+
 }

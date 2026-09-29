@@ -3,7 +3,7 @@ import {Observable} from "rxjs";
 import {AuthService} from "./auth.service";
 import { dateToText, strToDate } from '../utils/global.function';
 import {ILabOrder, ILabResearch, ILabSize} from "../interfaces/lab.interface";
-import { ILabsList, IResearchFileList } from '../interfaces/laboratory-services.interface';
+import { IResearchFileList } from '../interfaces/laboratory-services.interface';
 import { AppHttpService } from './application/app-http.service';
 import { map } from 'rxjs/operators';
 import { ConfigService } from './application/config.service';
@@ -19,6 +19,7 @@ export class LabService {
 
   constructor() { }
 
+/*
   public getlabsList(pbeginDate?: Date | null, pendDate?: Date | null, pStart?: number , pEnd?: number): Observable<ILabsList[]> {
     let url = '/labs/list';
     let params = '';
@@ -58,7 +59,7 @@ export class LabService {
     }
     return this.httpApp.get(url , this.authS.token);
   }
-
+*/
 
   /**
    *
@@ -110,7 +111,14 @@ export class LabService {
     const pr = param.join('&');
 //TomCat    return this.httpNew.get(`/api/patient/${this.auth.patientId}/laborder?beginDate=${begin}&endDate=${end}` , this.auth.token)
     const url = '/labs/orders?' + pr;
-    return this.httpApp.get(url, this.authS.token);
+//    return this.httpApp.get(url, this.authS.token);
+    return this.httpApp.get(url , this.authS.token).pipe(
+      map((res: ILabOrder[]) => {
+        res.forEach(item => item.dtSort = strToDate(item.regdate))
+        return res;
+      })
+    )
+
   }
 
 

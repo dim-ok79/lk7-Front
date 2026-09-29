@@ -30,6 +30,7 @@ import { NgbdToastGlobal } from '../../utils/toast/toast-global.component';
 import { SemdService } from '../../services/semd.service';
 import { LoadingComponent } from '../frame2/components/loading/loading.component';
 import { AuthService } from '../../services/auth.service';
+import { SeamanService } from '../../services/seaman.service';
 
 @Component({
   selector: 'app-recmy',
@@ -46,6 +47,8 @@ export class RecmyComponent implements OnInit, AfterViewInit{
   private semdS = inject(SemdService);
   private alert = inject(NgbdToastGlobal);
   public sizeS = inject(Size);
+  public seamanS = inject(SeamanService);
+
 
   deviceType = signal<string>('');
 
@@ -79,6 +82,15 @@ export class RecmyComponent implements OnInit, AfterViewInit{
 
   ngOnInit(): void {
     this.onClickType(1);
+    this.seamanS.get_Patient_is_Seaman()
+      .subscribe(
+        info => {
+          console.log('get_Patient_is_Seaman res =', info);
+        }, err => {
+          console.log('get_Patient_is_Seaman ERR=', err);
+        }
+      );
+
   }
 
   ngAfterViewInit() {
