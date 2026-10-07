@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {Observable} from "rxjs";
 import {IFamily, IInetuserLog, IInetuserLogSize, IPatient, IPolice, IStatementParam} from "../interfaces/patient.interface";
 import {AuthService} from "./auth.service";
@@ -11,8 +11,9 @@ import { dateToText } from '../utils/global.function';
   providedIn: 'root'
 })
 export class PatientService {
+  private auth = inject(AuthService);
 
-  constructor(private httpApp: AppHttpService, private auth: AuthService) { }
+  constructor(private httpApp: AppHttpService) { }
 
   public getServerPatientInfo$(token?: string | null): Observable<IPatient> {
     if (token) {

@@ -56,6 +56,8 @@ export class App {
     this.iconRegistry.addSvgIcon('price', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/talon/price.svg'));
     this.iconRegistry.addSvgIcon('time', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/talon/time.svg'));
 
+    this.iconRegistry.addSvgIcon('upload', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/upload.svg'));
+
 
   }
 

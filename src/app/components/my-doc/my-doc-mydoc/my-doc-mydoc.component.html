@@ -1,1 +1,54 @@
-<p>my-doc-mydoc works!</p>
+<div style="display: flex;    justify-content: flex-end; padding-right: 15px">
+  <app-btn class="app-btn-filter"
+           text="+ Добавить документ"
+           (click)="addDoc()">
+  </app-btn>
+
+</div>
+
+  <app-panel-table-pagination nameBlock=""
+                              textItogo=""
+                              [HeaderHide] = "true"
+                              [CountRec]="documentCountRec()"
+                              [CountRecPage]="documentCountRectoPage"
+                              (onChangedPage)="changedPage($event)"
+  >
+
+    <ng-container *ngIf="documentCountRec()>0; then showTable else showNotRec"></ng-container>
+
+    <ng-template #showNotRec>
+      <div class="cls-not-rec"> Нет Документов</div>
+    </ng-template>
+
+    <ng-template #showTable>
+      <div class="tableFixHead" [style.max-height.px]="testHeightBlock">
+        <table class="table table-borderless table-hover table-fixed">
+          <thead>
+          <tr>
+            <th scope="col" class="app-bg-color cls-header-table-dt logout-td-yeer">Дата</th>
+            <th scope="col" class="app-bg-color app-table-th-center">Название файла</th>
+            <th scope="col" class="app-bg-color app-table-th-center">Тип документа</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let document of documentList()">
+            <td class="app-table-th-center">
+              {{UtilsS.getTekDayDATE(document.dat)}}
+            </td>
+            <td class="logout-td-text">{{document.text}}</td>
+            <td class="app-table-th-center">{{document.file_name}}
+              <!--
+                          <mat-icon svgIcon="pdf" class="cls-mat-icon cls-mat-icon-info app-icon-info"
+                                    (click)="SemdS.onClickSEMD(finding.semd_id)">
+
+                          </mat-icon>
+              -->
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </ng-template>
+
+  </app-panel-table-pagination>

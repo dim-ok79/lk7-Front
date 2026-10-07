@@ -1,0 +1,60 @@
+<div class="modal-header app-bg-color" style="text-align: center;">
+  <h1 style="width: 100%">Загрузка документа</h1>
+</div>
+
+<div class="modal-body">
+  <form class="cls-change-form" [formGroup]="frm" [ngClass]="{ 'loader': loading()}">
+    <app-loading [loading]="loading()"></app-loading>
+    <mat-form-field class="cls-select-lpu w-100" *ngIf="!loading()">
+      <mat-label>Тип документа</mat-label>
+      <mat-select (selectionChange)="onSelectedDocType($event)" formControlName="selectType">
+        <mat-option *ngFor="let elem of docTypeList(); let i = index" [value]="elem.keyid" style="margin-bottom: 10px">
+          <div class="option-container">
+            <div class="option-name">{{elem.text}} </div>
+          </div>
+        </mat-option>
+
+      </mat-select>
+    </mat-form-field>
+
+<!--
+    <div class="custom-file-upload mb-3">
+      <input type="file" accept="image/*" class="custom-file-input" id="validatedCustomFile" formControlName="file"  name="photo" (change)="selectFiles($event)">
+      <label class="custom-file-label" for="validatedCustomFile" *ngIf="frm.controls['file'].value">{{frm.controls['file'].value}}</label>
+&lt;!&ndash;      <label class="custom-file-label" for="validatedCustomFile" *ngIf="!frm.controls['file'].value">Выберите файл</label>&ndash;&gt;
+    </div>
+-->
+
+    <div
+      class="drop-zone w-100"
+      [class.drop-zone--over]="isOver()"
+      (dragover)="onDragOver($event)"
+      (dragleave)="onDragLeave($event)"
+      (drop)="onDrop($event)"
+      (click)="fileInput.click()">
+
+      <input
+        type="file"
+        #fileInput
+        class="drop-zone-input"
+        (change)="onFileSelected($event)"
+        formControlName="file"
+        multiple>
+      <mat-icon svgIcon="upload" class="app-uload-icon"></mat-icon>
+      <span class="drop-zone-text">Перетащите файл сюда или <strong>выберите на компьютере</strong></span>
+
+      <div class="drop-zone-info">{{ fileInfo() }}</div>
+    </div>
+
+  </form>
+
+</div>
+
+<div class="modal-footer">
+  <app-btn class="app-btn-filter"
+           text="Добавить"
+           [btnDisabled]=!frm.valid
+           (click)="onAddDoc()">
+  </app-btn>
+
+</div>

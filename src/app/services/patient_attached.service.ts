@@ -53,7 +53,11 @@ export class PatientAttachedService {
   }
 
   // Загрузка с сервера
+/*
+TODO: не используется
+ */
 
+/*
   loadServer(): Observable<IPatientAttached[]> {
     return new Observable((observer) => {
       this.patient.getLpuList$()
@@ -66,5 +70,6 @@ export class PatientAttachedService {
         })
     });
   }
+*/
 
 }

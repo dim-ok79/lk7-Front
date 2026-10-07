@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
  import { Size } from '../../services/size';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from '../../components/auth/login/login.component';
@@ -29,10 +29,10 @@ export class AuthComponent implements OnInit, AfterViewInit {
 
   AuthFormText = 'Личный кабинет';  //
   errText : string | null = null;
+  private auth = inject(AuthService);
 
     constructor(private size: Size,
                 private paS: PatientAttachedService,
-                private auth: AuthService,
                 private router: Router,
     ){
 //      super();
@@ -61,10 +61,10 @@ export class AuthComponent implements OnInit, AfterViewInit {
 
     // Обработка получение токена
   authModule(resModule: ITokenAndPatientId | null){
-    console.log('authModule resModule=', resModule);
+//    console.log('authModule resModule=', resModule);
     this.tmpToken = resModule;
 
-console.log('this.curentModule=' , this.curentModule);
+// console.log('this.curentModule=' , this.curentModule);
     // После подписания документов - работаем
     if (this.curentModule == 'dog-list') {
       this.loginOK();

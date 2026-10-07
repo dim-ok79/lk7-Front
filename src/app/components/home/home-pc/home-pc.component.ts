@@ -20,10 +20,10 @@ import { NgbActiveModal, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 })
 export class HomePcComponent {
   menuList: IMenu[] = []; // Список меню
+  private auth = inject(AuthService);
 
   constructor(
 /*    private alert: NgbdToastGlobal,*/
-    private auth: AuthService,
     private menuS: AppMenuService,
     private router: Router
   ){

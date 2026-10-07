@@ -1,0 +1,53 @@
+.app-uload-icon{
+  width: 200px;
+  height: 200px;
+}
+
+.drop-zone {
+/*  max-width: 400px;*/
+  height: 200px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 2px dashed #cccccc;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #f9fafb;
+  transition: all 0.2s ease-in-out;
+  font-family: sans-serif;
+  position: relative;
+}
+
+.drop-zone:hover,
+.drop-zone--over {
+  border-color: #4f46e5;
+  background-color: #eef2ff;
+}
+
+.drop-zone-icon {
+  font-size: 40px;
+  margin-bottom: 8px;
+}
+
+.drop-zone-text {
+  color: #4b5563;
+  font-size: 14px;
+}
+
+.drop-zone-text strong {
+  color: #4f46e5;
+}
+
+.drop-zone-input {
+  display: none; /* В Angular можно полностью скрыть, так как вызов идет через .click() */
+}
+
+.drop-zone-info {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #111827;
+  font-weight: 500;
+}

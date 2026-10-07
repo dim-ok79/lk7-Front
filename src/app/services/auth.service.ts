@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import {Router} from '@angular/router';
 
 import {AppHttpService} from "./application/app-http.service";
@@ -20,6 +20,25 @@ import {dateToText} from "../utils/global.function";
   providedIn: 'root'
 })
 export class AuthService {
+
+/*
+  private _token = signal<string | null>(null) ;
+
+  set token(value: string | null) {
+    console.log('111 Auth TOKEN  SET value=', value);
+      this._token.set(value);
+  }
+
+  get token(): string | null {
+    console.log('111 Auth TOKEN  GET token=', this._token());
+    if (this._token()) {
+      return this._token();
+    } else {
+      const Patient = <IUser>StoreService.getData('Patient');
+      return Patient?.token ?? null;
+    }
+  }
+*/
 
   public token: string | null;
   public patientId: number | null;
@@ -47,6 +66,7 @@ export class AuthService {
 
   constructor(private router: Router, private httpNew: AppHttpService) {
     const Patient = <IUser>StoreService.getData('Patient');
+console.log('111 AUTH create patient=', Patient);
     if (Patient && Patient.token) {
       this.token = Patient.token;
     } else {
@@ -112,6 +132,8 @@ export class AuthService {
   }
 
   public loginOk$(token: string, patientId: number, ext: IPatientExt[] | null): boolean {
+console.log('111 AUTH SET loginOk$ token=', token);
+
     this.token = token;
     this.patientId = patientId;
     // Записываем токен в хранилище
@@ -169,6 +191,7 @@ export class AuthService {
 
   public logout(): void {
 //     console.log('Exit111 URL=', this.router.url);
+
     if (this.token) {
       this.serverLogout(this.token)
         .subscribe(

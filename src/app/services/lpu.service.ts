@@ -1,4 +1,4 @@
-import {Injectable} from "@angular/core";
+import { inject, Injectable } from '@angular/core';
 import {Icity, IDoc, IDocAll, IDocURL, Ilpu, ISpec} from "../interfaces/frame2/lpu.interface";
 import {Observable, Subject} from "rxjs";
 import { AppHttpService } from './application/app-http.service';
@@ -73,13 +73,15 @@ export class LpuService {
 */
 
 ///////////////
+  private auth = inject(AuthService);
 
-  constructor(private httpApp: AppHttpService, private auth: AuthService) {
-//    console.log('!!! LpuService LOADING constructor');
+  constructor(private httpApp: AppHttpService) {
+    console.log('!!! LpuService LOADING constructor');
 
   }
 
   // Загрузка с сервера
+/*
   loadLpuList(): Observable<Ilpu[]> {
     return new Observable((observer) => {
       this.getLpuList$()
@@ -89,6 +91,7 @@ export class LpuService {
         })
     });
   }
+*/
 
   getLpuFromId(id: number): Ilpu | null {
     const tmp = this._lpuList.filter(item => item.id == id);
@@ -104,6 +107,7 @@ export class LpuService {
   }
 
   public getLpuList$(): Observable<Ilpu[]> {
+    console.log('111 LPU list token=', this.auth.token);
     return this.httpApp.get(`/${prefix_module}/list`, this.auth.token)
   }
 

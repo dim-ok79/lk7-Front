@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter, ViewEncapsulation, signal } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, ViewEncapsulation, signal, inject } from '@angular/core';
 import { IDogList, IPatient, ITokenAndPatientId } from '../../../interfaces/patient.interface';
 import { ConfigService } from '../../../services/application/config.service';
 import { AuthService } from '../../../services/auth.service';
@@ -34,11 +34,11 @@ export class DogListComponent implements OnInit{
   public error = '';
 //  public patient: IPatient | null = null; //Текущий пациент
   public patient = signal<IPatient | null>( null); //Текущий пациент
+  private auth = inject(AuthService);
+  private ps = inject(PatientService);
 
   constructor(
     private configS: ConfigService,
-    private auth: AuthService,
-    private ps: PatientService,
     )
   {
   }
