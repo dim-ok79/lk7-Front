@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import {compToPagination} from "../../../services/compToPagination";
 import { getStrEnd } from '../../../utils/global.function';
 import { CommonModule} from '@angular/common';
+import { Size } from '../../../services/size';
 
 export interface Ipage {
   name: string;
@@ -14,7 +15,7 @@ export interface Ipage {
   imports: [CommonModule],
   templateUrl: './pagination.component.html',
   styleUrl: './pagination.component.scss',
-  providers:[compToPagination],
+  providers:[],
   encapsulation: ViewEncapsulation.None
 })
 export class PaginationComponent implements OnInit {
@@ -36,6 +37,8 @@ export class PaginationComponent implements OnInit {
   @Input() countRecPage = 1;   // Количество записе на странице
   @Output() onChangedPage = new EventEmitter<number>(); // выбрана страница
 
+  private cToP = inject(compToPagination);
+
   _countRec = 0; // Всего записей
 
   countPage = 0;   // Количество страниц
@@ -45,8 +48,8 @@ export class PaginationComponent implements OnInit {
 
   arrayPage: Ipage[] = [];
 
-  constructor(private cToP: compToPagination) {
-    cToP.onChangedPage$().subscribe(n =>{
+  constructor() {
+    this.cToP.onChangedPage$().subscribe(n =>{
 // console.log('EMMIT onChangedPage countPage=', n);
         this.goPage(n);
         this.currentPage = n;

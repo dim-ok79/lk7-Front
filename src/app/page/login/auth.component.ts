@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
   imports: [CommonModule, NgbdToastGlobal, EsiaComponent, LoginComponent, DogListComponent],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss',
-  providers: [Size, PatientService, PatientAttachedService, AuthService],
+  providers: [],
   encapsulation: ViewEncapsulation.None
 })
 
@@ -30,10 +30,10 @@ export class AuthComponent implements OnInit, AfterViewInit {
   AuthFormText = 'Личный кабинет';  //
   errText : string | null = null;
   private auth = inject(AuthService);
+  private size = inject(Size);
+//  private paS = inject(PatientAttachedService);
 
-    constructor(private size: Size,
-                private paS: PatientAttachedService,
-                private router: Router,
+    constructor(private router: Router,
     ){
 //      super();
     }

@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   imports: [MatIconModule, CommonModule],
   templateUrl: './dog-list.component.html',
   styleUrl: './dog-list.component.scss',
-  providers: [ PatientService],
+  providers: [ ],
   encapsulation: ViewEncapsulation.None
 
 })

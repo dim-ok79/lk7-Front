@@ -1,21 +1,23 @@
-import { Component, Input, OnInit, signal, ViewEncapsulation } from '@angular/core';
+import { Component, inject, Input, OnInit, signal, ViewEncapsulation } from '@angular/core';
 import { PatientService } from '../../../services/patient.service';
 import { IPatient } from '../../../interfaces/patient.interface';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { BlockGoyComponent } from '../../common/block-goy/block-goy.component';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-patient-info',
   imports: [CommonModule, MatIconModule, BlockGoyComponent],
   templateUrl: './patient-info.component.html',
   styleUrl: './patient-info.component.scss',
-  providers: [PatientService],
+  providers: [],
   encapsulation: ViewEncapsulation.None
 
 })
 export class PatientInfoComponent implements OnInit{
   @Input() viewFull: boolean = false; // Показывать полностью
+  private ps = inject(PatientService);
 
 //  public patient = signal<IPatient | null>( null); //Текущий пациент
   private patientDef = {patientId: 0, num: '', lastname: '', firstname: '', secondname: '', birthdatestr: '', birthdate: null, phone: '', cellular: '', email: '',
@@ -24,7 +26,6 @@ export class PatientInfoComponent implements OnInit{
 
 
   constructor(
-    private ps: PatientService,
   )
   {
   }
