@@ -1,6 +1,5 @@
 <div class="app-mobile-text-center" style="height: 90vh" #ContentBlockLog>
   <div>МОИ ПОСЕЩЕНИЯ</div>
-<!--  <div *ngIf="loading()" class="loading"><img src="./assets/loading.gif" alt="Загрузка..."></div>-->
   <app-loading [loading]="loading()"></app-loading>
 
 
@@ -23,19 +22,13 @@
                                       [dtBegin]="dtBegin"
                                       [dtEnd]="dtEnd"
                                       textItogo=""
+                                      [HeightBlock]="testHeightBlock()"
                                       [CountRec]="historyCountRec()"
                                       [CountRecPage]="historyCountRectoPage"
                                       (onChangedPage)="changedPage($event)"
           >
 
-            <ng-container *ngIf="historyCountRec()>0; then showTable else showNotRec"></ng-container>
-
-            <ng-template #showNotRec>
-              <div class="cls-not-rec"> Нет завершенных посещений</div>
-            </ng-template>
-
-            <ng-template #showTable>
-              <div class="tableFixHead" [style.max-height.px]="testHeightBlock()">
+              <div class="tableFixHead">
                 <table class="table table-borderless table-hover table-fixed">
                   <thead>
                   <tr>
@@ -74,7 +67,6 @@
                   </tbody>
                 </table>
               </div>
-            </ng-template>
 
           </app-panel-table-pagination>
 

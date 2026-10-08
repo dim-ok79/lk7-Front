@@ -181,6 +181,7 @@ table.table > thead > tr > th:not(:last-child) {
 
 .tableFixHead {
   overflow-y: auto;
+  max-height: calc(100% - -4px);
 }
 
 .table-fixed thead th {

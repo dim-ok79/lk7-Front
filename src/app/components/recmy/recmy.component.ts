@@ -129,7 +129,7 @@ export class RecmyComponent implements OnInit, AfterViewInit{
   /* расчет высоты блока относительно */
   private calcTableH(){
     console.log('0 calcTableH this.ContentBlocklogEL=', this.ContentBlocklogEL?.nativeElement.offsetHeight );
-    const resH = this.ContentBlocklogEL?.nativeElement.offsetHeight-152;
+    const resH = this.ContentBlocklogEL?.nativeElement.offsetHeight-58;
     console.log('0 calcTableH resH=', resH);
     this.testHeightBlock.update(curr => curr = resH);
   }
