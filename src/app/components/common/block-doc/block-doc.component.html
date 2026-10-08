@@ -1,0 +1,31 @@
+<div class="block-doc">
+  <div>Дата</div>
+  <div>{{UtilsS.getTekDayDATE(messageDate?.infoDate)}}</div>
+
+
+  <div>Название</div>
+  <div>{{messageDate?.infoName}}</div>
+
+  <div (click)="SemdS.onClickSEMD(2541)" class="block-doc-btn">
+    <mat-icon svgIcon="pdf_white" class="cls-mat-icon cls-mat-icon-info block-doc-btn-icon">
+    </mat-icon>
+    <div>Скачать документ</div>
+
+  </div>
+<!--
+  <app-btn class="app-btn-filter"
+           text="sdfgsdfgsd dsfg"
+           (click)="onClickUrl(messageDate?.infoUrl)"
+  >
+    <mat-icon svgIcon="pdf" class="cls-mat-icon cls-mat-icon-info app-icon-info"
+              (click)="SemdS.onClickSEMD(2541)">
+
+    </mat-icon>
+
+  </app-btn>
+-->
+
+
+</div>
+
+

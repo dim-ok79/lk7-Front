@@ -32,42 +32,13 @@ export class AccountComponent implements AfterViewInit {
     this.calcTableH();
   };
 
-
-
   /* расчет высоты блока относительно */
   private calcTableH(){
     console.log('0 calcTableH this.ContentBlocklogEL=', this.ContentBlocklogEL?.nativeElement.offsetHeight );
 //    this.varHeightBlock = this.ContentBlocklogEL?.nativeElement.offsetHeight;
     this.varHeightBlock.update(curr => curr = this.ContentBlocklogEL?.nativeElement.offsetHeight);
-    /*
-        if (this.deviceType == this.size.pc){
-          if (this.ContentBlockFioAndDocEL && this.ContentBlockFioEL && this.ContentBlockFioAndDocEL.nativeElement && this.ContentBlockFioEL.nativeElement){
-            /!*
-                  console.log('ContentBlockFioAndDocEL H=', this.ContentBlockFioAndDocEL.nativeElement.offsetHeight);
-                  console.log('ContentBlockFioEL H=', this.ContentBlockFioEL.nativeElement.offsetHeight);
-                  console.log('ContentBlockFioEL PARENT H=', this.ContentBlockFioEL.nativeElement.offsetParent.offsetHeight);
-            *!/
-            let h = this.ContentBlockFioAndDocEL.nativeElement.offsetHeight - this.ContentBlockFioEL.nativeElement.offsetHeight;
-            /!*
-            console.log('calcH=', h);
-            *!/
-            h = h - 30;
-            this.panelDocSetStyle = {'height': `${h}px`};
-            /!*
-            console.log('calcH this.panelDocSetStyle=', this.panelDocSetStyle);
-            *!/
-          }
-        }
-    */
+    console.log('0 calcTableH set this.varHeightBlock=', this.varHeightBlock() );
+
   }
-
-
-/*
-  isShown = signal(false);
-
-  toggle() {
-    this.isShown.update((value) => !value);
-  }
-*/
 
 }

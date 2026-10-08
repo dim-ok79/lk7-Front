@@ -1,9 +1,11 @@
 import { Component, Input, signal } from '@angular/core';
+import { BlockDocComponent } from '../../common/block-doc/block-doc.component';
+import { IBlockDoc } from '../../../interfaces/block-doc.interface';
 
 // Исследования
 @Component({
   selector: 'app-my-doc-examinations',
-  imports: [],
+  imports: [BlockDocComponent],
   templateUrl: './my-doc-examinations.component.html',
   styleUrl: './my-doc-examinations.component.scss',
 })
@@ -20,4 +22,5 @@ export class MyDocExaminationsComponent {
   }
 
 
+  mD: IBlockDoc = {infoName: 'sdfsdfdfgd', infoDate: new Date(), infoUrl: ''}
 }

@@ -10,15 +10,16 @@
                               textItogo=""
                               [HeaderHide] = "true"
                               [CountRec]="documentCountRec()"
+                              [HeightBlock]="testHeightBlock"
                               [CountRecPage]="documentCountRectoPage"
                               (onChangedPage)="changedPage($event)"
   >
 
-      <div class="tableFixHead" [style.max-height.px]="testHeightBlock">
+      <div class="tableFixHead">
         <table class="table table-borderless table-hover table-fixed">
           <thead>
           <tr>
-            <th scope="col" class="app-bg-color cls-header-table-dt logout-td-yeer">Дата</th>
+            <th scope="col" class="app-bg-color app-header-table-dt app-table-th-center">Дата</th>
             <th scope="col" class="app-bg-color app-table-th-center">Название файла</th>
             <th scope="col" class="app-bg-color app-table-th-center">Тип документа</th>
           </tr>
