@@ -1,4 +1,5 @@
-  <div class="cls-panel cls-ptp panel-table-pagination" [ngClass]="{ 'panel-table-pagination-not-date': HeaderHide}">
+  <div class="cls-panel cls-ptp panel-table-pagination" [ngClass]="{ 'panel-table-pagination-not-date': HeaderHide}"
+       [style.max-height.px]="HeightBlock">
 
     <div class="cls-ptp-header panel-table-pagination__header" *ngIf="HeaderHide == false">
       <span class="cls-name">{{nameBlock}}</span>

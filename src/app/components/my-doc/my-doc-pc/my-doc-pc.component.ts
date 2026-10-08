@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, signal, ViewChild } from '@angular/core';
+import { afterNextRender, Component, ElementRef, OnInit, signal, ViewChild } from '@angular/core';
 import { IBtnMyRec } from '../../../interfaces/recmy.interface';
 import { LoadingComponent } from '../../frame2/components/loading/loading.component';
 import { BtnComponent } from '../../common/btn/btn.component';
@@ -19,12 +19,12 @@ import { MyDocExaminationsComponent } from '../my-doc-examinations/my-doc-examin
   templateUrl: './my-doc-pc.component.html',
   styleUrl: './my-doc-pc.component.scss',
 })
-export class MyDocPcComponent implements OnInit{
+export class MyDocPcComponent {
   @ViewChild('ContentBlockLog') ContentBlocklogEL: ElementRef|undefined;
   p_testHeightBlock = signal(100);
 
-  loading     = signal(false);            // Загрузка
-  typeDoc   = signal<IBtnMyRec[]>([
+  loading = signal(false);            // Загрузка
+  typeDoc = signal<IBtnMyRec[]>([
     {id: 1, name: 'Заключения', active: true},
     {id: 2, name: 'Анализы', active: false},
     {id: 3, name: 'Исследования', active: false},
@@ -34,17 +34,18 @@ export class MyDocPcComponent implements OnInit{
 
   constructor(
   ) {
+    // Вызывается после отрисовки DOM
+    afterNextRender(() => {
+      this.calcTableH();
+    });
 //    this.onClickType(2);
-  }
-
-  ngOnInit(): void {
-    this.calcTableH();
   }
 
   /* расчет высоты блока относительно */
   private calcTableH(){
+    console.log('0 calcTableH this.ContentBlocklogEL=', this.ContentBlocklogEL );
     console.log('0 calcTableH this.ContentBlocklogEL=', this.ContentBlocklogEL?.nativeElement.offsetHeight );
-    const resH = this.ContentBlocklogEL?.nativeElement.offsetHeight-152;
+    const resH = this.ContentBlocklogEL?.nativeElement.offsetHeight-72;
     console.log('0 calcTableH resH=', resH);
     this.p_testHeightBlock.update(curr => curr = resH);
   }

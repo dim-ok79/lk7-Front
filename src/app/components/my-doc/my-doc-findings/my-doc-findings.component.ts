@@ -19,7 +19,9 @@ export class MyDocFindingsComponent {
 
   @Input()
   set testHeightBlock(value: number) {
+    console.log('_testHeightBlock value=', value);
     this._testHeightBlock.set(value);
+    console.log('_testHeightBlock=', this._testHeightBlock());
   }
 
   get testHeightBlock():number {

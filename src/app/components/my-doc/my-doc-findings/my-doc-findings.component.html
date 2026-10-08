@@ -4,13 +4,14 @@
                             textItogo=""
                             [CountRec]="findingCountRec()"
                             [CountRecPage]="findingCountRectoPage"
+                            [HeightBlock]="testHeightBlock"
                             (onChangedPage)="changedPage($event)">
 
     <div class="tableFixHead" [style.max-height.px]="testHeightBlock">
       <table class="table table-borderless table-hover table-fixed">
         <thead>
         <tr>
-          <th scope="col" class="app-bg-color cls-header-table-dt logout-td-yeer">Дата</th>
+          <th scope="col" class="app-bg-color app-table-th-center">Дата</th>
           <th scope="col" class="app-bg-color app-table-th-center">Название</th>
           <th scope="col" class="app-bg-color app-table-th-center">Документ</th>
         </tr>

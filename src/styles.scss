@@ -138,12 +138,14 @@ td.logout-td-text{ // Центруем вертикально
   vertical-align: middle;
 }
 
-// Закруглим заголовок
+// Закруглим заголовок - первый
 table.table > thead > tr > th:first-child {
   border-top-left-radius: 8px;
+  border-left-width: 0px!important;
 }
 table.table > thead > tr > th:last-child {
   border-top-right-radius: 8px;
+  border-right-width: 0px!important;
 }
 
 table.table > thead > tr > th:not(:first-child) {
@@ -186,4 +188,8 @@ table.table > thead > tr > th:not(:last-child) {
   top: 0;
   background-color: #fff; /* Цвет фона обязателен, чтобы текст не накладывался */
   z-index: 1;
+}
+
+.tableFixHead > table > tbody > tr {
+  border-bottom: 2px solid #b6b6b6;
 }

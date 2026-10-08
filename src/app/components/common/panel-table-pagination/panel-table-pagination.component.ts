@@ -20,6 +20,7 @@ export class PanelTablePaginationComponent implements OnInit {
   @Input() textNotREC: string | null = 'Нет документов по выбранному фильтру';    // Текст Нет записей
   @Input() textItogoStrEnd = []; // окончания, если пустой массив то не применяем
   @Input() HeaderHide = false;    // Показывать заголовок с календарем ?
+  @Input() HeightBlock = 10;  // Высота всего блока
 
 /*
   @Input() dtBegin = new Date();    // Дата начала
