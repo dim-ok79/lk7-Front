@@ -66,7 +66,6 @@ export class AuthService {
 
   constructor(private router: Router, private httpNew: AppHttpService) {
     const Patient = <IUser>StoreService.getData('Patient');
-console.log('111 AUTH create patient=', Patient);
     if (Patient && Patient.token) {
       this.token = Patient.token;
     } else {
@@ -132,8 +131,6 @@ console.log('111 AUTH create patient=', Patient);
   }
 
   public loginOk$(token: string, patientId: number, ext: IPatientExt[] | null): boolean {
-console.log('111 AUTH SET loginOk$ token=', token);
-
     this.token = token;
     this.patientId = patientId;
     // Записываем токен в хранилище

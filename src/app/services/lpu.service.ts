@@ -107,7 +107,6 @@ export class LpuService {
   }
 
   public getLpuList$(): Observable<Ilpu[]> {
-    console.log('111 LPU list token=', this.auth.token);
     return this.httpApp.get(`/${prefix_module}/list`, this.auth.token)
   }
 
