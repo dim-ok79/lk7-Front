@@ -14,13 +14,6 @@
                               (onChangedPage)="changedPage($event)"
   >
 
-    <ng-container *ngIf="documentCountRec()>0; then showTable else showNotRec"></ng-container>
-
-    <ng-template #showNotRec>
-      <div class="cls-not-rec"> Нет Документов</div>
-    </ng-template>
-
-    <ng-template #showTable>
       <div class="tableFixHead" [style.max-height.px]="testHeightBlock">
         <table class="table table-borderless table-hover table-fixed">
           <thead>
@@ -49,6 +42,5 @@
           </tbody>
         </table>
       </div>
-    </ng-template>
 
   </app-panel-table-pagination>

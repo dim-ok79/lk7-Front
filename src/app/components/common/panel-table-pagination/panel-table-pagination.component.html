@@ -1,8 +1,8 @@
-<div class="cls-panel cls-ptp panel-table-pagination" [ngClass]="{ 'panel-table-pagination-not-date': HeaderHide}">
+  <div class="cls-panel cls-ptp panel-table-pagination" [ngClass]="{ 'panel-table-pagination-not-date': HeaderHide}">
 
     <div class="cls-ptp-header panel-table-pagination__header" *ngIf="HeaderHide == false">
-        <span class="cls-name">{{nameBlock}}</span>
-        <span  class="cls-date">
+      <span class="cls-name">{{nameBlock}}</span>
+      <span  class="cls-date">
       <app-date-range [dtBegin]="dtBegin" [dtEnd]="dtEnd" (onChanged)="onChangedPeriod($event)"></app-date-range>
     </span>
 
@@ -19,7 +19,7 @@
         </ng-template>
 
         <ng-template #showTable>
-<!--          <p>Табличка</p>-->
+          <!--          <p>Табличка</p>-->
           <ng-container *ngTemplateOutlet="linkTemplate"></ng-container>
         </ng-template>
 
@@ -36,16 +36,17 @@
     </div>
 
     <div class="cls-ptp-footer panel-table-pagination__footer">
-        <app-pagination
-          [currentPage]="1"
-          [countRecPage]="CountRecPage"
-          [countRec]="CountRec"
-          [textItogo]="textItogo"
-          [textItogoStrEnd]="textItogoStrEnd"
-          *ngIf="CountRec>0"
-          (onChangedPage)="changedPage($event)">
+      <app-pagination
+        [currentPage]="1"
+        [countRecPage]="CountRecPage"
+        [countRec]="CountRec"
+        [textItogo]="textItogo"
+        [textItogoStrEnd]="textItogoStrEnd"
+        *ngIf="CountRec>0"
+        (onChangedPage)="changedPage($event)">
 
-        </app-pagination>
+      </app-pagination>
     </div>
 
-</div>
+  </div>
+

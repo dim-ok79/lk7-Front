@@ -15,7 +15,7 @@ export interface Ipage {
   imports: [CommonModule],
   templateUrl: './pagination.component.html',
   styleUrl: './pagination.component.scss',
-  providers:[],
+  providers:[compToPagination],
   encapsulation: ViewEncapsulation.None
 })
 export class PaginationComponent implements OnInit {
@@ -37,18 +37,16 @@ export class PaginationComponent implements OnInit {
   @Input() countRecPage = 1;   // Количество записе на странице
   @Output() onChangedPage = new EventEmitter<number>(); // выбрана страница
 
-  private cToP = inject(compToPagination);
-
   _countRec = 0; // Всего записей
 
   countPage = 0;   // Количество страниц
   maxSizePage = 7; // Максимально кол страниц (с учетом точек)
 
-  Arr = Array(this.maxSizePage);
+//  Arr = Array(this.maxSizePage);
 
   arrayPage: Ipage[] = [];
 
-  constructor() {
+  constructor(private cToP :compToPagination) {
     this.cToP.onChangedPage$().subscribe(n =>{
 // console.log('EMMIT onChangedPage countPage=', n);
         this.goPage(n);

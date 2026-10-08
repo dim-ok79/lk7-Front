@@ -17,7 +17,7 @@ export class PanelTablePaginationComponent implements OnInit {
   @Input() CountRecPage = 3;     // Кол записей на странице
   @Input() nameBlock = '';     // Наименование
   @Input() textItogo = '';     // Текст ИТОГО
-  @Input() textNotREC: string | null = null;    // Текст Нет записей
+  @Input() textNotREC: string | null = 'Нет документов по выбранному фильтру';    // Текст Нет записей
   @Input() textItogoStrEnd = []; // окончания, если пустой массив то не применяем
   @Input() HeaderHide = false;    // Показывать заголовок с календарем ?
 

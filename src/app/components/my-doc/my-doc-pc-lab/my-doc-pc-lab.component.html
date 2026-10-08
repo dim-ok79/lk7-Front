@@ -4,16 +4,7 @@
                             textItogo=""
                             [CountRec]="labCountRec()"
                             [CountRecPage]="labCountRectoPage"
-                            (onChangedPage)="changedPage($event)"
->
-
-  <ng-container *ngIf="labCountRec()>0; then showTable else showNotRec"></ng-container>
-
-  <ng-template #showNotRec>
-    <div class="cls-not-rec"> Нет анализов</div>
-  </ng-template>
-
-  <ng-template #showTable>
+                            (onChangedPage)="changedPage($event)">
     <div class="tableFixHead" [style.max-height.px]="testHeightBlock">
       <table class="table table-borderless table-hover table-fixed">
         <thead>
@@ -46,6 +37,5 @@
       </table>
 <!--      (click)="onClickOrder(lab.research_id)"-->
     </div>
-  </ng-template>
 
 </app-panel-table-pagination>
