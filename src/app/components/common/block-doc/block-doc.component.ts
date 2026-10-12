@@ -14,13 +14,21 @@ import { MatIconModule} from '@angular/material/icon';
 })
 
 export class BlockDocComponent {
-  @Input() messageDate: IBlockDoc | null = null;
+//  @Input() messageDate: IBlockDoc | null = null;
+  @Input() infoName: string = ''; // Название
+  @Input() infoDate: Date = new Date();   // Дата
+//  @Input() infoUrl: string;  // url перехода
+  @Input() semd_id: number = -1;  // СЭМД ID для перехида
+
 
   public UtilsS = inject(UtilsService);
   public SemdS = inject(SemdService);
 
 
-  onClickUrl(pUrl: string | undefined){
+  onClickUrl(semd_id: number){
+    if (semd_id > 0){
+      this.SemdS.onClickSEMDVisit(semd_id)
+    }
 
   }
 }

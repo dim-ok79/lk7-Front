@@ -4,7 +4,7 @@ import { AuthService } from './auth.service';
 import { map } from 'rxjs/operators';
 import { dateToText, strToDate } from '../utils/global.function';
 import { Observable } from 'rxjs';
-import { ISemd } from '../interfaces/semd.interface';
+import { IExam, ISemd } from '../interfaces/semd.interface';
 import { ILabSize } from '../interfaces/lab.interface';
 import { ConfigService } from './application/config.service';
 
@@ -105,7 +105,8 @@ export class SemdService {
     )
   }
 
-  public onClickSEMD(p_semd_id: number) {
+// Открыть PDF документ из визита
+  public onClickSEMDVisit(p_semd_id: number) {
     this.authS.getTmpTokenID()
       .subscribe(res => {
           if (res && res.id){
@@ -116,5 +117,67 @@ export class SemdService {
           console.error('getTmpTokenID ERRROr=', err);
         })
   }
+
+// Открыть PDF документ из параметров
+  public onClickSEMD(p_semd_id: number, p_owner: string, p_table: string) {
+    this.authS.getTmpTokenID()
+      .subscribe(res => {
+          if (res && res.id){
+            window.open(`${this.configS.getValue('hostBackend')}/semd/${p_owner}/${p_table}/${res.id}/${p_semd_id}.pdf`, '_blank');
+          }
+        },
+        err => {
+          console.error('getTmpTokenID ERRROr=', err);
+        })
+  }
+
+  /**
+   * Список Список инструментальных исследований по пациенту
+   * @param parameters
+   */
+  public getExamPatientList(pbeginDate?: Date | null, pendDate?: Date | null, pStart?: number , pEnd?: number): Observable<IExam[]> {
+    let url = '/exam/patient/list';
+    let params = '';
+    if (pStart && pEnd) {
+      params = params + `&start=${pStart}&end=${pEnd}`;
+    }
+    if (pbeginDate) {
+      params = params + `&beginDate=${dateToText(pbeginDate)}`;
+    }
+    if (pendDate) {
+      params = params + `&endDate=${dateToText(pendDate)}`;
+    }
+    if (params.length>1){
+      url = url + '?' + params.slice(1);
+    }
+    return this.httpApp.get(url , this.authS.token).pipe(
+      map((res: ISemd[]) => {
+        res.forEach(item => item.dat_date = strToDate(item.dat_str))
+        return res;
+      })
+    )
+
+  }
+
+  /**
+   * Количество инструментальных исследований по пациенту
+   * @param parameters
+   */
+  public getExamPatientSize(pbeginDate?: Date | null, pendDate?: Date | null): Observable<ILabSize> {
+    let url = '/exam/patient/size';
+    let params = '';
+    if (pbeginDate) {
+      params = params + `&beginDate=${dateToText(pbeginDate)}`;
+    }
+    if (pendDate) {
+      params = params + `&endDate=${dateToText(pendDate)}`;
+    }
+
+    if (params.length>1){
+      url = url + '?' + params.slice(1);
+    }
+    return this.httpApp.get(url , this.authS.token);
+  }
+
 
 }

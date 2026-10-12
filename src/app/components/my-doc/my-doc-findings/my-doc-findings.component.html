@@ -1,11 +1,18 @@
-<app-panel-table-pagination nameBlock="" (onChangePeriod)="changePeriod($event)"
-                            [dtBegin]="dtBegin"
-                            [dtEnd]="dtEnd"
-                            textItogo=""
-                            [CountRec]="findingCountRec()"
-                            [CountRecPage]="findingCountRectoPage"
-                            [HeightBlock]="testHeightBlock"
-                            (onChangedPage)="changedPage($event)">
+<ng-container *ngIf="isMobile; then showMobile else showPC"></ng-container>
+
+<ng-template #showMobile>
+  <app-block-doc *ngFor="let finding of findingList()" [infoName]="finding.text" [infoDate]="finding.dat_date" [semd_id]="finding.semd_id"]></app-block-doc>
+</ng-template>
+
+<ng-template #showPC>
+  <app-panel-table-pagination nameBlock="" (onChangePeriod)="changePeriod($event)"
+                              [dtBegin]="dtBegin"
+                              [dtEnd]="dtEnd"
+                              textItogo=""
+                              [CountRec]="findingCountRec()"
+                              [CountRecPage]="findingCountRectoPage"
+                              [HeightBlock]="testHeightBlock"
+                              (onChangedPage)="changedPage($event)">
 
     <div class="tableFixHead">
       <table class="table table-borderless table-hover table-fixed">
@@ -24,7 +31,7 @@
           <td class="logout-td-text">{{finding.text}}</td>
           <td class="app-table-th-center">
             <mat-icon svgIcon="pdf" class="cls-mat-icon cls-mat-icon-info app-icon-info"
-                      (click)="SemdS.onClickSEMD(finding.semd_id)">
+                      (click)="SemdS.onClickSEMDVisit(finding.semd_id)">
 
             </mat-icon>
           </td>
@@ -35,5 +42,9 @@
       <!--      (click)="onClickOrder(lab.research_id)"-->
     </div>
 
-</app-panel-table-pagination>
+  </app-panel-table-pagination>
+
+</ng-template>
+
+
 

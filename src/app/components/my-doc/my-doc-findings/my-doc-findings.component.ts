@@ -6,16 +6,19 @@ import { PanelTablePaginationComponent } from '../../common/panel-table-paginati
 import { MatIconModule} from '@angular/material/icon';
 import { IPeriod } from '../../../interfaces/period.interface';
 import { UtilsService } from '../../../services/application/utils.service';
+import { BlockDocComponent } from '../../common/block-doc/block-doc.component';
+import { IBlockDoc } from '../../../interfaces/block-doc.interface';
 
 // Заключения / Профосмотры
 @Component({
   selector: 'app-my-doc-findings',
-  imports: [CommonModule, PanelTablePaginationComponent, MatIconModule],
+  imports: [CommonModule, PanelTablePaginationComponent, MatIconModule, BlockDocComponent],
   templateUrl: './my-doc-findings.component.html',
   styleUrl: './my-doc-findings.component.scss',
 })
 export class MyDocFindingsComponent {
   _testHeightBlock = signal<number>(100);
+  @Input() isMobile = false;
 
   @Input()
   set testHeightBlock(value: number) {
@@ -46,18 +49,7 @@ export class MyDocFindingsComponent {
     return this._p_type();
   }
 
-/*
-  _p_type = signal<number>(0);
-  @Input()
-  set p_type(value: number) {
-    this._p_type.set(value);
-  }
-
-  get p_type():number {
-    return this._p_type();
-  }
-*/
-
+  mobileDate = signal<IBlockDoc[]>([]);
 
 
   public UtilsS = inject(UtilsService);
@@ -94,6 +86,12 @@ export class MyDocFindingsComponent {
       .subscribe(
         info => {
           this.findingList.update((items) => info);
+          console.log('===', this.findingList());
+          this.findingList().forEach(item => {
+//            this.mobileDate.
+          })
+//          mobileDate
+
         }, err => {
           console.log('ERR=', err);
         }

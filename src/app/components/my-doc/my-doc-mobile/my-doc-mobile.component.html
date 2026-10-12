@@ -1,1 +1,17 @@
-<p>my-doc-mobile works!</p>
+<div class="cls-block-header-text">МЕДИЦИНСКИЕ ДОКУМЕНТЫ</div>
+<app-loading [loading]="loading()"></app-loading>
+<div class="row" style="text-align: center; margin-left: 5px; margin-right: 5px;">
+  <div class="app-MyDoc-btn-filter" *ngFor="let typeMR of MyDocS.getList();"
+       [ngClass]="{ 'active': typeMR.active}"
+       (click)="MyDocS.onClickType(typeMR.id)">{{typeMR.name}}
+  </div>
+</div>
+
+<ng-container [ngSwitch]="MyDocS.getCurrentTypeDoc().id">
+  <ng-template [ngSwitchCase]="1">
+    <app-my-doc-findings [p_type]='1' [isMobile]="true"></app-my-doc-findings>
+  </ng-template>
+</ng-container>
+
+
+

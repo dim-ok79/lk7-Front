@@ -1,5 +1,4 @@
-import { afterNextRender, Component, ElementRef, OnInit, signal, ViewChild } from '@angular/core';
-import { IBtnMyRec } from '../../../interfaces/recmy.interface';
+import { afterNextRender, Component, ElementRef, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { LoadingComponent } from '../../frame2/components/loading/loading.component';
 import { BtnComponent } from '../../common/btn/btn.component';
 import { CommonModule } from '@angular/common';
@@ -7,6 +6,7 @@ import { MyDocPcLabComponent } from '../my-doc-pc-lab/my-doc-pc-lab.component';
 import { MyDocFindingsComponent } from '../my-doc-findings/my-doc-findings.component';
 import { MyDocMydocComponent } from '../my-doc-mydoc/my-doc-mydoc.component';
 import { MyDocExaminationsComponent } from '../my-doc-examinations/my-doc-examinations.component';
+import { MyDocService } from '../../../services/my-doc.service';
 
 @Component({
   selector: 'app-my-doc-pc',
@@ -23,14 +23,10 @@ export class MyDocPcComponent {
   @ViewChild('ContentBlockLog') ContentBlocklogEL: ElementRef|undefined;
   p_testHeightBlock = signal(100);
 
+  public MyDocS = inject(MyDocService);
+
+
   loading = signal(false);            // Загрузка
-  typeDoc = signal<IBtnMyRec[]>([
-    {id: 1, name: 'Заключения', active: true},
-    {id: 2, name: 'Анализы', active: false},
-    {id: 3, name: 'Исследования', active: false},
-    {id: 4, name: 'Профосмотры', active: false},
-    {id: 5, name: 'Мои документы', active: false}
-    ]);
 
   constructor(
   ) {
@@ -38,24 +34,22 @@ export class MyDocPcComponent {
     afterNextRender(() => {
       this.calcTableH();
     });
-//    this.onClickType(2);
   }
 
   /* расчет высоты блока относительно */
   private calcTableH(){
-    console.log('0 calcTableH this.ContentBlocklogEL=', this.ContentBlocklogEL );
-    console.log('0 calcTableH this.ContentBlocklogEL=', this.ContentBlocklogEL?.nativeElement.offsetHeight );
     const resH = this.ContentBlocklogEL?.nativeElement.offsetHeight-72;
-    console.log('0 calcTableH resH=', resH);
     this.p_testHeightBlock.update(curr => curr = resH);
   }
 
+/*
   onClickType(id: number) {
     this.typeDoc.update(list =>
       list.map(item =>
         item.id === id ? { ...item, active: true } : { ...item, active: false }
       )
     );
+*/
 
 /*
     if (this.getCurrentTypeMyRec().id == 1){ // Предстоящие
@@ -65,11 +59,13 @@ export class MyDocPcComponent {
     }
 */
 
-  };
+//  };
 
   /* Текущий тип */
+/*
   getCurrentTypeDoc(): IBtnMyRec{
     return this.typeDoc().filter(item => item.active)[0];
   }
+*/
 
 }

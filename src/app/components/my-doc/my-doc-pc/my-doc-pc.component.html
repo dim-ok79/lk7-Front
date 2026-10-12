@@ -3,32 +3,32 @@
   <div>МЕДИЦИНСКИЕ ДОКУМЕНТЫ</div>
   <app-loading [loading]="loading()"></app-loading>
   <div class="row" style="text-align: center;">
-    <app-btn class="app-btn-filter col-md-2" *ngFor="let typeMR of typeDoc();"
+    <app-btn class="app-btn-filter col-md-2" *ngFor="let typeMR of MyDocS.getList();"
              [text]="typeMR.name"
              [active]="typeMR.active"
-             (click)="onClickType(typeMR.id)">
+             (click)="MyDocS.onClickType(typeMR.id)">
     </app-btn>
   </div>
 
-  <ng-container [ngSwitch]="getCurrentTypeDoc().id">
+  <ng-container [ngSwitch]="MyDocS.getCurrentTypeDoc().id">
     <ng-template [ngSwitchCase]="1">
       <app-my-doc-findings [testHeightBlock]="p_testHeightBlock()" [p_type]='1' ></app-my-doc-findings>
     </ng-template>
   </ng-container>
 
-  <ng-container [ngSwitch]="getCurrentTypeDoc().id">
+  <ng-container [ngSwitch]="MyDocS.getCurrentTypeDoc().id">
     <ng-template [ngSwitchCase]="2">
       <app-my-doc-pc-lab [testHeightBlock]="p_testHeightBlock()"></app-my-doc-pc-lab>
     </ng-template>
   </ng-container>
 
-  <ng-container [ngSwitch]="getCurrentTypeDoc().id">
+  <ng-container [ngSwitch]="MyDocS.getCurrentTypeDoc().id">
     <ng-template [ngSwitchCase]="3">
       <app-my-doc-examinations [testHeightBlock]="p_testHeightBlock()"></app-my-doc-examinations>
     </ng-template>
   </ng-container>
 
-  <ng-container [ngSwitch]="getCurrentTypeDoc().id">
+  <ng-container [ngSwitch]="MyDocS.getCurrentTypeDoc().id">
     <ng-template [ngSwitchCase]="4">
       <app-my-doc-findings [testHeightBlock]="p_testHeightBlock()" [p_type]='2' ></app-my-doc-findings>
     </ng-template>
@@ -36,7 +36,7 @@
 
 
 
-  <ng-container [ngSwitch]="getCurrentTypeDoc().id">
+  <ng-container [ngSwitch]="MyDocS.getCurrentTypeDoc().id">
     <ng-template [ngSwitchCase]="5">
       <app-my-doc-mydoc [testHeightBlock]="p_testHeightBlock()"></app-my-doc-mydoc>
     </ng-template>

@@ -1,0 +1,19 @@
+@use 'variables' as v;
+
+.app-MyDoc-btn-filter{
+//  margin-top: 15px;
+  background-color: v.$color-btn-bg;
+  color: white;
+  border-width: 3px;
+  height: 30px;
+  margin: 9px;
+  width: 45%;
+  border-radius: 6px;
+  padding-top: 3px;
+}
+
+.app-MyDoc-btn-filter.active{
+  background-color: white;
+  color: #b6b6b6;
+  border: 2px solid v.$color-btn-bg;
+}
