@@ -3,16 +3,22 @@ import { BlockDocComponent } from '../../common/block-doc/block-doc.component';
 import { IBlockDoc } from '../../../interfaces/block-doc.interface';
 import { SemdService } from '../../../services/semd.service';
 import { IExam, ISemd } from '../../../interfaces/semd.interface';
+import { CommonModule } from '@angular/common';
+import { PanelTablePaginationComponent } from '../../common/panel-table-pagination/panel-table-pagination.component';
+import { MatIconModule} from '@angular/material/icon';
+import { IPeriod } from '../../../interfaces/period.interface';
+import { UtilsService } from '../../../services/application/utils.service';
 
 // Исследования
 @Component({
   selector: 'app-my-doc-examinations',
-  imports: [],
+  imports: [CommonModule, PanelTablePaginationComponent, MatIconModule, BlockDocComponent],
   templateUrl: './my-doc-examinations.component.html',
   styleUrl: './my-doc-examinations.component.scss',
 })
 export class MyDocExaminationsComponent {
   _testHeightBlock = signal<number>(100);
+  @Input() isMobile = false;
 
   @Input()
   set testHeightBlock(value: number) {
@@ -23,7 +29,7 @@ export class MyDocExaminationsComponent {
     return this._testHeightBlock();
   }
 
-  mD: IBlockDoc = {infoName: 'sdfsdfdfgd', infoDate: new Date(), infoUrl: ''}
+//  mD: IBlockDoc = {infoName: 'sdfsdfdfgd', infoDate: new Date(), infoUrl: ''}
 
   dtBegin: Date = new Date();    // Дата начала
   dtEnd: Date = new Date();    // Дата ококнчания
@@ -31,6 +37,7 @@ export class MyDocExaminationsComponent {
   examCountRec = signal(0);            // Всего записей
   examList = signal<IExam[]>([]);
 
+  public UtilsS = inject(UtilsService);
   public SemdS = inject(SemdService);
 
   constructor() {
@@ -75,6 +82,23 @@ export class MyDocExaminationsComponent {
           console.log('ERR=', err);
         }
       );
+  }
+
+
+  changePeriod(dt: IPeriod) {
+    this.dtBegin = dt.begin ? dt.begin : new Date();
+    this.dtEnd = dt.end ? dt.end : new Date();
+    this.getExamSize();
+    this.getfinding(1, this.examCountRectoPage);
+  }
+
+  /* Событие выбора страницы */
+  changedPage(page: any) {
+    if (page == 1) {
+      this.getfinding(1, this.examCountRectoPage);
+    } else {
+      this.getfinding(page*this.examCountRectoPage-this.examCountRectoPage , page*this.examCountRectoPage);
+    }
   }
 
 

@@ -1,3 +1,51 @@
-<p>my-doc-examinations works!</p>
+<ng-container *ngIf="isMobile; then showMobile else showPC"></ng-container>
 
-<!--<app-block-doc [messageDate]="mD"></app-block-doc>-->
+<ng-template #showMobile>
+<!--  <app-block-doc *ngFor="let exam of examList()" [infoName]="exam.text" [infoDate]="exam.dat_date" [semd_id]="exam.semd_id"]></app-block-doc>-->
+</ng-template>
+
+<ng-template #showPC>
+  <app-panel-table-pagination nameBlock="" (onChangePeriod)="changePeriod($event)"
+                              [dtBegin]="dtBegin"
+                              [dtEnd]="dtEnd"
+                              textItogo=""
+                              [CountRec]="examCountRec()"
+                              [CountRecPage]="examCountRectoPage"
+                              [HeightBlock]="testHeightBlock"
+                              [HeaderHide]="true"
+                              (onChangedPage)="changedPage($event)">
+
+    <div class="tableFixHead">
+      <table class="table table-borderless table-hover table-fixed">
+        <thead>
+        <tr>
+          <th scope="col" class="app-bg-color app-header-table-dt app-table-th-center">Дата</th>
+          <th scope="col" class="app-bg-color app-table-th-center">Название</th>
+          <th scope="col" class="app-bg-color app-table-th-center">Документ</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let exam of examList()">
+          <td class="app-table-th-center">
+            {{UtilsS.getTekDayDATE(exam.dat_date)}}
+          </td>
+          <td class="logout-td-text">{{exam.text}}</td>
+          <td class="app-table-th-center">
+            <mat-icon svgIcon="pdf" class="app-icon-info80"
+                      (click)="SemdS.onClickSEMD(exam.semd_id)">
+
+            </mat-icon>
+          </td>
+        </tr>
+
+        </tbody>
+      </table>
+      <!--      (click)="onClickOrder(lab.research_id)"-->
+    </div>
+
+  </app-panel-table-pagination>
+
+</ng-template>
+
+
+

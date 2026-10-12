@@ -119,7 +119,7 @@ export class SemdService {
   }
 
 // Открыть PDF документ из параметров
-  public onClickSEMD(p_semd_id: number, p_owner: string, p_table: string) {
+  public onClickSEMD(p_semd_id: number, p_owner: string = 'SOLUTION_DIAGNOSTIC', p_table: string = 'FORM_RESULT') {
     this.authS.getTmpTokenID()
       .subscribe(res => {
           if (res && res.id){

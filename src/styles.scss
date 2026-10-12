@@ -198,3 +198,10 @@ table.table > thead > tr > th:not(:last-child) {
 .app-header-table-dt{
   width: 20%;
 }
+
+/* Иконка в PDF */
+.app-icon-info80{
+  width: 80px!important;
+  height: 80px!important;
+  cursor: pointer;
+}

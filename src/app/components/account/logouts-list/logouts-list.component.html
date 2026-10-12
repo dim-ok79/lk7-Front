@@ -28,7 +28,7 @@
                 <td class="logout-td-text">{{log.text}}</td>
                 <td class="logout-td-info app-table-th-center">
                   <ng-template #tipContent let-greeting="greeting">OS: {{log.os}} <br>Браузер: {{log.browser}}<br> IP адрес:{{log.ip_address}}</ng-template>
-                  <mat-icon svgIcon="logInfo" class="cls-mat-icon cls-mat-icon-info app-icon-info" placement="left" [ngbTooltip]="tipContent" tooltipClass="tooltipPanel"></mat-icon>
+                  <mat-icon svgIcon="logInfo" class="app-icon-info" placement="left" [ngbTooltip]="tipContent" tooltipClass="tooltipPanel"></mat-icon>
                 </td>
               </tr>
 
@@ -61,7 +61,7 @@
             </div>
             <div class="col-2 app-block-lg-info">
               <ng-template #tipContent let-greeting="greeting">OS: {{log.os}} <br>Браузер: {{log.browser}}<br> IP адрес:{{log.ip_address}}</ng-template>
-              <mat-icon svgIcon="logInfo" class="cls-mat-icon cls-mat-icon-info app-icon-info" placement="left" [ngbTooltip]="tipContent" tooltipClass="tooltipPanel"></mat-icon>
+              <mat-icon svgIcon="logInfo" class="app-icon-info" placement="left" [ngbTooltip]="tipContent" tooltipClass="tooltipPanel"></mat-icon>
             </div>
           </div>
 
