@@ -1,4 +1,4 @@
-import { afterNextRender, Component, ElementRef, inject, OnInit, signal, ViewChild } from '@angular/core';
+import { afterNextRender, Component, ElementRef, inject, OnInit, signal, viewChild, ViewChild } from '@angular/core';
 import { LoadingComponent } from '../../frame2/components/loading/loading.component';
 import { BtnComponent } from '../../common/btn/btn.component';
 import { CommonModule } from '@angular/common';
@@ -7,6 +7,8 @@ import { MyDocFindingsComponent } from '../my-doc-findings/my-doc-findings.compo
 import { MyDocMydocComponent } from '../my-doc-mydoc/my-doc-mydoc.component';
 import { MyDocExaminationsComponent } from '../my-doc-examinations/my-doc-examinations.component';
 import { MyDocService } from '../../../services/my-doc.service';
+import { DateRangeComponent } from '../../common/date-range/date-range.component';
+import { IPeriod } from '../../../interfaces/period.interface';
 
 @Component({
   selector: 'app-my-doc-pc',
@@ -15,6 +17,7 @@ import { MyDocService } from '../../../services/my-doc.service';
     MyDocPcLabComponent,
     MyDocMydocComponent,
     MyDocExaminationsComponent,
+    DateRangeComponent,
     ],
   templateUrl: './my-doc-pc.component.html',
   styleUrl: './my-doc-pc.component.scss',
@@ -25,11 +28,20 @@ export class MyDocPcComponent {
 
   public MyDocS = inject(MyDocService);
 
-
   loading = signal(false);            // Загрузка
+
+  periodDate: IPeriod = {begin: new Date(new Date().setFullYear(new Date().getFullYear() - 1)), end: new Date};
+
+  dtBegin: Date = new Date();    // Дата начала
+  dtEnd: Date = new Date();    // Дата ококнчания
 
   constructor(
   ) {
+    this.dtBegin = new Date();
+    this.dtBegin.setDate(this.dtBegin.getDate()-365);
+    this.dtEnd = new Date();
+    this.onChangedPeriod({begin: this.dtBegin, end: this.dtEnd});
+
     // Вызывается после отрисовки DOM
     afterNextRender(() => {
       this.calcTableH();
@@ -42,30 +54,11 @@ export class MyDocPcComponent {
     this.p_testHeightBlock.update(curr => curr = resH);
   }
 
-/*
-  onClickType(id: number) {
-    this.typeDoc.update(list =>
-      list.map(item =>
-        item.id === id ? { ...item, active: true } : { ...item, active: false }
-      )
-    );
-*/
-
-/*
-    if (this.getCurrentTypeMyRec().id == 1){ // Предстоящие
-      this.getRnumbList();
-    } else { // Завершенные
-      this.changePeriod({begin: this.dtBegin, end:this.dtEnd})
-    }
-*/
-
-//  };
-
-  /* Текущий тип */
-/*
-  getCurrentTypeDoc(): IBtnMyRec{
-    return this.typeDoc().filter(item => item.active)[0];
+  onChangedPeriod(dt: IPeriod) {
+    console.log('dt=', dt);
+    this.dtBegin = dt.begin ? dt.begin : new Date();
+    this.dtEnd = dt.end ? dt.end : new Date();
+    this.periodDate = {begin: this.dtBegin, end: this.dtEnd};
   }
-*/
 
 }

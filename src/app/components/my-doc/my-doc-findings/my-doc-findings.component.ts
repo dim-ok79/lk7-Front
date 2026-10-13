@@ -35,6 +35,7 @@ export class MyDocFindingsComponent {
 
   @Input()
   set p_type(value: number) {
+    console.log('111 set p_type=', value);
     this._p_type.set(value);
 
     this.dtBegin = new Date();
@@ -49,6 +50,21 @@ export class MyDocFindingsComponent {
     return this._p_type();
   }
 
+/* test */
+  _beginDT: Date = new Date();
+
+  @Input()
+  set beginDT(value: Date) {
+    this._beginDT = value
+console.log('111 set beginDT=', value);
+  }
+
+  get beginDT(): Date {
+    return this._beginDT;
+  }
+
+/* */
+
   mobileDate = signal<IBlockDoc[]>([]);
 
 
@@ -57,6 +73,7 @@ export class MyDocFindingsComponent {
 
   dtBegin: Date = new Date();    // Дата начала
   dtEnd: Date = new Date();    // Дата ококнчания
+
   findingCountRectoPage = 10;     // Количетсво записей на странице
   findingCountRec = signal(0);            // Всего записей
   findingList = signal<ISemd[]>([]);
@@ -99,7 +116,7 @@ export class MyDocFindingsComponent {
   }
 
   /* выбор даты */
-  changePeriod(dt: IPeriod) {
+  public changePeriod(dt: IPeriod) {
     this.dtBegin = dt.begin ? dt.begin : new Date();
     this.dtEnd = dt.end ? dt.end : new Date();
     this.getfindingSize();
