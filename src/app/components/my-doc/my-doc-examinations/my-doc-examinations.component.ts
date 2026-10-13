@@ -29,10 +29,22 @@ export class MyDocExaminationsComponent {
     return this._testHeightBlock();
   }
 
+  /* Устанока даты  */
+  _periodDate: IPeriod = {begin: new Date, end: new Date};
+  @Input()
+  set v_periodDate(value: IPeriod) {
+    this._periodDate = value
+    console.log('111 set v_periodDate=', value);
+    this.getExamSize();
+    this.getfinding(1, this.examCountRectoPage)
+  }
+
+  get v_periodDate(): IPeriod {
+    return this._periodDate;
+  }
+
 //  mD: IBlockDoc = {infoName: 'sdfsdfdfgd', infoDate: new Date(), infoUrl: ''}
 
-  dtBegin: Date = new Date();    // Дата начала
-  dtEnd: Date = new Date();    // Дата ококнчания
   examCountRectoPage = 10;     // Количетсво записей на странице
   examCountRec = signal(0);            // Всего записей
   examList = signal<IExam[]>([]);
@@ -41,18 +53,11 @@ export class MyDocExaminationsComponent {
   public SemdS = inject(SemdService);
 
   constructor() {
-    this.dtBegin = new Date();
-    this.dtBegin.setDate(this.dtBegin.getDate()-365);
-    this.dtEnd = new Date();
-
-    // test
-    this.getExamSize();
-    this.getfinding(1, 10);
     }
 
   getExamSize(){
     this.examCountRec.update(val => 0);
-    this.SemdS.getExamPatientSize(this.dtBegin, this.dtEnd)
+    this.SemdS.getExamPatientSize(this.v_periodDate.begin, this.v_periodDate.end)
       .subscribe(
         info => {
           this.examCountRec.update(val => info.size);
@@ -66,7 +71,7 @@ export class MyDocExaminationsComponent {
   getfinding(pStart: number, pEnd: number){
     this.examList.update(val=> val = []);
     // По умолчанию
-    this.SemdS.getExamPatientList(this.dtBegin, this.dtEnd, pStart, pEnd)
+    this.SemdS.getExamPatientList(this.v_periodDate.begin, this.v_periodDate.end, pStart, pEnd)
       .subscribe(
         info => {
           this.examList.update((items) => info);
@@ -85,13 +90,6 @@ export class MyDocExaminationsComponent {
   }
 
 
-  changePeriod(dt: IPeriod) {
-    this.dtBegin = dt.begin ? dt.begin : new Date();
-    this.dtEnd = dt.end ? dt.end : new Date();
-    this.getExamSize();
-    this.getfinding(1, this.examCountRectoPage);
-  }
-
   /* Событие выбора страницы */
   changedPage(page: any) {
     if (page == 1) {
@@ -100,6 +98,5 @@ export class MyDocExaminationsComponent {
       this.getfinding(page*this.examCountRectoPage-this.examCountRectoPage , page*this.examCountRectoPage);
     }
   }
-
 
 }

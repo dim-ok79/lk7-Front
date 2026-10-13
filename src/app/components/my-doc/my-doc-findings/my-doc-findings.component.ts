@@ -1,4 +1,4 @@
-import { Component, inject, input, Input, signal } from '@angular/core';
+import { Component, inject, Input, signal } from '@angular/core';
 import { SemdService } from '../../../services/semd.service';
 import { ISemd } from '../../../interfaces/semd.interface';
 import { CommonModule } from '@angular/common';
@@ -35,32 +35,28 @@ export class MyDocFindingsComponent {
 
   @Input()
   set p_type(value: number) {
-    console.log('111 set p_type=', value);
     this._p_type.set(value);
 
-    this.dtBegin = new Date();
-    this.dtBegin.setDate(this.dtBegin.getDate()-365);
-    this.dtEnd = new Date();
     this.getfindingSize();
     this.getfinding(1, this.findingCountRectoPage)
-
   }
 
   get p_type():number {
     return this._p_type();
   }
 
-/* test */
-  _beginDT: Date = new Date();
-
+  /* Устанока даты  */
+  _periodDate: IPeriod = {begin: new Date, end: new Date};
   @Input()
-  set beginDT(value: Date) {
-    this._beginDT = value
-console.log('111 set beginDT=', value);
+  set v_periodDate(value: IPeriod) {
+    this._periodDate = value
+console.log('111 set v_periodDate=', value);
+    this.getfindingSize();
+    this.getfinding(1, this.findingCountRectoPage)
   }
 
-  get beginDT(): Date {
-    return this._beginDT;
+  get v_periodDate(): IPeriod {
+    return this._periodDate;
   }
 
 /* */
@@ -71,21 +67,16 @@ console.log('111 set beginDT=', value);
   public UtilsS = inject(UtilsService);
   public SemdS = inject(SemdService);
 
-  dtBegin: Date = new Date();    // Дата начала
-  dtEnd: Date = new Date();    // Дата ококнчания
-
   findingCountRectoPage = 10;     // Количетсво записей на странице
   findingCountRec = signal(0);            // Всего записей
   findingList = signal<ISemd[]>([]);
-
-
 
   constructor() {
   }
 
   getfindingSize(){
     this.findingCountRec.update(val => 0);
-    this.SemdS.getSemdPatientListSize(this.dtBegin, this.dtEnd, this.p_type)
+    this.SemdS.getSemdPatientListSize(this.v_periodDate.begin, this.v_periodDate.end, this.p_type)
       .subscribe(
         info => {
           this.findingCountRec.update(val => info.size);
@@ -99,7 +90,7 @@ console.log('111 set beginDT=', value);
   getfinding(pStart: number, pEnd: number){
     this.findingList.update(val=> val = []);
     // По умолчанию
-    this.SemdS.getSemdPatientList(this.dtBegin, this.dtEnd, pStart, pEnd, this.p_type)
+    this.SemdS.getSemdPatientList(this.v_periodDate.begin, this.v_periodDate.end, pStart, pEnd, this.p_type)
       .subscribe(
         info => {
           this.findingList.update((items) => info);
@@ -113,14 +104,6 @@ console.log('111 set beginDT=', value);
           console.log('ERR=', err);
         }
       );
-  }
-
-  /* выбор даты */
-  public changePeriod(dt: IPeriod) {
-    this.dtBegin = dt.begin ? dt.begin : new Date();
-    this.dtEnd = dt.end ? dt.end : new Date();
-    this.getfindingSize();
-    this.getfinding(1, this.findingCountRectoPage);
   }
 
   /* Событие выбора страницы */

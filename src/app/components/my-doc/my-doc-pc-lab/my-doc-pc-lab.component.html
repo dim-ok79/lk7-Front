@@ -1,9 +1,8 @@
-<app-panel-table-pagination nameBlock="" (onChangePeriod)="changePeriod($event)"
-                            [dtBegin]="dtBegin"
-                            [dtEnd]="dtEnd"
+<app-panel-table-pagination nameBlock=""
                             textItogo=""
                             [CountRec]="labCountRec()"
                             [CountRecPage]="labCountRectoPage"
+                            [HeaderHide]="true"
                             (onChangedPage)="changedPage($event)">
     <div class="tableFixHead" [style.max-height.px]="testHeightBlock">
       <table class="table table-borderless table-hover table-fixed">

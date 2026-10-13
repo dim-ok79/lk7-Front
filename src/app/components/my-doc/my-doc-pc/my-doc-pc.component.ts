@@ -37,10 +37,7 @@ export class MyDocPcComponent {
 
   constructor(
   ) {
-    this.dtBegin = new Date();
-    this.dtBegin.setDate(this.dtBegin.getDate()-365);
-    this.dtEnd = new Date();
-    this.onChangedPeriod({begin: this.dtBegin, end: this.dtEnd});
+    this.onChangedPeriod(this.periodDate);
 
     // Вызывается после отрисовки DOM
     afterNextRender(() => {

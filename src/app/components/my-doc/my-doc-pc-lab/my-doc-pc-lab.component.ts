@@ -31,83 +31,33 @@ export class MyDocPcLabComponent {
   }
 
 
+  /* Устанока даты  */
+  _periodDate: IPeriod = {begin: new Date, end: new Date};
+  @Input()
+  set v_periodDate(value: IPeriod) {
+    this._periodDate = value
+    console.log('111 set v_periodDate=', value);
+    this.getLabSize();
+    this.getLab(1, this.labCountRectoPage)
+  }
+
+  get v_periodDate(): IPeriod {
+    return this._periodDate;
+  }
+
   public LabServiceS = inject(LabService);
   public UtilsS = inject(UtilsService);
 
-/*
-  private AuthS = inject(AuthService);
-  private configS = inject(ConfigService);
-*/
 
-  dtBegin: Date = new Date();    // Дата начала
-  dtEnd: Date = new Date();    // Дата ококнчания
   labCountRectoPage = 10;     // Количетсво записей на странице
   labCountRec = signal(0);            // Всего записей
   labList = signal<ILabOrder[]>([]);
 
   constructor() {
-    this.dtBegin = new Date();
-    this.dtBegin.setDate(this.dtBegin.getDate()-365);
-    this.dtEnd = new Date();
-    this.getLabSize();
-    this.getLab(1, this.labCountRectoPage)
-
   }
 
 
-/*
-  test(){
-    this.LabServiceS.getLaboratoryOrderSize(this.dtBegin, this.dtEnd)
-      .subscribe(res => {
-          console.log('res=', res);
 
-/!*
-          if (res.size) {
-            this.orderListLength = res.size;
-            this.getOrders(1, this.countRectoPage);
-          } else {
-            this.orderListLength = 0;
-            this.loading = false;
-          }
-*!/
-        },
-        err => {
-          console.error('ERRROr=', err);
-/!*
-          this.loading = false;
-*!/
-        })
-
-    this.LabServiceS.getLaboratoryOrderList(this.dtBegin, this.dtEnd,1, 40)
-      .subscribe(res => {
-          console.log('getLaboratoryOrderList res=', res);
-        },
-        err => {
-          console.error('getLaboratoryOrderList ERRROr=', err);
-        })
-
-//+    this.LabServiceS.getLaboratoryResearchHtml(5687642)
-    this.LabServiceS.getLaboratoryResearch(5687642)
-      .subscribe(res => {
-          console.log('getLaboratoryResearch res=', res);
-        },
-        err => {
-          console.error('getLaboratoryResearch ERRROr=', err);
-        })
-
-
-
-  }
-*/
-
-  /* выбор даты */
-  changePeriod(dt: IPeriod) {
-    console.log('changePeriod=', dt);
-    this.dtBegin = dt.begin ? dt.begin : new Date();
-    this.dtEnd = dt.end ? dt.end : new Date();
-    this.getLabSize();
-    this.getLab(1, this.labCountRectoPage);
-  }
 
   /* Событие выбора страницы */
   changedPage(page: any) {
@@ -124,7 +74,7 @@ export class MyDocPcLabComponent {
   getLab(pStart: number, pEnd: number){
     this.labList.update(val=> val = []);
     // По умолчанию
-    this.LabServiceS.getLaboratoryOrderList(this.dtBegin, this.dtEnd, pStart, pEnd, 'desc')
+    this.LabServiceS.getLaboratoryOrderList(this.v_periodDate.begin, this.v_periodDate.end, pStart, pEnd, 'desc')
       .subscribe(
         info => {
           this.labList.update((items) => info);
@@ -136,7 +86,7 @@ export class MyDocPcLabComponent {
 
   getLabSize(){
     this.labCountRec.update(val => 0);
-    this.LabServiceS.getLaboratoryOrderSize(this.dtBegin, this.dtEnd)
+    this.LabServiceS.getLaboratoryOrderSize(this.v_periodDate.begin, this.v_periodDate.end)
       .subscribe(
         info => {
           this.labCountRec.update(val => info.size);
@@ -146,6 +96,7 @@ export class MyDocPcLabComponent {
       );
   }
 
+/*
   test(p_research_id: number){
     this.LabServiceS.getResearchFileList(p_research_id)
       .subscribe(
@@ -157,5 +108,6 @@ export class MyDocPcLabComponent {
       );
 
   }
+*/
 
 }
