@@ -1,11 +1,3 @@
-<div style="display: flex;    justify-content: flex-end; padding-right: 15px">
-  <app-btn class="app-btn-filter"
-           text="+ Добавить документ"
-           (click)="addDoc()">
-  </app-btn>
-
-</div>
-
   <app-panel-table-pagination nameBlock=""
                               textItogo=""
                               [HeaderHide] = "true"
@@ -20,8 +12,8 @@
           <thead>
           <tr>
             <th scope="col" class="app-bg-color app-header-table-dt app-table-th-center">Дата</th>
-            <th scope="col" class="app-bg-color app-table-th-center">Название файла</th>
-            <th scope="col" class="app-bg-color app-table-th-center">Тип документа</th>
+            <th scope="col" class="app-bg-color app-table-th-center">Название и тип</th>
+            <th scope="col" class="app-bg-color app-table-th-center">Документ</th>
           </tr>
           </thead>
           <tbody>
@@ -29,15 +21,14 @@
             <td class="app-table-th-center">
               {{UtilsS.getTekDayDATE(document.dat)}}
             </td>
-            <td class="logout-td-text">{{document.text}}</td>
-            <td class="app-table-th-center">{{document.file_name}}
-              <!--
-                          <mat-icon svgIcon="pdf" class="cls-mat-icon cls-mat-icon-info app-icon-info"
-                                    (click)="SemdS.onClickSEMD(finding.semd_id)">
+            <td class="logout-td-text">{{document.text}} - {{document.file_name}}</td>
+            <td class="app-table-th-center">
+              <mat-icon svgIcon="pdf" class="app-icon-info80"
+                        (click)="openDoc(document.id)">
 
-                          </mat-icon>
-              -->
+              </mat-icon>
             </td>
+
           </tr>
 
           </tbody>

@@ -35,6 +35,9 @@ export class MyDocPcComponent {
   dtBegin: Date = new Date();    // Дата начала
   dtEnd: Date = new Date();    // Дата ококнчания
 
+  MyDocMydocRef = viewChild(MyDocMydocComponent);
+
+
   constructor(
   ) {
     this.onChangedPeriod(this.periodDate);
@@ -47,7 +50,8 @@ export class MyDocPcComponent {
 
   /* расчет высоты блока относительно */
   private calcTableH(){
-    const resH = this.ContentBlocklogEL?.nativeElement.offsetHeight-72;
+//    const resH = this.ContentBlocklogEL?.nativeElement.offsetHeight-72;
+    const resH = this.ContentBlocklogEL?.nativeElement.offsetHeight-152;
     this.p_testHeightBlock.update(curr => curr = resH);
   }
 
@@ -58,4 +62,11 @@ export class MyDocPcComponent {
     this.periodDate = {begin: this.dtBegin, end: this.dtEnd};
   }
 
+  addDoc(){
+    const child = this.MyDocMydocRef();
+    if (child) {
+      // Вызываем метод дочернего компонента напрямую и передаем аргументы
+      child.addDoc();
+    }
+  }
 }

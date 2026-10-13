@@ -1,5 +1,5 @@
   <div class="cls-panel cls-ptp panel-table-pagination" [ngClass]="{ 'panel-table-pagination-not-date': HeaderHide}"
-              [style.max-height.px]="HeightBlock">
+       [style.max-height.px]="HeightBlock">
 
     <div class="cls-ptp-header panel-table-pagination__header" *ngIf="HeaderHide == false">
       <span class="cls-name">{{nameBlock}}</span>
@@ -9,7 +9,7 @@
 
     </div>
 
-    <div class="cls-ptp-body panel-table-pagination__body">
+    <div class="cls-ptp-body panel-table-pagination__body" [style.max-height.px]="HeightBlock">
 
       <ng-container *ngIf="textNotREC; then showInfo else showNotInfo"></ng-container>
       <ng-template #showInfo>

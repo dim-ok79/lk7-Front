@@ -1,9 +1,10 @@
-import { Component, OnInit, signal, ViewEncapsulation } from '@angular/core';
+import { Component, inject, OnInit, signal, ViewEncapsulation } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { IContract } from '../../../interfaces/patient.interface';
 import { CommonModule } from '@angular/common';
 import { ConfigService } from '../../../services/application/config.service';
 import { MatIconModule } from '@angular/material/icon';
+import { FileUploadService } from '../../../services/file-upload.service';
 
 @Component({
   selector: 'app-documents',
@@ -16,13 +17,13 @@ import { MatIconModule } from '@angular/material/icon';
 export class DocumentsComponent implements OnInit{
 
   public contracts = signal<IContract[]  | null >( null);
+  private fileUploadS = inject(FileUploadService);
+  private auth = inject(AuthService);
+  private configS = inject(ConfigService);
 
   constructor(
-    private auth: AuthService,
-    private configS: ConfigService,
   )
-  {
-  }
+  {  }
 
   ngOnInit(): void {
     this.auth.getContractListToPatient()
@@ -38,8 +39,7 @@ export class DocumentsComponent implements OnInit{
 
   /* открыть контракт */
   openContract(contractId: number) {
-    const url = `${this.configS.getValue('hostBackend')}/contract/patient/docpdf?patientId=${this.auth.patientId}&contractId=${contractId}`;
-    window.open(url, '_blank');
+    this.fileUploadS.openDoc(contractId);
   }
 
 

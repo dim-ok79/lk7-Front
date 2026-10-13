@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {AuthService} from "./auth.service";
 import {Observable} from "rxjs";
 import {HttpClient, HttpEvent,  HttpHeaders, HttpRequest} from "@angular/common/http";
@@ -12,11 +12,11 @@ import { strToDate } from '../utils/global.function';
   providedIn: 'root'
 })
 export class FileUploadService {
+  private auth = inject(AuthService);
+  private configS = inject(ConfigService);
 
   constructor(
     private http: HttpClient,
-    private auth: AuthService,
-    private configS: ConfigService,
     private httpApp: AppHttpService
   ) {
   }
@@ -162,6 +162,19 @@ console.log(`R result ${file.name}=`, result);
   mailToSend(dt: any): Observable<any[]> {
     const url = '/mails/send';
     return this.httpApp.post(url, dt, this.auth.token, true);
+  }
+
+  openDoc(doc_id: number){
+    this.auth.getTmpTokenID()
+      .subscribe(res => {
+          if (res && res.id){
+            window.open(`${this.configS.getValue('hostBackend')}/contract/patient/docpdf/${res.id}/${doc_id}.pdf`, '_blank');
+          }
+        },
+        err => {
+          console.error('getTmpTokenID ERRROr=', err);
+        })
+
   }
 
 }

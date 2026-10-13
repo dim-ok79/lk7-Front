@@ -22,7 +22,7 @@ export class MyDocFindingsComponent {
 
   @Input()
   set testHeightBlock(value: number) {
-    console.log('_testHeightBlock value=', value);
+    console.log('MyDocFindingsComponent SET_testHeightBlock value=', value);
     this._testHeightBlock.set(value);
     console.log('_testHeightBlock=', this._testHeightBlock());
   }

@@ -7,11 +7,12 @@ import { UtilsService } from '../../../services/application/utils.service';
 import { PanelTablePaginationComponent } from '../../common/panel-table-pagination/panel-table-pagination.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FileUploadComponent } from '../../../modals/file-upload/file-upload.component';
-import { LoadingComponent } from '../../frame2/components/loading/loading.component';
+import { MatIconModule} from '@angular/material/icon';
 
+// Мои документы
 @Component({
   selector: 'app-my-doc-mydoc',
-  imports: [CommonModule, BtnComponent, PanelTablePaginationComponent],
+  imports: [CommonModule, BtnComponent, PanelTablePaginationComponent, MatIconModule],
   templateUrl: './my-doc-mydoc.component.html',
   styleUrl: './my-doc-mydoc.component.scss',
 })
@@ -32,7 +33,7 @@ export class MyDocMydocComponent {
   documentCountRec = signal(0);            // Всего записей
 
   private fileUploadS = inject(FileUploadService);
-  public UtilsS = inject(UtilsService);
+  public  UtilsS = inject(UtilsService);
   private modalService = inject(NgbModal);
 
   constructor(){
@@ -71,7 +72,7 @@ export class MyDocMydocComponent {
     }
   }
 
-  addDoc(){
+  public addDoc(){
     const modalRef = this.modalService.open(FileUploadComponent);
 //    modalRef.componentInstance.visitID = visitID;
 
@@ -89,5 +90,8 @@ export class MyDocMydocComponent {
 
   }
 
+  openDoc(doc_id: number){
+    this.fileUploadS.openDoc(doc_id);
+  }
 
 }
