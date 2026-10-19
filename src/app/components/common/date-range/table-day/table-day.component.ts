@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import {ICalendarDateItem, IDateRange, IDateRangeCalendarData} from "../../../../interfaces/date-range.interface";
 import {DateRangeService} from "../../../../services/date-range.service";
 import moment from 'moment';
@@ -11,7 +11,9 @@ const tableRightPrefix = 'dtRight';
   selector: 'app-table-day',
   imports: [CommonModule],
   templateUrl: './table-day.component.html',
-  styleUrls: ['./table-day.component.scss']
+  styleUrls: ['./table-day.component.scss'],
+  encapsulation: ViewEncapsulation.None
+
 })
 
 export class TableDayComponent implements OnInit {

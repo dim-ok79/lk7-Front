@@ -2,22 +2,29 @@ import { Component, inject, Input, signal } from '@angular/core';
 import { FileUploadService } from '../../../services/file-upload.service';
 import { IDocuments } from '../../../interfaces/document.interface';
 import { CommonModule } from '@angular/common';
-import { BtnComponent } from '../../common/btn/btn.component';
 import { UtilsService } from '../../../services/application/utils.service';
 import { PanelTablePaginationComponent } from '../../common/panel-table-pagination/panel-table-pagination.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FileUploadComponent } from '../../../modals/file-upload/file-upload.component';
 import { MatIconModule} from '@angular/material/icon';
+import { LoadingComponent } from '../../frame2/components/loading/loading.component';
+import { IPeriod } from '../../../interfaces/period.interface';
+import { BlockDocComponent } from '../../common/block-doc/block-doc.component';
 
 // Мои документы
 @Component({
   selector: 'app-my-doc-mydoc',
-  imports: [CommonModule, BtnComponent, PanelTablePaginationComponent, MatIconModule],
+  imports: [CommonModule,
+    PanelTablePaginationComponent,
+    MatIconModule,
+    LoadingComponent,
+    BlockDocComponent],
   templateUrl: './my-doc-mydoc.component.html',
   styleUrl: './my-doc-mydoc.component.scss',
 })
 export class MyDocMydocComponent {
   _testHeightBlock = signal<number>(100);
+  @Input() isMobile = false;
 
   @Input()
   set testHeightBlock(value: number) {
@@ -35,6 +42,21 @@ export class MyDocMydocComponent {
   private fileUploadS = inject(FileUploadService);
   public  UtilsS = inject(UtilsService);
   private modalService = inject(NgbModal);
+  loading = signal<boolean>(false);
+
+  /* Устанока даты  */
+  _periodDate: IPeriod = {begin: new Date, end: new Date};
+  @Input()
+  set v_periodDate(value: IPeriod) {
+    this._periodDate = value
+    console.log('111 set v_periodDate=', value);
+//    this.getfindingSize();
+    this.getDocumentList(1, this.documentCountRectoPage)
+  }
+
+  get v_periodDate(): IPeriod {
+    return this._periodDate;
+  }
 
   constructor(){
     this.changedPage(1)
@@ -52,13 +74,16 @@ export class MyDocMydocComponent {
   }
 
   getDocumentList(pStart: number, pEnd: number){
+    this.loading.set(true);
     this.fileUploadS.getDocList()
       .subscribe(
         result => {
           this.documentList.update(val => val = result);
           this.documentCountRec.set(result.length);
+          this.loading.set(false);
         },
         err => {
+          this.loading.set(false);
           console.log('getDocList err=', err);
         })
   }

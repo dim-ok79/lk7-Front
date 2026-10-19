@@ -1,6 +1,8 @@
+<app-loading [loading]="loading()"></app-loading>
 <ng-container *ngIf="isMobile; then showMobile else showPC"></ng-container>
 
-<ng-template #showMobile>
+<ng-template #showMobile >
+  <br>
   <app-block-doc *ngFor="let finding of findingList()" [infoName]="finding.text" [infoDate]="finding.dat_date" [semd_id]="finding.semd_id"]></app-block-doc>
 </ng-template>
 
@@ -44,6 +46,3 @@
   </app-panel-table-pagination>
 
 </ng-template>
-
-
-

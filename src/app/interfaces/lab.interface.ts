@@ -1,5 +1,5 @@
 export interface ILabOrder {
-  dtSort: Date;                      // Для сортировки
+  dat_date: Date;                      // Для сортировки
   research_id: number;
   orderid: number;
   regdate: string;

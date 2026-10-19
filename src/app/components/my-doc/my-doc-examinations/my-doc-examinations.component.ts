@@ -1,18 +1,18 @@
 import { Component, inject, Input, signal } from '@angular/core';
 import { BlockDocComponent } from '../../common/block-doc/block-doc.component';
-import { IBlockDoc } from '../../../interfaces/block-doc.interface';
 import { SemdService } from '../../../services/semd.service';
-import { IExam, ISemd } from '../../../interfaces/semd.interface';
+import { IExam } from '../../../interfaces/semd.interface';
 import { CommonModule } from '@angular/common';
 import { PanelTablePaginationComponent } from '../../common/panel-table-pagination/panel-table-pagination.component';
 import { MatIconModule} from '@angular/material/icon';
 import { IPeriod } from '../../../interfaces/period.interface';
 import { UtilsService } from '../../../services/application/utils.service';
+import { LoadingComponent } from '../../frame2/components/loading/loading.component';
 
 // Исследования
 @Component({
   selector: 'app-my-doc-examinations',
-  imports: [CommonModule, PanelTablePaginationComponent, MatIconModule, BlockDocComponent],
+  imports: [CommonModule, PanelTablePaginationComponent, MatIconModule, BlockDocComponent, LoadingComponent],
   templateUrl: './my-doc-examinations.component.html',
   styleUrl: './my-doc-examinations.component.scss',
 })
@@ -34,7 +34,6 @@ export class MyDocExaminationsComponent {
   @Input()
   set v_periodDate(value: IPeriod) {
     this._periodDate = value
-    console.log('111 set v_periodDate=', value);
     this.getExamSize();
     this.getfinding(1, this.examCountRectoPage)
   }
@@ -48,6 +47,7 @@ export class MyDocExaminationsComponent {
   examCountRectoPage = 10;     // Количетсво записей на странице
   examCountRec = signal(0);            // Всего записей
   examList = signal<IExam[]>([]);
+  loading = signal<boolean>(false);
 
   public UtilsS = inject(UtilsService);
   public SemdS = inject(SemdService);
@@ -69,12 +69,15 @@ export class MyDocExaminationsComponent {
 
   /* Получить СЕМДы заключения */
   getfinding(pStart: number, pEnd: number){
+    this.loading.set(true);
     this.examList.update(val=> val = []);
     // По умолчанию
     this.SemdS.getExamPatientList(this.v_periodDate.begin, this.v_periodDate.end, pStart, pEnd)
       .subscribe(
         info => {
           this.examList.update((items) => info);
+          this.loading.set(false);
+
           console.log('===', this.examList());
 /*
           this.findingList().forEach(item => {
@@ -84,6 +87,7 @@ export class MyDocExaminationsComponent {
 */
 
         }, err => {
+          this.loading.set(false);
           console.log('ERR=', err);
         }
       );

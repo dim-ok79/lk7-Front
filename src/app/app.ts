@@ -32,6 +32,7 @@ export class App {
     this.iconRegistry.addSvgIcon('phone', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/phone.svg'));
     this.iconRegistry.addSvgIcon('pdf', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/pdf.svg'));
     this.iconRegistry.addSvgIcon('pdf_white', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/pdf_white.svg'));
+    this.iconRegistry.addSvgIcon('pdf_btn', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/pdf_btn.svg'));
 
     // Menu
     this.iconRegistry.addSvgIcon('fin', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/menu/fin.svg'));
@@ -58,7 +59,6 @@ export class App {
     this.iconRegistry.addSvgIcon('time', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/talon/time.svg'));
 
     this.iconRegistry.addSvgIcon('upload', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/upload.svg'));
-
 
   }
 

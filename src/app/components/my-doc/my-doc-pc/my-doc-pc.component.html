@@ -4,7 +4,7 @@
   <app-loading [loading]="loading()"></app-loading>
   <div class="my-doc-period">
     <app-date-range *ngIf="MyDocS.getCurrentTypeDoc().id != 5"
-      [dtBegin]="dtBegin" [dtEnd]="dtEnd" (onChanged)="onChangedPeriod($event)"></app-date-range>
+      [dtBegin]="periodDate.begin" [dtEnd]="periodDate.end" (onChanged)="onChangedPeriod($event)"></app-date-range>
     <app-btn class="app-btn-filter" *ngIf="MyDocS.getCurrentTypeDoc().id == 5"
              text="+ Добавить документ"
              (click)="addDoc()">

@@ -6,7 +6,7 @@ export interface IdocType {
 export interface IDocuments {
   id:number;
   dat_str: string;
-  dat?: Date;
+  dat: Date;
   text: string;
   file_name: string;
 }

@@ -2,16 +2,22 @@ $color-btn: #F1F9FE;
 $color-day-start-end: #9277FF;
 $color-day: #E3DCFF;
 
+@media (max-width: 480px) {
+  .btn-period {
+    width: 90%;
+  }
+}
 
 .btn-period {
+  border: 2px solid #1c929c;
   background-color: $color-btn;
   border-radius: 10px;
   //  border-color: $color-btn;
   padding: 6px;
   color: #A5B4C4;
   min-width: 250px;
-  border-width: inherit;
-  box-shadow: 0px 4px 4px 0px rgb(212 212 212 / 50%);
+/*  border-width: inherit;*/
+/*  box-shadow: 0px 4px 4px 0px rgb(212 212 212 / 50%);*/
 }
 
 .calendary-list{
@@ -29,6 +35,12 @@ $color-day: #E3DCFF;
   padding: 10px;
   margin-top: 10px;
   background-color: #eaf3fa;
+}
+
+@media (max-width: 480px) {
+  .calendary-list {
+    min-width: 155px;
+  }
 }
 .cls-date-range{
   position: relative;

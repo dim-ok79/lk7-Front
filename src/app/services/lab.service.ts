@@ -114,7 +114,7 @@ export class LabService {
 //    return this.httpApp.get(url, this.authS.token);
     return this.httpApp.get(url , this.authS.token).pipe(
       map((res: ILabOrder[]) => {
-        res.forEach(item => item.dtSort = strToDate(item.regdate))
+        res.forEach(item => item.dat_date = strToDate(item.regdate))
         return res;
       })
     )

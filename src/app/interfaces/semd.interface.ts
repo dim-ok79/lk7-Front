@@ -10,6 +10,6 @@ export interface ISemd {
 export interface IExam {
   text: string,    // название документа RU
   dat_str: string, // дата документа
-  dat_date?: Date,       // дата документа
+  dat_date: Date,       // дата документа
   semd_id: number  // id для получения самого документа
 }

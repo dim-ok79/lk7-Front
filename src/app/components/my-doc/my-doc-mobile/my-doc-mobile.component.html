@@ -5,12 +5,53 @@
        [ngClass]="{ 'active': typeMR.active}"
        (click)="MyDocS.onClickType(typeMR.id)">{{typeMR.name}}
   </div>
+<!--
+  <app-date-range *ngIf="MyDocS.getCurrentTypeDoc().id != 5"
+                  [dtBegin]="dtBegin" [dtEnd]="dtEnd" (onChanged)="onChangedPeriod($event)"></app-date-range>
+-->
+
 </div>
+
+<div class="my-doc-period">
+  <app-date-range *ngIf="MyDocS.getCurrentTypeDoc().id != 5"
+                  [dtBegin]="periodDate.begin" [dtEnd]="periodDate.end" (onChanged)="onChangedPeriod($event)"></app-date-range>
+  <app-btn class="app-btn-filter" *ngIf="MyDocS.getCurrentTypeDoc().id == 5"
+           text="+ Добавить документ"
+           (click)="addDoc()">
+  </app-btn>
+
+</div>
+
 
 <ng-container [ngSwitch]="MyDocS.getCurrentTypeDoc().id">
   <ng-template [ngSwitchCase]="1">
-    <app-my-doc-findings [p_type]='1' [isMobile]="true"></app-my-doc-findings>
+    <app-my-doc-findings [p_type]='1' [isMobile]="true" [v_periodDate]="periodDate"></app-my-doc-findings>
   </ng-template>
+
+  <ng-container [ngSwitch]="MyDocS.getCurrentTypeDoc().id">
+    <ng-template [ngSwitchCase]="2">
+      <app-my-doc-pc-lab [isMobile]="true" [v_periodDate]="periodDate"></app-my-doc-pc-lab>
+    </ng-template>
+  </ng-container>
+
+  <ng-container [ngSwitch]="MyDocS.getCurrentTypeDoc().id">
+    <ng-template [ngSwitchCase]="3">
+      <app-my-doc-examinations [isMobile]="true" [v_periodDate]="periodDate"></app-my-doc-examinations>
+    </ng-template>
+  </ng-container>
+
+  <ng-container [ngSwitch]="MyDocS.getCurrentTypeDoc().id">
+    <ng-template [ngSwitchCase]="4">
+      <app-my-doc-findings [p_type]='2' [isMobile]="true" [v_periodDate]="periodDate"></app-my-doc-findings>
+    </ng-template>
+  </ng-container>
+
+  <ng-container [ngSwitch]="MyDocS.getCurrentTypeDoc().id">
+    <ng-template [ngSwitchCase]="5">
+      <app-my-doc-mydoc [isMobile]="true" [v_periodDate]="periodDate"></app-my-doc-mydoc>
+    </ng-template>
+  </ng-container>
+
 </ng-container>
 
 

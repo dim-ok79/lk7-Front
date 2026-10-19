@@ -8,11 +8,16 @@ import { IPeriod } from '../../../interfaces/period.interface';
 import { UtilsService } from '../../../services/application/utils.service';
 import { BlockDocComponent } from '../../common/block-doc/block-doc.component';
 import { IBlockDoc } from '../../../interfaces/block-doc.interface';
+import { LoadingComponent } from '../../frame2/components/loading/loading.component';
 
 // Заключения / Профосмотры
 @Component({
   selector: 'app-my-doc-findings',
-  imports: [CommonModule, PanelTablePaginationComponent, MatIconModule, BlockDocComponent],
+  imports: [CommonModule,
+    PanelTablePaginationComponent,
+    MatIconModule,
+    BlockDocComponent,
+    LoadingComponent],
   templateUrl: './my-doc-findings.component.html',
   styleUrl: './my-doc-findings.component.scss',
 })
@@ -36,9 +41,6 @@ export class MyDocFindingsComponent {
   @Input()
   set p_type(value: number) {
     this._p_type.set(value);
-
-    this.getfindingSize();
-    this.getfinding(1, this.findingCountRectoPage)
   }
 
   get p_type():number {
@@ -62,6 +64,7 @@ console.log('111 set v_periodDate=', value);
 /* */
 
   mobileDate = signal<IBlockDoc[]>([]);
+  loading = signal<boolean>(false);
 
 
   public UtilsS = inject(UtilsService);
@@ -75,12 +78,16 @@ console.log('111 set v_periodDate=', value);
   }
 
   getfindingSize(){
-    this.findingCountRec.update(val => 0);
+    console.log('!!! getfindingSize');
+//    this.findingCountRec.update(val => 0);
     this.SemdS.getSemdPatientListSize(this.v_periodDate.begin, this.v_periodDate.end, this.p_type)
       .subscribe(
         info => {
-          this.findingCountRec.update(val => info.size);
+          console.log('SIZE===', info.size);
+          this.findingCountRec.set(info.size);
+          console.log('SIZE2===', this.findingCountRec());
         }, err => {
+          this.findingCountRec.set(0);
           console.log('ERR=', err);
         }
       );
@@ -88,19 +95,22 @@ console.log('111 set v_periodDate=', value);
 
   /* Получить СЕМДы заключения */
   getfinding(pStart: number, pEnd: number){
-    this.findingList.update(val=> val = []);
+    this.loading.set(true);
+    this.findingList.set([]);
     // По умолчанию
     this.SemdS.getSemdPatientList(this.v_periodDate.begin, this.v_periodDate.end, pStart, pEnd, this.p_type)
       .subscribe(
         info => {
-          this.findingList.update((items) => info);
+          this.findingList.set(info);
           console.log('===', this.findingList());
           this.findingList().forEach(item => {
 //            this.mobileDate.
           })
+          this.loading.set(false);
 //          mobileDate
 
         }, err => {
+          this.loading.set(false);
           console.log('ERR=', err);
         }
       );

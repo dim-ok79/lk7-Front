@@ -1,3 +1,15 @@
+<app-loading [loading]="loading()"></app-loading>
+<ng-container *ngIf="isMobile; then showMobile else showPC"></ng-container>
+
+<ng-template #showMobile >
+  <br>
+  <app-block-doc *ngFor="let document of documentList()"
+                 infoName="{{document.text}} - {{document.file_name}}"
+                 [infoDate]="document.dat"
+                 [semd_id]="document.id"]></app-block-doc>
+</ng-template>
+
+<ng-template #showPC>
   <app-panel-table-pagination nameBlock=""
                               textItogo=""
                               [HeaderHide] = "true"
@@ -36,3 +48,4 @@
       </div>
 
   </app-panel-table-pagination>
+</ng-template>

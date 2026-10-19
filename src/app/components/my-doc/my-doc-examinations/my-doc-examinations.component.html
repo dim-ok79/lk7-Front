@@ -1,8 +1,12 @@
+<app-loading [loading]="loading()"></app-loading>
 <ng-container *ngIf="isMobile; then showMobile else showPC"></ng-container>
 
 <ng-template #showMobile>
-<!--  <app-block-doc *ngFor="let exam of examList()" [infoName]="exam.text" [infoDate]="exam.dat_date" [semd_id]="exam.semd_id"]></app-block-doc>-->
+  <br>
+  <app-block-doc *ngFor="let exam of examList()" [infoName]="exam.text" [infoDate]="exam.dat_date" [semd_id]="exam.semd_id"]></app-block-doc>
+
 </ng-template>
+
 
 <ng-template #showPC>
   <app-panel-table-pagination nameBlock=""

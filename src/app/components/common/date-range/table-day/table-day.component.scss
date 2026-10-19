@@ -1,3 +1,4 @@
+@import "@table-day";
 
 // Стартовая дата
 .cls-dr-start-day {
@@ -164,7 +165,7 @@
 // @use "@table-day";
 /* TODO = перенести в отдельный файл
 */
-@media (max-width: 800px) {
+/*@media (max-width: 800px) {
   // Стартовая дата
   .cls-dr-start-day {
     border-radius: 50% 0 0 50%;
@@ -173,7 +174,7 @@
     color: white!important;
     &:before {
       content: '';
-      width: 50%;
+!*      width: 50%;*!
       height: 100%;
       display: block;
       background-color: #fff;
@@ -411,5 +412,5 @@
   .cls-dr-not-thisdays {
     visibility: visible;
   }
-}
+}*/
 

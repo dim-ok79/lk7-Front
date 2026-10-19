@@ -14,6 +14,11 @@
 
 .app-MyDoc-btn-filter.active{
   background-color: white;
-  color: #b6b6b6;
+  color: v.$color-btn-bg;
   border: 2px solid v.$color-btn-bg;
+}
+
+.my-doc-period{
+  text-align: center;
+  margin-top: 10px;
 }

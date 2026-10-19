@@ -1,41 +1,52 @@
-<app-panel-table-pagination nameBlock=""
-                            textItogo=""
-                            [CountRec]="labCountRec()"
-                            [CountRecPage]="labCountRectoPage"
-                            [HeaderHide]="true"
-                            [HeightBlock]="testHeightBlock"
-                            (onChangedPage)="changedPage($event)">
-    <div class="tableFixHead">
-      <table class="table table-borderless table-hover table-fixed">
-        <thead>
-        <tr>
-          <th scope="col" class="app-bg-color app-header-table-dt app-table-th-center" >Дата посещения</th>
-          <th scope="col" class="app-bg-color app-table-th-center">Название</th>
-          <th scope="col" class="app-bg-color app-table-th-center">Документы</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let lab of labList()">
-          <td class="app-table-th-center">
-            {{UtilsS.getTekDayDATE(lab.dtSort)}}
-          </td>
-          <td class="logout-td-text">Заказ № {{lab.orderid}} - {{lab.text_status}}
-          </td>
+<app-loading [loading]="loading()"></app-loading>
+<ng-container *ngIf="isMobile; then showMobile else showPC"></ng-container>
 
-<!--          (click)="test(lab.research_id)"-->
+<ng-template #showMobile >
+  <br>
+  <app-block-doc *ngFor="let lab of labList()" infoName="Заказ № {{lab.orderid}} - {{lab.text_status}}" [infoDate]="lab.dat_date" [semd_id]="lab.research_id"]></app-block-doc>
+</ng-template>
 
-          <td class="app-table-th-center">
-            <mat-icon svgIcon="pdf" class="app-icon-info80"
-                                  (click)="LabServiceS.openResearchPdf(lab.research_id)"
-            >
+<ng-template #showPC>
+  <app-panel-table-pagination nameBlock=""
+                              textItogo=""
+                              [CountRec]="labCountRec()"
+                              [CountRecPage]="labCountRectoPage"
+                              [HeaderHide]="true"
+                              [HeightBlock]="testHeightBlock"
+                              (onChangedPage)="changedPage($event)">
+      <div class="tableFixHead">
+        <table class="table table-borderless table-hover table-fixed">
+          <thead>
+          <tr>
+            <th scope="col" class="app-bg-color app-header-table-dt app-table-th-center" >Дата посещения</th>
+            <th scope="col" class="app-bg-color app-table-th-center">Название</th>
+            <th scope="col" class="app-bg-color app-table-th-center">Документы</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let lab of labList()">
+            <td class="app-table-th-center">
+              {{UtilsS.getTekDayDATE(lab.dat_date)}}
+            </td>
+            <td class="logout-td-text">Заказ № {{lab.orderid}} - {{lab.text_status}}
+            </td>
 
-            </mat-icon>
-          </td>
-        </tr>
+  <!--          (click)="test(lab.research_id)"-->
 
-        </tbody>
-      </table>
-<!--      (click)="onClickOrder(lab.research_id)"-->
-    </div>
+            <td class="app-table-th-center">
+              <mat-icon svgIcon="pdf" class="app-icon-info80"
+                                    (click)="LabServiceS.openResearchPdf(lab.research_id)"
+              >
 
-</app-panel-table-pagination>
+              </mat-icon>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+  <!--      (click)="onClickOrder(lab.research_id)"-->
+      </div>
+
+  </app-panel-table-pagination>
+
+</ng-template>

@@ -32,8 +32,10 @@ export class MyDocPcComponent {
 
   periodDate: IPeriod = {begin: new Date(new Date().setFullYear(new Date().getFullYear() - 1)), end: new Date};
 
+/*
   dtBegin: Date = new Date();    // Дата начала
   dtEnd: Date = new Date();    // Дата ококнчания
+*/
 
   MyDocMydocRef = viewChild(MyDocMydocComponent);
 
@@ -57,9 +59,9 @@ export class MyDocPcComponent {
 
   onChangedPeriod(dt: IPeriod) {
     console.log('dt=', dt);
-    this.dtBegin = dt.begin ? dt.begin : new Date();
-    this.dtEnd = dt.end ? dt.end : new Date();
-    this.periodDate = {begin: this.dtBegin, end: this.dtEnd};
+    const cdtBegin = dt.begin ? dt.begin : new Date();
+    const cdtEnd = dt.end ? dt.end : new Date();
+    this.periodDate = {begin: cdtBegin, end: cdtEnd};
   }
 
   addDoc(){

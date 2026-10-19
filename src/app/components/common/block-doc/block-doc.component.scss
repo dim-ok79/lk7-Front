@@ -2,24 +2,36 @@
 .block-doc{
   text-align: center;
   border-radius: 6px;
-  border: 3px solid v.$color-btn-bg;
+  border: 2px solid v.$color-btn-bg;
   padding: 15px;
-  margin-bottom: 15px;
+/*  margin-bottom: 15px;*/
+  box-shadow: 1px 4px 4px 4px rgb(212 212 212 / 50%);
+  margin: 17px;
+}
+
+.block-doc:first-child {
+  margin-top: 0;
 }
 
 .block-doc-btn{
-  background-color: v.$color-btn-bg;
+/*  background-color: v.$color-btn-bg;*/
+  background-color: #60bdc2;
   color: white;
   border-width: 3px;
   text-align: center;
   border-radius: 6px;
-  margin-left: 25%;
-  margin-right: 25%;
+  margin-left: 15%;
+  margin-right: 15%;
   cursor: pointer;
 }
 
 .block-doc-btn-icon{
-  width: 80px!important;
-  height: 80px!important;
+  width: 50px!important;
+  height: 50px!important;
   fill: v.$color-btn-bg; // Цвет картинки
+  margin-top: 8px;
+}
+
+.block-doc-date{
+  margin-bottom: 12px;
 }

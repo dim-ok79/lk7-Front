@@ -1,4 +1,14 @@
-import { ChangeDetectorRef, Component, EventEmitter, inject, Input, OnInit, Output, signal } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+  signal,
+  ViewEncapsulation
+} from '@angular/core';
 import {IDateRange, IDateRangeHeader} from "../../../interfaces/date-range.interface";
 import moment from 'moment';
 import {DateRangeService} from "../../../services/date-range.service";
@@ -15,6 +25,8 @@ const tableRightPrefix = 'dtRight';
   imports:[CommonModule, MatIconModule, TableDayComponent],
   templateUrl: './date-range.component.html',
   styleUrls: ['./date-range.component.scss'],
+  encapsulation: ViewEncapsulation.None
+
 })
 export class DateRangeComponent implements OnInit {
   public dt: IDateRange;
@@ -25,6 +37,7 @@ export class DateRangeComponent implements OnInit {
   @Output() onChanged = new EventEmitter<IPeriod>(); // Смена даты
   @Input()      // Дата начала
   set dtBegin(value: Date | null) {
+console.log('!!! set dtBegin=', value);
     this.dt.dt_begin = value;
     this.setHeaderBtn();
     this.drs.CalendarySetDateRange(this.dt);
@@ -36,6 +49,7 @@ export class DateRangeComponent implements OnInit {
 
   @Input() // Дата окончания
   set dtEnd(value: Date | null) {
+    console.log('!!! set dtEnd=', value);
     this.dt.dt_end = value;
     this.setHeaderBtn();
     this.drs.CalendarySetDateRange(this.dt);
@@ -196,6 +210,8 @@ export class DateRangeComponent implements OnInit {
   }
 
   setDateHeader(h: IDateRangeHeader, dt: Date, l: boolean , r: boolean){
+console.log('!!! setDateHeader h=', h);
+console.log('!!! setDateHeader dt=', dt);
     h.dt = dt;
     h.mount = moment(h.dt).format('MMMM');
     h.year = h.dt.getFullYear();
