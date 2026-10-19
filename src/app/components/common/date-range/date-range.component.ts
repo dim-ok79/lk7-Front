@@ -29,7 +29,7 @@ const tableRightPrefix = 'dtRight';
 
 })
 export class DateRangeComponent implements OnInit {
-  public dt: IDateRange;
+  public dt = signal<IDateRange>;
 //  private cdr = inject(ChangeDetectorRef);
 
   isShown = signal(false); // Показ календаря
@@ -38,9 +38,13 @@ export class DateRangeComponent implements OnInit {
   @Input()      // Дата начала
   set dtBegin(value: Date | null) {
 console.log('!!! set dtBegin=', value);
-    this.dt.dt_begin = value;
+    this.dt.update(curr => ({...curr, dt_begin : value}));
+//    this.dt.dt_begin = value;
+console.log('!!! set this.dt=', Object.assign({}, this.dt));
     this.setHeaderBtn();
     this.drs.CalendarySetDateRange(this.dt);
+console.error('000 this.dtBegin=', Object.assign({}, this.dtBegin));
+
   }
 
   get dtBegin(): Date | null{
@@ -62,11 +66,12 @@ console.log('!!! set dtBegin=', value);
   headerLeft: IDateRangeHeader  = {mount: '', year: 0, dt: new Date(), left:true, right:true, prefix: tableLeftPrefix};
   headerRight: IDateRangeHeader  = {mount: '', year: 0, dt: new Date(), left:true, right:true, prefix: tableRightPrefix};
 
-  constructor(private drs: DateRangeService,
-              ) {
+  public drs = inject(DateRangeService);
+
+  constructor(              ) {
     this.dt = {str_begin: '', str_end: '', dt_begin: null, dt_end: null};
     // Событие изменения даты
-    drs.CalendaryOnSelectDay$().subscribe(n =>{
+    this.drs.CalendaryOnSelectDay$().subscribe(n =>{
 //      console.log('Select Day=', n);
       // При заполненных обеих дат, скидываем и устанавливаем начальную
       if (this.dt.dt_begin && this.dt.dt_end) {
@@ -92,7 +97,7 @@ console.log('!!! set dtBegin=', value);
 //        this.calendearyAnime = 'off';
       }
 
-      drs.CalendarySetDateRange(this.dt);
+      this.drs.CalendarySetDateRange(this.dt);
 // console.log('this.dt=', this.dt);
     });
   }
@@ -104,7 +109,7 @@ console.log('!!! set dtBegin=', value);
 
   initDay(){
     const minDt = new Date();
-// console.error('111 this.dtBegin=', Object.assign({}, this.dtBegin));
+ console.error('111 this.dtBegin=', Object.assign({}, this.dtBegin));
 //    this.drs.CalendarySetParams({prefix: tableLeftPrefix, curentDate: minDt, startDate: null, endDate: null});
     this.drs.CalendarySetParams({prefix: tableLeftPrefix, curentDate: minDt, startDate: this.dtBegin, endDate: this.dtEnd});
     var lastDay = new Date(minDt.getFullYear(), minDt.getMonth() + 1, 1);

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import {ICalendarDateItem, IDateRange, IDateRangeCalendarData} from "../../../../interfaces/date-range.interface";
 import {DateRangeService} from "../../../../services/date-range.service";
 import moment from 'moment';
@@ -36,22 +36,23 @@ export class TableDayComponent implements OnInit {
     {start:28, end:35},
     {start:35, end:42},
   ];
+  private drs = inject(DateRangeService);
 
-  constructor(private drs: DateRangeService) {
-    drs.CalendaryonInit$().subscribe(n =>{
+  constructor() {
+    this.drs.CalendaryonInit$().subscribe(n =>{
       if (n.prefix == this.prefix) {
         this.iniTable(n);
       }
     });
 
     // Событие выбора даты
-    drs.CalendaryOnSetDateRange$().subscribe(dt =>{
+    this.drs.CalendaryOnSetDateRange$().subscribe(dt =>{
 //      console.log('CalendaryOnSetDateRange$=', Object.assign({}, dt));
       this.setDateRange(dt);
     });
 
     // Событие наведения на дату
-    drs.CalendaryOnHoverDay$().subscribe(n =>{
+    this.drs.CalendaryOnHoverDay$().subscribe(n =>{
 //      console.log('CalendaryOnHoverDay$=', n);
       this.setStartInserted(n);
     });

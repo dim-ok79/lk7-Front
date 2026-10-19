@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, signal } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output, signal } from '@angular/core';
 import {ICalendarDate, ICalendarHeader} from "../../../../interfaces/calendar";
 import moment from 'moment';
 import {DateRangeService} from "../../../../services/date-range.service";
@@ -27,9 +27,10 @@ export class CalendaryComponent implements OnInit {
     {start:35, end:42},
   ];
   headerText: ICalendarHeader  = {mount: '', year: ''};
+  private drs = inject(DateRangeService);
 
-  constructor(private drs: DateRangeService) {
-    drs.CalendaryonInit$().subscribe(n =>{
+  constructor() {
+    this.drs.CalendaryonInit$().subscribe(n =>{
       if (n.prefix == this.prefix) {
         this.initCalendary(n);
       }
