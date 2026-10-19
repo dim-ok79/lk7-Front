@@ -27,9 +27,7 @@ export class MyDocFindingsComponent {
 
   @Input()
   set testHeightBlock(value: number) {
-    console.log('MyDocFindingsComponent SET_testHeightBlock value=', value);
     this._testHeightBlock.set(value);
-    console.log('_testHeightBlock=', this._testHeightBlock());
   }
 
   get testHeightBlock():number {
@@ -52,7 +50,6 @@ export class MyDocFindingsComponent {
   @Input()
   set v_periodDate(value: IPeriod) {
     this._periodDate = value
-console.log('111 set v_periodDate=', value);
     this.getfindingSize();
     this.getfinding(1, this.findingCountRectoPage)
   }

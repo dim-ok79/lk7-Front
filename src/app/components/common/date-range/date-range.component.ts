@@ -1,5 +1,4 @@
 import {
-  ChangeDetectorRef,
   Component,
   EventEmitter,
   inject,
@@ -29,38 +28,39 @@ const tableRightPrefix = 'dtRight';
 
 })
 export class DateRangeComponent implements OnInit {
-  public dt = signal<IDateRange>;
-//  private cdr = inject(ChangeDetectorRef);
+  public dt = signal<IDateRange>({str_begin: '', str_end: '', dt_begin: null, dt_end: null});
 
   isShown = signal(false); // Показ календаря
 
   @Output() onChanged = new EventEmitter<IPeriod>(); // Смена даты
   @Input()      // Дата начала
   set dtBegin(value: Date | null) {
-console.log('!!! set dtBegin=', value);
     this.dt.update(curr => ({...curr, dt_begin : value}));
-//    this.dt.dt_begin = value;
-console.log('!!! set this.dt=', Object.assign({}, this.dt));
     this.setHeaderBtn();
-    this.drs.CalendarySetDateRange(this.dt);
-console.error('000 this.dtBegin=', Object.assign({}, this.dtBegin));
-
+    if (value) {
+      this.setDateHeader(this.headerLeft, value, true, false);
+    }
+    this.drs.CalendarySetDateRange(this.dt());
+console.log('000 this.dtBegin=', Object.assign({}, this.dtBegin));
   }
 
-  get dtBegin(): Date | null{
-    return this.dt.dt_begin;
+  get dtBegin(): Date | null {
+    return this.dt().dt_begin;
   }
 
   @Input() // Дата окончания
   set dtEnd(value: Date | null) {
     console.log('!!! set dtEnd=', value);
-    this.dt.dt_end = value;
+    this.dt.update(curr => ({...curr, dt_end : value}));
     this.setHeaderBtn();
-    this.drs.CalendarySetDateRange(this.dt);
+    if (value) {
+      this.setDateHeader(this.headerRight, value, false, true);
+    }
+    this.drs.CalendarySetDateRange(this.dt());
   }
 
   get dtEnd(): Date | null{
-    return this.dt.dt_end;
+    return this.dt().dt_end;
   }
 
   headerLeft: IDateRangeHeader  = {mount: '', year: 0, dt: new Date(), left:true, right:true, prefix: tableLeftPrefix};
@@ -68,36 +68,37 @@ console.error('000 this.dtBegin=', Object.assign({}, this.dtBegin));
 
   public drs = inject(DateRangeService);
 
-  constructor(              ) {
-    this.dt = {str_begin: '', str_end: '', dt_begin: null, dt_end: null};
+  constructor() {
+//    this.dt.set({str_begin: '', str_end: '', dt_begin: null, dt_end: null});
     // Событие изменения даты
     this.drs.CalendaryOnSelectDay$().subscribe(n =>{
-//      console.log('Select Day=', n);
+      console.log('Select Day=', n);
       // При заполненных обеих дат, скидываем и устанавливаем начальную
-      if (this.dt.dt_begin && this.dt.dt_end) {
-        this.dt.dt_begin = n;
-        this.dt.dt_end = null;
+      if (this.dt().dt_begin && this.dt().dt_end) {
+        this.dt.update(curr => ({...curr, dt_begin : n}));
+        this.dt.update(curr => ({...curr, dt_end : null}));
       } else {
-        if (this.dt.dt_begin == null) {
-          this.dt.dt_begin = n;
+        if (this.dt().dt_begin == null) {
+          this.dt.update(curr => ({...curr, dt_begin : n}));
         } else {
-          if (this.dt.dt_begin > n) {
-            this.dt.dt_begin = n;
-            this.dt.dt_end = null;
+          // @ts-ignore
+          if (this.dt().dt_begin > n) {
+            this.dt.update(curr => ({...curr, dt_begin : n}));
+            this.dt.update(curr => ({...curr, dt_end : null}));
           } else {
-            this.dt.dt_end = n;
+            this.dt.update(curr => ({...curr, dt_end : n}));
           }
         }
       }
 
       this.setHeaderBtn();
-      if (this.dt.dt_begin && this.dt.dt_end){
-        this.onChanged.emit({begin: this.dt.dt_begin , end: this.dt.dt_end});
+      if (this.dt().dt_begin && this.dt().dt_end){
+        this.onChanged.emit({begin: this.dt().dt_begin , end: this.dt().dt_end});
         this.setAnime(false);
 //        this.calendearyAnime = 'off';
       }
 
-      this.drs.CalendarySetDateRange(this.dt);
+      this.drs.CalendarySetDateRange(this.dt());
 // console.log('this.dt=', this.dt);
     });
   }
@@ -108,115 +109,42 @@ console.error('000 this.dtBegin=', Object.assign({}, this.dtBegin));
   }
 
   initDay(){
-    const minDt = new Date();
- console.error('111 this.dtBegin=', Object.assign({}, this.dtBegin));
-//    this.drs.CalendarySetParams({prefix: tableLeftPrefix, curentDate: minDt, startDate: null, endDate: null});
-    this.drs.CalendarySetParams({prefix: tableLeftPrefix, curentDate: minDt, startDate: this.dtBegin, endDate: this.dtEnd});
-    var lastDay = new Date(minDt.getFullYear(), minDt.getMonth() + 1, 1);
-//    this.drs.CalendarySetParams({prefix: tableRightPrefix, curentDate: lastDay, startDate: null, endDate: null});
-    this.drs.CalendarySetParams({prefix: tableRightPrefix, curentDate: lastDay, startDate: this.dtBegin, endDate: this.dtEnd});
-    this.setDateHeader(this.headerLeft, minDt, true, false);
-    this.setDateHeader(this.headerRight, lastDay, false, true);
+console.log('111 initDay this.dt=', Object.assign({}, this.dt()));
+ console.log('111 initDay this.dtBegin=', this.dtBegin);
+// @ts-ignore
+    this.drs.CalendarySetParams({prefix: tableLeftPrefix, curentDate: this.dtBegin, startDate: this.dtBegin, endDate: this.dtEnd});
+// @ts-ignore
+    this.drs.CalendarySetParams({prefix: tableRightPrefix, curentDate: this.dtEnd, startDate: this.dtBegin, endDate: this.dtEnd});
   }
 
   setAnime(f: boolean){
     this.isShown.update((value) => f);
-/*
-    if (this.isShown()){
-      this.initDay();
-    }
-*/
   }
 
   // Установка текста на кнопке
   setHeaderBtn(){
-    if (this.dt.dt_begin) {
-      this.dt.str_begin = moment(new Date(this.dt.dt_begin)).format('D MMM YYYY');
+    if (this.dt().dt_begin) {
+      // @ts-ignore
+      const str1 = moment(new Date(this.dt().dt_begin)).format('D MMM YYYY')
+      this.dt.update(curr => ({...curr, str_begin : str1}));
     } else {
-      this.dt.str_begin = '';
+      this.dt.update(curr => ({...curr, str_begin : ''}));
     }
 
-    if (this.dt.dt_end) {
-      this.dt.str_end = moment(new Date(this.dt.dt_end)).format('D MMM YYYY');
+    if (this.dt().dt_end) {
+      // @ts-ignore
+      const str2 = moment(new Date(this.dt().dt_end)).format('D MMM YYYY');
+      this.dt.update(curr => ({...curr, str_end : str2}));
     } else {
-      this.dt.str_end = '';
+      this.dt.update(curr => ({...curr, str_end : ''}));
     }
-
   }
-
-  /* только числа */
-  public numberOnly(event: any): boolean {
-    const charCode = event.keyCode;
-    // Проверка на ввод числа
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-      return false;
-    }
-    return true;
-  }
-
-
-  test(ev: any, isBegin: boolean){  //формат строки
-    let str: string = '';
-    let dt: Date | null = null;
-    if (isBegin){
-      str = (this.dt.str_begin)? this.dt.str_begin : '';
-    } else {
-      str = (this.dt.str_end)? this.dt.str_end : '';
-    }
-    if (str.length == 2 || str.length == 5){
-      str = str + '.';
-    }
-
-    if (str.length == 10){ // Возможно уже Date
-      try {
-        dt = new Date(Number(str.substr(6,4))
-          ,Number(str.substr(3,2))-1
-          ,Number(str.substr(0,2))
-          );
-      }
-      catch (e) {
-        console.error('Err convert DT=', e)
-      }
-    }
-
-    if (dt){ // Проверка на год (кол месяцев иногда изменяют год)
-      if (moment(dt).format('DD.MM.YYYY') != str){
-        dt = null;
-      }
-    }
-// console.log('END DT=', dt);
-    if (isBegin){
-      this.dt.str_begin = str;
-      this.dt.dt_begin = (dt)? dt : null;
-      if (dt){
-        // @ts-ignore
-        document.getElementById('dr-end').focus();
-      }
-    } else {
-      this.dt.str_end = str;
-      this.dt.dt_end = (dt)? dt : null;
-    }
-
-  }
-
-/*
-  whenAnimateSearch(event: any) { // Окончание анимации
-// console.log('EndAnim=', event);
-        if (this.animState === 'off') {
-          this.payAvansAnimeStatus = 1;
-        } else {
-          this.payAvansAnimeStatus = 0;
-        }
-  }
-*/
 
   calendary(){
     this.setAnime(!this.isShown())
   }
 
   setDateHeader(h: IDateRangeHeader, dt: Date, l: boolean , r: boolean){
-console.log('!!! setDateHeader h=', h);
-console.log('!!! setDateHeader dt=', dt);
     h.dt = dt;
     h.mount = moment(h.dt).format('MMMM');
     h.year = h.dt.getFullYear();
@@ -230,7 +158,7 @@ console.log('!!! setDateHeader dt=', dt);
         if (pr.left) {
           let lastDay = new Date(pr.dt.getFullYear(), pr.dt.getMonth() - 1, 1); // Уменьшаем на 1 месяц
           this.setDateHeader(pr, lastDay, true, false);
-          this.drs.CalendarySetParams({prefix: pr.prefix, curentDate: pr.dt, startDate: this.dt.dt_begin, endDate: this.dt.dt_end});
+          this.drs.CalendarySetParams({prefix: pr.prefix, curentDate: pr.dt, startDate: this.dt().dt_begin, endDate: this.dt().dt_end});
         }
         break;
       }
@@ -238,7 +166,7 @@ console.log('!!! setDateHeader dt=', dt);
         if (pr.right) {
           let lastDay = new Date(pr.dt.getFullYear(), pr.dt.getMonth() + 1, 1); // Увеличиваем на 1 месяц
           this.setDateHeader(pr, lastDay, true, true);
-          this.drs.CalendarySetParams({prefix: pr.prefix, curentDate: pr.dt, startDate: this.dt.dt_begin, endDate: this.dt.dt_end});
+          this.drs.CalendarySetParams({prefix: pr.prefix, curentDate: pr.dt, startDate: this.dt().dt_begin, endDate: this.dt().dt_end});
         }
         break;
       }

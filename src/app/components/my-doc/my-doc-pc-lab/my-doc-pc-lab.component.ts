@@ -26,7 +26,6 @@ export class MyDocPcLabComponent {
   @Input()
   set v_periodDate(value: IPeriod) {
     this._periodDate = value
-    console.log('111 set v_periodDate=', value);
     this.getLabSize();
     this.getLab(1, this.labCountRectoPage)
   }

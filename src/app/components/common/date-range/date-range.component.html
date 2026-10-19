@@ -1,8 +1,8 @@
 <div class="cls-date-range">
   <button class="btn-period" (click)="calendary()">
-    <span class="btn-period-begin">{{dt?.str_begin}}</span>
-    <span *ngIf="dt?.str_end != dt?.str_begin" class="btn-period-tire">-</span>
-    <span *ngIf="dt?.str_end != dt?.str_begin" class="btn-period-end">{{dt?.str_end}}</span>
+    <span class="btn-period-begin">{{dt()?.str_begin}}</span>
+    <span *ngIf="dt()?.str_end != dt()?.str_begin" class="btn-period-tire">-</span>
+    <span *ngIf="dt()?.str_end != dt()?.str_begin" class="btn-period-end">{{dt()?.str_end}}</span>
     <mat-icon svgIcon="date_range"></mat-icon>
   </button>
 

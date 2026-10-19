@@ -18,12 +18,6 @@ const tableRightPrefix = 'dtRight';
 
 export class TableDayComponent implements OnInit {
   @Input() prefix: string = '';     // Префикс для разделеиния событий
-/*
-  @Input()      // Префикс для разделеиния событий
-  set prefix(value: string) {
-    this._params.prefix = value;
-  }
-*/
 
   @Output() onClickDate = new EventEmitter<string>(); // выбрана Дата формат YYYY-MM-DD
   dayArray: ICalendarDateItem[] = [];  // Массив дней
@@ -39,6 +33,7 @@ export class TableDayComponent implements OnInit {
   private drs = inject(DateRangeService);
 
   constructor() {
+    // Инициализация календаря
     this.drs.CalendaryonInit$().subscribe(n =>{
       if (n.prefix == this.prefix) {
         this.iniTable(n);
@@ -78,12 +73,21 @@ export class TableDayComponent implements OnInit {
 //      this._params.curentDate = params.curentDate;
       this._params = params;
 //      this._params.curentDate = params.curentDate;
+/*
+      if (params.startDate && this.prefix == tableLeftPrefix){
+        this.genTableDay(params.startDate);
+      } else {
+// @ts-ignore
+        this.genTableDay(params.endDate);
+      }
+*/
       this.genTableDay(params.curentDate);
 //    }
   }
 
   /* генератор календаря */
   genTableDay(minDt: Date){
+console.log('!!! genTableDay minDt=', minDt);
     let weekday1 = 0;
     this.dayArray = [];
 
@@ -233,26 +237,21 @@ export class TableDayComponent implements OnInit {
     this._params.startDate = params.dt_begin;
     this._params.endDate = params.dt_end;
     if (params.dt_begin || params.dt_end) {
+console.log('333 setDateRange params=', params);
+console.log('333 setDateRange this.dayArray=', this.dayArray);
       this.dayArray.forEach((item, index) => {
         item.isStartDAY = (this.formatDateStr(item.data) == this.formatDateStr(params.dt_begin) && item.isCurrentMonth);
         item.isEndDay = (this.formatDateStr(item.data) == this.formatDateStr(params.dt_end) && item.isCurrentMonth);
         // Установка промежутков
         item.isStartInserted = false;
-        if (params.dt_begin && params.dt_end) {
 //          item.isStartInserted = false;
           // @ts-ignore
           if (item.data >= this._params.startDate && item.data <= this._params.endDate && item.isCurrentMonth) {
             item.isStartInserted = true;
           }
-        }
-
       });
     }
 
-/*
-console.log('this._params.prefix=', this._params.prefix);
-console.log('this.dayArray=', this.dayArray);
-*/
   }
 
 }

@@ -49,7 +49,6 @@ export class MyDocMydocComponent {
   @Input()
   set v_periodDate(value: IPeriod) {
     this._periodDate = value
-    console.log('111 set v_periodDate=', value);
 //    this.getfindingSize();
     this.getDocumentList(1, this.documentCountRectoPage)
   }
