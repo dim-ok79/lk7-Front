@@ -3,7 +3,11 @@
 
 <ng-template #showMobile >
   <br>
-  <app-block-doc *ngFor="let finding of findingList()" [infoName]="finding.text" [infoDate]="finding.dat_date" [semd_id]="finding.semd_id"]></app-block-doc>
+  <app-block-doc *ngFor="let finding of findingList()"
+                 [infoName]="finding.text"
+                 [infoDate]="finding.dat_date"
+                 [infoDocId]="finding.semd_id"
+                 (onClickPDF)="SemdS.onClickSEMDVisit(finding.semd_id)"></app-block-doc>
 </ng-template>
 
 <ng-template #showPC>

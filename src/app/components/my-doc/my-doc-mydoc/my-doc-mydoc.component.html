@@ -6,7 +6,8 @@
   <app-block-doc *ngFor="let document of documentList()"
                  infoName="{{document.text}} - {{document.file_name}}"
                  [infoDate]="document.dat"
-                 [semd_id]="document.id"]></app-block-doc>
+                 [infoDocId]="document.id"
+                 (onClickPDF)="openDoc(document.id)"></app-block-doc>
 </ng-template>
 
 <ng-template #showPC>

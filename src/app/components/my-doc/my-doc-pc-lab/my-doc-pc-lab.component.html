@@ -3,7 +3,11 @@
 
 <ng-template #showMobile >
   <br>
-  <app-block-doc *ngFor="let lab of labList()" infoName="Заказ № {{lab.orderid}} - {{lab.text_status}}" [infoDate]="lab.dat_date" [semd_id]="lab.research_id"]></app-block-doc>
+  <app-block-doc *ngFor="let lab of labList()"
+                 infoName="Заказ № {{lab.orderid}} - {{lab.text_status}}"
+                 [infoDate]="lab.dat_date"
+                 [infoDocId]="lab.research_id"
+                 (onClickPDF)="LabServiceS.openResearchPdf(lab.research_id)"></app-block-doc>
 </ng-template>
 
 <ng-template #showPC>

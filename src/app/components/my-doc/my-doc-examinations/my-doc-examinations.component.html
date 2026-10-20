@@ -3,8 +3,11 @@
 
 <ng-template #showMobile>
   <br>
-  <app-block-doc *ngFor="let exam of examList()" [infoName]="exam.text" [infoDate]="exam.dat_date" [semd_id]="exam.semd_id"]></app-block-doc>
-
+  <app-block-doc *ngFor="let exam of examList()"
+                 [infoName]="exam.text"
+                 [infoDate]="exam.dat_date"
+                 [infoDocId]="exam.semd_id"
+                 (onClickPDF)="SemdS.onClickSEMD(exam.semd_id)"></app-block-doc>
 </ng-template>
 
 

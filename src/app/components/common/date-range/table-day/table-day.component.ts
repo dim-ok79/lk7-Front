@@ -217,7 +217,7 @@ export class TableDayComponent{
 
     }
   };
-  
+
 /* Не дает КЛИК на дате
   public onHoverDay(day: ICalendarDateItem){ // on-mouseover Наведение мыши
     if (day.isCurrentMonth) {
