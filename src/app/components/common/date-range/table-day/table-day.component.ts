@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output, signal, ViewEncapsulation } from '@angular/core';
 import {ICalendarDateItem, IDateRange, IDateRangeCalendarData} from "../../../../interfaces/date-range.interface";
 import {DateRangeService} from "../../../../services/date-range.service";
 import moment from 'moment';
@@ -16,11 +16,13 @@ const tableRightPrefix = 'dtRight';
 
 })
 
-export class TableDayComponent implements OnInit {
+export class TableDayComponent{
+//  protected readonly console = console;
+
   @Input() prefix: string = '';     // Префикс для разделеиния событий
 
   @Output() onClickDate = new EventEmitter<string>(); // выбрана Дата формат YYYY-MM-DD
-  dayArray: ICalendarDateItem[] = [];  // Массив дней
+  dayArray = signal<ICalendarDateItem[]>([]);  // Массив дней
   _params: IDateRangeCalendarData = {curentDate: new Date(), startDate: null, endDate: null, prefix: ''}; // Данные для инициализации
   weekDayArray = [
     {start:0, end:7},
@@ -42,7 +44,7 @@ export class TableDayComponent implements OnInit {
 
     // Событие выбора даты
     this.drs.CalendaryOnSetDateRange$().subscribe(dt =>{
-//      console.log('CalendaryOnSetDateRange$=', Object.assign({}, dt));
+      console.log('CalendaryOnSetDateRange$=', Object.assign({}, dt));
       this.setDateRange(dt);
     });
 
@@ -53,10 +55,7 @@ export class TableDayComponent implements OnInit {
     });
 
 
-  }
-
-  ngOnInit(): void {
-  }
+  };
 
   formatDateStr(dt: Date | null | undefined): string {
     if (dt) {
@@ -68,28 +67,14 @@ export class TableDayComponent implements OnInit {
 
   iniTable(params: IDateRangeCalendarData){
     moment.locale('ru');
-//   console.log('iniTable params=', params);
-//    if (params.prefix == this._params.prefix) {
-//      this._params.curentDate = params.curentDate;
       this._params = params;
-//      this._params.curentDate = params.curentDate;
-/*
-      if (params.startDate && this.prefix == tableLeftPrefix){
-        this.genTableDay(params.startDate);
-      } else {
-// @ts-ignore
-        this.genTableDay(params.endDate);
-      }
-*/
       this.genTableDay(params.curentDate);
-//    }
   }
 
   /* генератор календаря */
   genTableDay(minDt: Date){
-console.log('!!! genTableDay minDt=', minDt);
     let weekday1 = 0;
-    this.dayArray = [];
+    this.dayArray.set([]);
 
     let firstDay = new Date(minDt.getFullYear(), minDt.getMonth(), 1);
     var lastDay = new Date(minDt.getFullYear(), minDt.getMonth() + 1, 0); // следующий месяц
@@ -110,7 +95,7 @@ console.log('!!! genTableDay minDt=', minDt);
       this.addDay(true, d);
     }
 
-    let countDayLast = 35-this.dayArray.length; // 5 недель (5*7)
+    let countDayLast = 35-this.dayArray().length; // 5 недель (5*7)
     for (var i = 1 ; i <= countDayLast; i++) { // добавляем оставшиеся дни
       const d = moment(lastDay).add(i, 'days').toDate();
       this.addDay(false, d);
@@ -119,17 +104,19 @@ console.log('!!! genTableDay minDt=', minDt);
     // Установка дат
     if (this._params && (this._params.startDate || this._params.endDate)){
 // console.log('Установка дат');
-      this.dayArray.forEach((item, index) => {
-        if (item.isCurrentMonth){
-          item.isStartDAY = (this.formatDateStr(item.data) == this.formatDateStr(this._params?.startDate));
-          item.isEndDay = (this.formatDateStr(item.data) == this.formatDateStr(this._params?.endDate));
-        }
+      this.dayArray.update((current) => {
+        return current.map((item) => {
+          if (item.isCurrentMonth){
+            return { ...item,
+              isStartDAY: (this.formatDateStr(item.data) == this.formatDateStr(this._params?.startDate)),
+              isEndDay : (this.formatDateStr(item.data) == this.formatDateStr(this._params?.endDate))
+            };
+          }
+          // Остальные объекты возвращаем как есть
+          return item;
+        });
       });
 
-//      this.setStartInserted(this.dayArray[10]);
-//      let tt = this.dayArray.filter(item => moment(item.data).format('DD-MM-YYYY') == moment(this._params.startDate).format('DD-MM-YYYY'));
-//      tt[0].isStartDAY = true;
-// console.log('TT=', tt);
     } else {
 // console.log('БЕЗ Установки дат');
     }
@@ -145,15 +132,15 @@ console.log('!!! genTableDay minDt=', minDt);
          }
      }
 
-    this.dayArray.push({
-        isCurrentMonth: courrentMonth
+    this.dayArray.update(current => [...current, {
+      isCurrentMonth: courrentMonth
       , data: dt
       , day: dt.getDate()
       , isStartDAY: false
       , isEndDay: false
       , isStartInserted: startInserted
       , isCurrentDay: curent && courrentMonth
-    });
+    }]);
   }
 
 // Проверка на активность даты
@@ -162,93 +149,102 @@ console.log('!!! genTableDay minDt=', minDt);
   }
 
   // Выбор даты
-  clickDate(dt: ICalendarDateItem){
+//  clickDate(dt: ICalendarDateItem){
+  clickDate(dt: any){
+//    console.log('clickDate dt=', dt);
     this.drs.CalendarySelectDay(dt.data);
   }
 
-/*
-  between(dt: Date): boolean { // Проверка даты в текущем календаре
-
-    return
-  }
-*/
-  setStartInserted(day: ICalendarDateItem){ // Установка промежутков при наведении HOVER
+  setStartInserted(day: ICalendarDateItem) { // Установка промежутков при наведении HOVER
     // Проверка на текущий календарь
     if (moment(this._params.curentDate).format('MMYYYY') == moment(day.data).format('MMYYYY')) { // В текущем календаре
-      if (day.isCurrentMonth && this._params && this._params.startDate){
-        this.dayArray.forEach((item, index) => {
-          if (this._params && this._params.startDate && this._params.endDate) { // Есть периуд
-            if (item.data >= this._params.startDate && item.data <= this._params.endDate && item.isCurrentMonth) {
-              item.isStartInserted = true;
-            } else {
-              item.isStartInserted = false;
+      if (day.isCurrentMonth && this._params && this._params.startDate) {
+        this.dayArray.update((current) => {
+          return current.map((item) => {
+            if (this._params && this._params.startDate && this._params.endDate) { // Есть периуд
+              if (item.data >= this._params.startDate && item.data <= this._params.endDate && item.isCurrentMonth) {
+                return { ...item, isStartInserted: true };
+              } else {
+                return { ...item, isStartInserted: false };
+              }
+            } else { // Только начало
+              // @ts-ignore
+              if (item.data >= this._params.startDate && item.data <= day.data && item.isCurrentMonth) {
+                return { ...item, isStartInserted: true };
+              } else {
+                return { ...item, isStartInserted: false };
+              }
             }
-          } else { // Только начало
-            // @ts-ignore
-            if (item.data >= this._params.startDate && item.data <= day.data && item.isCurrentMonth) {
-              item.isStartInserted = true;
-            } else {
-              item.isStartInserted = false;
-            }
-          }
+
+          });
         });
 
-      }
-
-    } else { // событие наведения с другова календаря (выделяем все в промежутке)
-      // Если выбрана хоть одна дата
-      if (this._params && this._params.startDate){
-        // Усли это левый -> tableLeftPrefix
-        if (this._params.prefix == tableLeftPrefix) {
-          this.dayArray.forEach((item, index) => {
-//            item.isStartInserted = (item.isCourrentMonth && item.data > this._params.startDate && item.data < this._params.endDate) ? true : false;
-            // @ts-ignore
-            item.isStartInserted = (item.isCurrentMonth && item.data > this._params.startDate) ? true : false;
-            if (item.isStartInserted && this._params.endDate){ // Проверка на дату окончания
-              // @ts-ignore
-              item.isStartInserted = (item.data > this._params.startDate) ? true : false;
-            }
-          });
-        } else {
-        // иначе правый
-          if (this._params && this._params.endDate){
-            this.dayArray.forEach((item, index) => {
-              // @ts-ignore
-              item.isStartInserted = (item.isCurrentMonth && item.data < this._params.endDate && item.data < this._params.endDate) ? true : false;
+      } else { // событие наведения с другова календаря (выделяем все в промежутке)
+        // Если выбрана хоть одна дата
+        if (this._params && this._params.startDate) {
+          // Усли это левый -> tableLeftPrefix
+          if (this._params.prefix == tableLeftPrefix) {
+            this.dayArray.update((current) => {
+              return current.map((item) => {
+                let tmp_isStartInserted = (this._params.startDate && item.isCurrentMonth && item.data > this._params.startDate) ? true : false;
+                if (item.isStartInserted && this._params.endDate) { // Проверка на дату окончания
+                  // @ts-ignore
+                  tmp_isStartInserted = (item.data > this._params.startDate) ? true : false;
+                }
+                return { ...item, isStartInserted: tmp_isStartInserted };
+              })
             });
+
+          } else {
+            // иначе правый
+            if (this._params && this._params.endDate) {
+              this.dayArray.update((current) => {
+                return current.map((item) => {
+                  return {
+                    ...item,
+                    isStartInserted: (this._params.endDate && item.isCurrentMonth && item.data < this._params.endDate && item.data < this._params.endDate) ? true : false
+                  };
+                })
+              });
+            }
           }
+
         }
+
 
       }
 
 
     }
-
-
-  }
-
+  };
+  
+/* Не дает КЛИК на дате
   public onHoverDay(day: ICalendarDateItem){ // on-mouseover Наведение мыши
     if (day.isCurrentMonth) {
       this.drs.CalendaryHoverDay(day);
     }
   }
+*/
 
   setDateRange(params: IDateRange){  // Установка дат
     this._params.startDate = params.dt_begin;
     this._params.endDate = params.dt_end;
     if (params.dt_begin || params.dt_end) {
-console.log('333 setDateRange params=', params);
-console.log('333 setDateRange this.dayArray=', this.dayArray);
-      this.dayArray.forEach((item, index) => {
-        item.isStartDAY = (this.formatDateStr(item.data) == this.formatDateStr(params.dt_begin) && item.isCurrentMonth);
-        item.isEndDay = (this.formatDateStr(item.data) == this.formatDateStr(params.dt_end) && item.isCurrentMonth);
-        // Установка промежутков
-        item.isStartInserted = false;
-//          item.isStartInserted = false;
+      this.dayArray.update((current) => {
+        return current.map((item) => {
+          let tmp_isStartInserted = false;
           // @ts-ignore
           if (item.data >= this._params.startDate && item.data <= this._params.endDate && item.isCurrentMonth) {
-            item.isStartInserted = true;
+            tmp_isStartInserted = true;
           }
+
+          return {
+            ...item,
+            isStartDAY : (this.formatDateStr(item.data) == this.formatDateStr(params.dt_begin) && item.isCurrentMonth),
+            isEndDay : (this.formatDateStr(item.data) == this.formatDateStr(params.dt_end) && item.isCurrentMonth),
+            isStartInserted : tmp_isStartInserted
+          };
+        })
       });
     }
 

@@ -10,8 +10,9 @@
       <th class="cls-dr-col-h">вс</th>
     </tr>
     <tr class="cal-tr-border" *ngFor="let wd of weekDayArray">
-      <td *ngFor="let dt of dayArray | slice:wd.start:wd.end; let i = index;"
-          on-mouseover="onHoverDay(dt)"
+      <td *ngFor="let dt of dayArray() | slice:wd.start:wd.end; let i = index;"
+
+          (click)="clickDate(dt)"
           [ngClass]="{'cls-dr-current-month': dt.isCurrentMonth
           , 'cls-dr-current-day': dt.isCurrentDay
           , 'cls-dr-start-day': dt.isStartDAY
@@ -20,8 +21,8 @@
           , 'cls-dr-one-day': dt.isEndDay && dt.isStartDAY
           , 'cls-dr-not-thisdays': !dt.isCurrentMonth
           }"
-          (click)="clickDate(dt)">
-        <span >{{dt.day}}</span>
+          >
+        <span>{{dt.day}}</span>
       </td>
     </tr>
 <!--

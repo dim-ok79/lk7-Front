@@ -41,7 +41,6 @@ export class DateRangeComponent implements OnInit {
       this.setDateHeader(this.headerLeft, value, true, false);
     }
     this.drs.CalendarySetDateRange(this.dt());
-console.log('000 this.dtBegin=', Object.assign({}, this.dtBegin));
   }
 
   get dtBegin(): Date | null {
@@ -50,7 +49,6 @@ console.log('000 this.dtBegin=', Object.assign({}, this.dtBegin));
 
   @Input() // Дата окончания
   set dtEnd(value: Date | null) {
-    console.log('!!! set dtEnd=', value);
     this.dt.update(curr => ({...curr, dt_end : value}));
     this.setHeaderBtn();
     if (value) {
@@ -72,7 +70,7 @@ console.log('000 this.dtBegin=', Object.assign({}, this.dtBegin));
 //    this.dt.set({str_begin: '', str_end: '', dt_begin: null, dt_end: null});
     // Событие изменения даты
     this.drs.CalendaryOnSelectDay$().subscribe(n =>{
-      console.log('Select Day=', n);
+//      console.log('Select Day=', n);
       // При заполненных обеих дат, скидываем и устанавливаем начальную
       if (this.dt().dt_begin && this.dt().dt_end) {
         this.dt.update(curr => ({...curr, dt_begin : n}));
@@ -109,8 +107,6 @@ console.log('000 this.dtBegin=', Object.assign({}, this.dtBegin));
   }
 
   initDay(){
-console.log('111 initDay this.dt=', Object.assign({}, this.dt()));
- console.log('111 initDay this.dtBegin=', this.dtBegin);
 // @ts-ignore
     this.drs.CalendarySetParams({prefix: tableLeftPrefix, curentDate: this.dtBegin, startDate: this.dtBegin, endDate: this.dtEnd});
 // @ts-ignore
