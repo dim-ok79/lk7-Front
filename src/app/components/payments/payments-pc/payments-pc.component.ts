@@ -1,9 +1,18 @@
-import { Component, signal, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  signal,
+  OnInit,
+  ViewEncapsulation,
+  ViewChild,
+  ElementRef,
+  afterNextRender,
+  inject
+} from '@angular/core';
 import { IPayment, IPaySystem, IServicePayment } from '../../../interfaces/payments.interface';
 import { CommonModule } from '@angular/common';
 import { PanelTablePaginationComponent } from '../../common/panel-table-pagination/panel-table-pagination.component';
 import { MatIconModule} from '@angular/material/icon';
-import { getTekDay, getNameDay, getTime, getStrEnd, strToDate, dateMinusDay } from '../../../utils/global.function';
+import { getStrEnd, dateMinusDay } from '../../../utils/global.function';
 import { IPeriod } from '../../../interfaces/period.interface';
 import moment from 'moment';
 import { PriceSpacePipe } from '../../../directives/priceSpace.pipe';
@@ -13,12 +22,24 @@ import { NgbdToastGlobal } from '../../../utils/toast/toast-global.component';
 import { IPatient } from '../../../interfaces/patient.interface';
 import { PatientService } from '../../../services/patient.service';
 import { BtnComponent } from '../../common/btn/btn.component';
+import { UtilsService } from '../../../services/application/utils.service';
+import { Size } from '../../../services/size';
+import { LoadingComponent } from '../../frame2/components/loading/loading.component';
+import { BlockDocComponent } from '../../common/block-doc/block-doc.component';
 
 @Component({
   selector: 'app-payments-pc',
-  imports: [CommonModule, PanelTablePaginationComponent, MatIconModule, PriceSpacePipe, BtnComponent],
+  imports: [CommonModule,
+    PanelTablePaginationComponent,
+    MatIconModule,
+    PriceSpacePipe,
+    BtnComponent,
+    LoadingComponent,
+    BlockDocComponent
+    ],
   templateUrl: './payments-pc.component.html',
   styleUrl: './payments-pc.component.scss',
+  providers: [NgbdToastGlobal],
   encapsulation: ViewEncapsulation.None
 
 })
@@ -26,11 +47,14 @@ export class PaymentsPcComponent implements OnInit{
   private patientDef = {patientId: 0, num: '', lastname: '', firstname: '', secondname: '', birthdatestr: '', birthdate: null, phone: '', cellular: '', email: '',
     address_proj: '', address_proj_f: '', snils: '', count_login: 0, sex: 0, age: ''};
   public patient = signal<IPatient>( this.patientDef); //Текущий пациент
+  @ViewChild('ContentBlockLog') ContentBlocklogEL: ElementRef|undefined;
+  p_testHeightBlock = signal(100);
 
   dtBegin: Date | null = null;    // Дата начала
   dtEnd: Date | null = null;    // Дата ококнчания
   periodText = '';
   loading = signal(false);
+  deviceType = signal<string>('');
 
   paymentsList = signal<IPayment[]>([]);      // Платежи пациента
   paymentsListCountRectoPage = 10;     // Количетсво записей на странице
@@ -40,22 +64,43 @@ export class PaymentsPcComponent implements OnInit{
   paySystem: IPaySystem | null = null; // Тип платежной системы
 //  paySystemField: string = '';
 
-  constructor(private paymentsS:PaymentsService,
-              private rs: RecordService,
-              private alert: NgbdToastGlobal,
-              private ps: PatientService,
-              ){}
+  public sizeS = inject(Size);
+  public UtilsS = inject(UtilsService);
+  public paymentsS = inject(PaymentsService);
+  public rs = inject(RecordService);
+  public alert = inject(NgbdToastGlobal);
+  public ps = inject(PatientService);
+
+  constructor(
+              ){
+    this.setDeviceType();
+    // Вызывается после отрисовки DOM
+    afterNextRender(() => {
+      this.calcTableH();
+    });
+
+  }
 
   ngOnInit(): void {
     this.getPatient();
     this.getPaySystem();
     this.dtEnd = dateMinusDay(new Date(), 0);
-    this.dtBegin = dateMinusDay(this.dtEnd, 20);
+    this.dtBegin = dateMinusDay(this.dtEnd, 30);
 
     this.changePeriod({begin: this.dtBegin, end: this.dtEnd});
     this.setPeriodText();
   }
 
+  /* расчет высоты блока относительно */
+  private calcTableH(){
+//    const resH = this.ContentBlocklogEL?.nativeElement.offsetHeight-72;
+    const resH = this.ContentBlocklogEL?.nativeElement.offsetHeight;
+    this.p_testHeightBlock.update(curr => curr = resH);
+  }
+
+  setDeviceType(){
+    this.deviceType.set(this.sizeS.getDeviceType());
+  }
 
   getPatient(){
     this.ps.getServerPatientInfo$()
@@ -145,14 +190,15 @@ export class PaymentsPcComponent implements OnInit{
 
   /* Возможна оплата ?*/
   isPay(pay: IPayment): boolean{
-//    return (pay.paystatus == 0 && this.paySystem != null);
-    return true;
+console.log('pay.paystatus=', pay.paystatus);
+    return (pay.paystatus == 0 && this.paySystem != null);
+//    return true;
   }
 
   /* Оплатить*/
   toPay(pay: IPayment) {
     if (this.isPay(pay)) {
-// console.log('pay=', pay);
+ console.log('!!pay=', pay);
       if (pay.confirmation_url && pay.confirmation_url.length > 5) {
         window.open(pay.confirmation_url);
       } else {
@@ -191,7 +237,10 @@ export class PaymentsPcComponent implements OnInit{
               console.error('getPaymentTemp ERRROr=', errPay);
             });
       }
+    } else {
+      this.alert.danger('Сервис платежей временно не доступен, попробуйте позже.');
     }
+
   };
 
 
@@ -273,18 +322,5 @@ export class PaymentsPcComponent implements OnInit{
   getStrEndServ(count: number) : string {
     return getStrEnd(count, 'услуг', ['а', 'и', '']);
   };
-
-
-  getTekDay(dt: Date): string {
-    return getTekDay(dt);
-  }
-
-  getNameDay(dt: Date): string {
-    return getNameDay(dt);
-  }
-
-  getTime(dt: Date): string {
-    return getTime(dt);
-  }
 
 }

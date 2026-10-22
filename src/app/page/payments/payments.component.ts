@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Size } from '../../services/size';
-import { PaymentsMobileComponent } from '../../components/payments/payments-mobile/payments-mobile.component';
 import { PaymentsPcComponent } from '../../components/payments/payments-pc/payments-pc.component';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-payments',
-  imports: [CommonModule, PaymentsMobileComponent, PaymentsPcComponent],
+  imports: [CommonModule, PaymentsPcComponent],
   templateUrl: './payments.component.html',
   styleUrl: './payments.component.scss',
 })

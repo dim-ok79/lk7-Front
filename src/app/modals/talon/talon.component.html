@@ -50,11 +50,11 @@
     <div class="col-md-5">
       <div class="icon-info">
         <mat-icon svgIcon="calendar"></mat-icon>
-        <span>{{getDate(talon().beginDate)}} {{getNameDay(talon().beginDate) | titlecase}}</span>
+        <span>{{UtilsS.getTekDayDATE(talon().beginDate)}}</span>
       </div>
       <div class="icon-info">
         <mat-icon svgIcon="time"></mat-icon>
-        <span>{{p_getTime(talon().beginDate)}}</span>
+        <span>{{UtilsS.getTime(talon().beginDate)}}</span>
       </div>
     </div>
   </div>
@@ -63,7 +63,7 @@
   <ng-container [ngSwitch]="pageStatus()">
     <ng-template ngSwitchCase="pay">
       <div class="cls-talon-pay-info">
-        Внимание! <br>Данная услуга обязательна к оплате онлайн. Если услуга не будет оплачена в течение {{WEB_LK_PAY_LIFETIME}} минут, запись на прием будет автоматически удалена.
+        Внимание! <br>Данная услуга обязательна к оплате. Для оплаты услуги рекомендуем подойти в регистратуру за 30 минут до приема. Также Вы можете произвести оплату онлайн в разделе финансы.
       </div>
     </ng-template>
 

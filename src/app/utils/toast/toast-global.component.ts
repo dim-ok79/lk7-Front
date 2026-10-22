@@ -19,8 +19,7 @@ export class NgbdToastGlobal implements OnDestroy {
   }
 
   danger(text: string) {
-    console.log('22 danger txt=', text);
-    this.toastService.show({message: text, classname: 'bg-danger text-light', delay: 15000});
+    this.toastService.show({message: text, classname: 'bg-danger text-light', delay: 10000});
   }
 
   info(text: string) {

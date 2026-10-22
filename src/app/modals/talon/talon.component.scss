@@ -37,7 +37,7 @@
 
 .srv-name{
   border-radius: 8px;
-  border: 3px solid v.$color-btn-bg;
+  border: 2px solid v.$color-btn-bg;
   text-align: center;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -84,10 +84,11 @@
   width: 70%;
   margin-right: 20px;
 }
+
 .app-pay-summ{
   color: v.$color-btn-bg; //#676767;
   border-radius: 8px;
-  border: 3px solid v.$color-btn-bg;
+  border: 2px solid v.$color-btn-bg;
   padding: 11px;
   padding-top: 6px;
   font-size: 22px;
@@ -104,4 +105,11 @@
 
 .app-btn-pay > app-btn{
   margin-right: 8px;
+}
+
+@media (max-width: 600px) {
+  .app-pay-email{
+    margin-right: 0;
+  }
+
 }

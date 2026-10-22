@@ -81,7 +81,7 @@ export class LpuService {
   }
 
   // Загрузка с сервера
-/*
+
   loadLpuList(): Observable<Ilpu[]> {
     return new Observable((observer) => {
       this.getLpuList$()
@@ -91,7 +91,7 @@ export class LpuService {
         })
     });
   }
-*/
+
 
   getLpuFromId(id: number): Ilpu | null {
     const tmp = this._lpuList.filter(item => item.id == id);

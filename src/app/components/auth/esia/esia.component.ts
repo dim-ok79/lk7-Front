@@ -1,5 +1,6 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { NgbdToastGlobal } from '../../../utils/toast/toast-global.component';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-esia',
@@ -16,8 +17,9 @@ import { NgbdToastGlobal } from '../../../utils/toast/toast-global.component';
 export class EsiaComponent {
   loading = false;      // Загрузка
   public esia_link: string | null = null; // доступность кнопки Авторизациии через ГосУслуги
+  private alert = inject(NgbdToastGlobal);
 
-  constructor(private alert: NgbdToastGlobal){}
+  constructor(){}
 
   loginEsia(): void {
     /*

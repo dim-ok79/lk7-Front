@@ -9,19 +9,21 @@
                 [list]="SelectSpecList"
     ></app-select>
 
-    <ng-select class="col-md-4"
-               [items]="doctorListSelect"
-               [(ngModel)]="selectedDoc"
-               (change)="onSelectedDoc($event)"
-               bindLabel="fio"
-               placeholder="Поиск по ФИО"
-               notFoundText="Доктор не найден">
-      <ng-template ng-option-tmp let-item="item">
-        <div class="select-name">{{item.l_name}} {{item.s_name}} {{item.f_name}}</div>
-        <small class="select-description">{{ item.specName }}</small>
-      </ng-template>
+    <div class="col-md-4" style="margin-bottom: 16px;">
+      <ng-select
+        [items]="doctorListSelect"
+        [(ngModel)]="selectedDoc"
+        (change)="onSelectedDoc($event)"
+        bindLabel="fio"
+        placeholder="Поиск по ФИО"
+        notFoundText="Доктор не найден">
+        <ng-template ng-option-tmp let-item="item">
+          <div class="select-name">{{item.l_name}} {{item.s_name}} {{item.f_name}}</div>
+          <small class="select-description">{{ item.specName }}</small>
+        </ng-template>
 
-    </ng-select>
+      </ng-select>
+    </div>
 
     <app-select [label]="'Адрес приема врача'" class="col-md-4"
                 (onChange)="onSelectedLpu($event)"

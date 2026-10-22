@@ -19,8 +19,8 @@
       <ng-container [ngSwitch]="deviceType()">
         <ng-template [ngSwitchCase]="sizeS.pc">
           <app-panel-table-pagination nameBlock="" (onChangePeriod)="changePeriod($event)"
-                                      [dtBegin]="dtBegin"
-                                      [dtEnd]="dtEnd"
+                                      [dtBegin]="periodDate.begin"
+                                      [dtEnd]="periodDate.end"
                                       textItogo=""
                                       [HeightBlock]="testHeightBlock()"
                                       [CountRec]="historyCountRec()"
@@ -73,21 +73,20 @@
         </ng-template>
 
         <ng-template [ngSwitchCase]="sizeS.mobile">
+          <div class="w-100" style="margin-top: 12px;">
+            <app-date-range [dtBegin]="periodDate.begin" [dtEnd]="periodDate.end" (onChanged)="onChangedPeriod($event)">
+            </app-date-range>
+          </div>
+
           <div class="row" style="margin-top: 15px; text-align: left;">
-            <app-block-mobile class="col-sm-6" style="margin-bottom: 15px"
-                              *ngFor="let his of historyList()">
-              <div>Дата посещения: {{getTekDay(his.dtSort)}} в {{getTime(his.dtSort)}}</div>
-              <div>Врач: {{his.doctor}}</div>
-              <div>Услуга: {{his.typetext}}</div>
-              <div style="display: flex">
-                <mat-icon svgIcon="pdf" class="col-6 app-icon-info80"
-                          (click)="gotToDownload(his.keyid, his.typehistory, his.count_files)">
 
-                </mat-icon>
-                <span style="margin-top: 30px" (click)="gotToDownload(his.keyid, his.typehistory, his.count_files)">Скачать документ</span>
-              </div>
+            <app-block-doc class="col-sm-6" *ngFor="let his of historyList()"
+                           infoName="Врач: {{his.doctor}}, Услуга: {{his.typetext}}"
+                           [infoDate]="his.dtSort"
+                           [infoDateisTime]="true"
+                           [infoBtnHide]="true"
+                           (onClickPDF)="gotToDownload(his.keyid, his.typehistory, his.count_files)"></app-block-doc>
 
-            </app-block-mobile>
           </div>
         </ng-template>
 
@@ -139,12 +138,12 @@
 
         <ng-template [ngSwitchCase]="sizeS.mobile">
           <div class="row" style="margin-top: 15px; text-align: left;">
-            <app-block-mobile class="col-sm-6" style="margin-bottom: 15px"
-                              *ngFor="let rnumb of rnumbList()" (click)="openTalon(rnumb)">
-              <div>Дата посещения: {{getTekDay(rnumb.beginDate!)}} в {{getTime(rnumb.beginDate!)}}</div>
-              <div>Кабинет: {{rnumb.cab}}</div>
-              <div>Врач: {{getFIODoc(rnumb.lastname, rnumb.firstname, rnumb.secondname)}}</div>
-            </app-block-mobile>
+            <app-block-doc class="col-sm-6" *ngFor="let rnumb of rnumbList()"
+                           infoName="Кабинет: {{rnumb.cab}}, Врач: {{getFIODoc(rnumb.lastname, rnumb.firstname, rnumb.secondname)}}"
+                           [infoDate]="rnumb.beginDate!"
+                           [infoDateisTime]="true"
+                           [infoBtnHide]="true"
+                           ></app-block-doc>
           </div>
 
         </ng-template>

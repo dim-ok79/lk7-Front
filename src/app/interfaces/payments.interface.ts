@@ -14,6 +14,7 @@ export interface IPayment {
   pt_keyid: number;   // id платежа !!
   paystatus: number | null; // Статус оплаченности: 1 - оплачен, 0 - не оплачен /
   services: IServicePayment[];
+  srv_info?: string;  // Информация по услугам
   confirmation_url: string | null; // УРЛ для оплаты
   ffd_url?: string;  // URL для перехода на фискальный чек
 }

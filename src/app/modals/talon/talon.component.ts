@@ -22,6 +22,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { PriceSpacePipe } from '../../directives/priceSpace.pipe';
+import { UtilsService } from '../../services/application/utils.service';
 
 @Component({
   selector: 'app-talon',
@@ -38,13 +39,17 @@ export class TalonComponent implements OnInit{
   @Input() srvlist = signal<Isrvlist[]>([]);   // Список услуг
 
   WEB_LK_PAY_LIFETIME = 60;
-
+  public UtilsS = inject(UtilsService);
   activeModal = inject(NgbActiveModal);
   imgS = inject(ImgService);
   recordS = inject(RecordService);
   lpuS = inject(LpuService);
   patientS = inject(PatientService);
   paymentsS = inject(PaymentsService);
+  rnumbS = inject(RnumbService);
+  configS = inject(ConfigService);
+  alert = inject(NgbdToastGlobal);
+
   lpu : Ilpu | null = null;
   pageStatus = signal<string>('talon'); //
   /*
@@ -89,9 +94,7 @@ export class TalonComponent implements OnInit{
   private paySystemDef = {code: '', requiredFieldCodes: [], isEmail: false, isPhone: false};
   paySystem = signal<IPaySystem>(this.paySystemDef); // Тип платежной системы
 
-  constructor(private rnumbS: RnumbService,
-              private configS: ConfigService,
-              private alert: NgbdToastGlobal,){
+  constructor(){
     console.log('rnumbID=', this.rnumbID);
   }
 
@@ -167,6 +170,8 @@ export class TalonComponent implements OnInit{
     this.rnumbS.getRnumbInfo(id)
       .subscribe(res => {
           console.log('talon info=', res);
+          console.log('talon LPU list==', this.lpuS.getLpuList());
+
           res[0].beginDate = strToDate(res[0].dat_bgn);
           res[0].endDate = strToDate(res[0].dat_end);
           if (res[0] && res[0].lpu_id){

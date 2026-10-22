@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { Frame2Component } from '../../components/frame2/frame2.component';
 
 @Component({
@@ -6,5 +6,14 @@ import { Frame2Component } from '../../components/frame2/frame2.component';
   imports: [Frame2Component],
   templateUrl: './record.component.html',
   styleUrl: './record.component.scss',
+  encapsulation: ViewEncapsulation.None
+
 })
-export class RecordComponent {}
+export class RecordComponent {
+  constructor(
+  ) {
+    console.log('test');
+  };
+
+
+}

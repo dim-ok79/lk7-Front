@@ -44,7 +44,6 @@ export class TableDayComponent{
 
     // Событие выбора даты
     this.drs.CalendaryOnSetDateRange$().subscribe(dt =>{
-      console.log('CalendaryOnSetDateRange$=', Object.assign({}, dt));
       this.setDateRange(dt);
     });
 

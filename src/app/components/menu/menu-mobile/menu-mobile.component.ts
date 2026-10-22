@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, signal, ViewEncapsulation } from '@angular/core';
+import { Component, Input, signal, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { IMenu } from '../../../interfaces/menu.interface';

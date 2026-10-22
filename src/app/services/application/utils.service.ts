@@ -40,7 +40,7 @@ export class UtilsService {
         case 0: { day = 'Сегодня, ' + moment(dt).format('D MMMM YYYY'); break;}
         case 1: { day = 'Завтра' + moment(dt).format('D MMMM YYYY'); break;}
 //    case 3: { day = 'Послезавтра' + moment(dt).format('D MMM YYYY'); break;}
-        default : { day =  moment(dt).format('D MMMM YYYY'); break;}
+        default : { day =  moment(dt).format('D MMMM YYYY') + ' г.'; break;}
       }
     }
     return day;

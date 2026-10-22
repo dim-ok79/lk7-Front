@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { MenuMobileComponent } from '../../menu/menu-mobile/menu-mobile.component';
 import { Router, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { NgbdToastGlobal } from '../../../utils/toast/toast-global.component';
 
 
 @Component({
   selector: 'app-home-mobile',
-  imports: [NgbModule, CommonModule, MenuMobileComponent, MatIconModule, RouterModule],
+  imports: [NgbModule, CommonModule, MenuMobileComponent, MatIconModule, RouterModule, NgbdToastGlobal],
   templateUrl: './home-mobile.component.html',
   styleUrl: './home-mobile.component.scss',
   providers: [],

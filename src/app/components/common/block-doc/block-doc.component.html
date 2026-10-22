@@ -1,16 +1,17 @@
 <div class="block-doc">
   <div>Дата</div>
-  <div class="block-doc-date">{{UtilsS.getTekDayDATE(infoDate)}}</div>
-
+  <div class="block-doc-date" *ngIf="!infoDateisTime">{{UtilsS.getTekDayDATE(infoDate)}}</div>
+  <div class="block-doc-date" *ngIf="infoDateisTime">{{UtilsS.getTekDayDATE(infoDate)}} в {{UtilsS.getTime(infoDate)}}</div>
 
   <div>Название</div>
   <div>{{infoName}}</div>
 
-  <div (click)="onClick()" class="block-doc-btn">
-    <mat-icon svgIcon="pdf_btn" class="cls-mat-icon cls-mat-icon-info block-doc-btn-icon">
+  <div (click)="onClick()" class="block-doc-btn"  [ngClass]="{ 'block-doc-btn-notImg': infoBtnText}" *ngIf="!infoBtnHide">
+    <mat-icon svgIcon="pdf_btn" *ngIf="!infoBtnText"
+              class="cls-mat-icon cls-mat-icon-info block-doc-btn-icon">
     </mat-icon>
-    <div>Скачать документ</div>
-
+    <div *ngIf="!infoBtnText">Скачать документ</div>
+    <div *ngIf="infoBtnText">{{infoBtnText}}</div>
   </div>
 <!--
   <app-btn class="app-btn-filter"

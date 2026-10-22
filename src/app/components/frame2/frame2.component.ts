@@ -1,7 +1,6 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ViewEncapsulation } from '@angular/core';
 import { IDoc, IDocAll, Ilpu } from '../../interfaces/frame2/lpu.interface';
 import { ActivatedRoute } from '@angular/router';
-// import { MatDialog } from '@angular/material/dialog';
 import { NgbdToastGlobal } from '../../utils/toast/toast-global.component';
 import { Subscription } from 'rxjs';
 import { LpuService } from '../../services/lpu.service';
@@ -16,9 +15,19 @@ import { NgSelectModule } from '@ng-select/ng-select';
 
 @Component({
   selector: 'app-frame2',
-  imports: [CommonModule, SelectComponent, LoadingComponent, DoctorsComponent, MatDialogModule, NgbdToastGlobal, NgSelectModule, FormsModule],
+  imports: [CommonModule,
+    SelectComponent,
+    LoadingComponent,
+    DoctorsComponent,
+    MatDialogModule,
+    NgbdToastGlobal,
+    NgSelectModule,
+    FormsModule],
   templateUrl: './frame2.component.html',
   styleUrl: './frame2.component.scss',
+  providers: [NgbdToastGlobal],
+  encapsulation: ViewEncapsulation.None
+
 })
 export class Frame2Component {
   public SelectSpecList: Ioption[] = [];
@@ -45,14 +54,14 @@ export class Frame2Component {
 
   private lpuS = inject(LpuService);
   private lpySub!: Subscription;
+  alert = inject(NgbdToastGlobal);
+
   /*
     private subscription!: Subscription;
   */
 
   constructor(
-    private activateRoute: ActivatedRoute,
-//    public dialog: MatDialog,
-    private toast: NgbdToastGlobal,
+/*    private activateRoute: ActivatedRoute,*/
   ){}
 
   ngOnInit(): void {
@@ -60,28 +69,18 @@ export class Frame2Component {
     // Список ЛПУ
     this.lpu_list.update(val => val = []);
 
-    const tmp = this.lpuS.getLpuList();
-    this.lpu_list.set(tmp);
-    // Добавляем неизвестного
-    this.lpu_list.update(val => [...val, {id: 0, city_id: 0, addres: 'Неизвестен', name: 'Неизвестен', orderby: 0, ispatient: 0}])
-/*
-    this.lpuS.getLpuList$()
-      .subscribe(
-        res => {
-          if (res && res.length>0){
-            this.lpu_list.set(res);
-
-            // Добавляем неизвестного
-            this.lpu_list.update(val => [...val, {id: 0, city_id: 0, addres: 'Неизвестен', name: 'Неизвестен', orderby: 0, ispatient: 0}])
-          }
+    this.lpuS.loadLpuList()
+      .subscribe(res => {
+          const tmp = this.lpuS.getLpuList();
+          this.lpu_list.set(tmp);
+          // Добавляем неизвестного
+          this.lpu_list.update(val => [...val, {id: 0, city_id: 0, addres: 'Неизвестен', name: 'Неизвестен', orderby: 0, ispatient: 0}])
+          this.loadingDate.set(true);
         },
         err => {
-          console.error('getLpuList$ err=', err);
-        }
-      );
-*/
-
-    this.loadingDate.set(true);
+          this.loadingDate.set(true);
+          console.log('ERROR LPU');
+        });
 
     this.SelectTypeSrvList.set([]);
     this.SelectTypeSrvList.update(val => [...val, {text: "Платные", valueNum:1}])
@@ -151,7 +150,7 @@ export class Frame2Component {
 
           this.loadingDate.set(false);
           if (res && res.length == 0){
-            this.toast.info('Специальностей нет по вашему фильтру.');
+            this.alert.info('Специальностей нет по вашему фильтру.');
           }
         },
         err => {

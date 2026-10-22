@@ -205,3 +205,12 @@ table.table > thead > tr > th:not(:last-child) {
   height: 60px!important;
   cursor: pointer;
 }
+
+/* FRAME2*/
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+  background-color: #f5fafd;
+}
+
+.ng-select .ng-select-container .ng-value-container {
+  display: block!important;
+}

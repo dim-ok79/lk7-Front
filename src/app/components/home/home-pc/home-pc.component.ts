@@ -14,7 +14,7 @@ import { NgbActiveModal, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
   imports: [RouterModule, CommonModule, MatIconModule, MenuComponent, NgbTooltipModule],
   templateUrl: './home-pc.component.html',
   styleUrl: './home-pc.component.scss',
-  providers: [NgbdToastGlobal],
+  providers: [],
   encapsulation: ViewEncapsulation.None
 
 })

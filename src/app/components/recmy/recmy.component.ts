@@ -24,19 +24,27 @@ import { TalonComponent } from '../../modals/talon/talon.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BtnComponent } from '../common/btn/btn.component';
 import { Size } from '../../services/size';
-import { BlockMobileComponent } from '../common/block-mobile/block-mobile.component';
 import { ListSemdComponent } from '../../modals/list-semd/list-semd.component';
 import { NgbdToastGlobal } from '../../utils/toast/toast-global.component';
 import { SemdService } from '../../services/semd.service';
 import { LoadingComponent } from '../frame2/components/loading/loading.component';
 import { AuthService } from '../../services/auth.service';
 import { SeamanService } from '../../services/seaman.service';
+import { BlockDocComponent } from '../common/block-doc/block-doc.component';
+import { DateRangeComponent } from '../common/date-range/date-range.component';
 
 @Component({
   selector: 'app-recmy',
-  imports: [CommonModule, PanelTablePaginationComponent, MatIconModule, BtnComponent, BlockMobileComponent, LoadingComponent],
+  imports: [CommonModule,
+    PanelTablePaginationComponent,
+    MatIconModule,
+    BtnComponent,
+    BlockDocComponent,
+    LoadingComponent,
+    DateRangeComponent],
   templateUrl: './recmy.component.html',
   styleUrl: './recmy.component.scss',
+  providers: [NgbdToastGlobal],
   encapsulation: ViewEncapsulation.None
 
 })
@@ -60,12 +68,12 @@ export class RecmyComponent implements OnInit, AfterViewInit{
   rnumbList   = signal<IRnumbList[]>([]);
 
 
-  dtBegin: Date | null = null;    // Дата начала
-  dtEnd: Date | null = null;    // Дата ококнчания
   periodText = '';
   historyCountRectoPage = 10;     // Количетсво записей на странице
   historyCountRec = signal(0);            // Всего записей
   rnumbCountRec = signal(0);            // Всего записей
+
+  periodDate: IPeriod = {begin: new Date(new Date().setFullYear(new Date().getFullYear() - 1)), end: new Date};
 
   private configS = inject(ConfigService);
   private historyS = inject(HistoryService);
@@ -75,9 +83,6 @@ export class RecmyComponent implements OnInit, AfterViewInit{
   ){
     this.setDeviceType();
 
-    this.dtBegin = new Date();
-    this.dtEnd = new Date();
-    this.dtBegin.setDate(this.dtBegin.getDate() - 30);
   }
 
   ngOnInit(): void {
@@ -96,6 +101,10 @@ export class RecmyComponent implements OnInit, AfterViewInit{
   ngAfterViewInit() {
     this.calcTableH();
   };
+
+  onChangedPeriod(dt: IPeriod) {
+    this.periodDate = dt;
+  }
 
   setDeviceType(){
     this.deviceType.set(this.sizeS.getDeviceType());
@@ -145,7 +154,7 @@ export class RecmyComponent implements OnInit, AfterViewInit{
     if (this.getCurrentTypeMyRec().id == 1){ // Предстоящие
       this.getRnumbList();
     } else { // Завершенные
-      this.changePeriod({begin: this.dtBegin, end:this.dtEnd})
+      this.changePeriod({begin: this.periodDate.begin, end: this.periodDate.end})
     }
 
   };
@@ -174,7 +183,7 @@ export class RecmyComponent implements OnInit, AfterViewInit{
 
   getHistorySize(){
     this.historyCountRec.update(val => 0);
-    this.historyS.getHistoryEventsSize(this.dtBegin, this.dtEnd)
+    this.historyS.getHistoryEventsSize(this.periodDate.begin, this.periodDate.end)
       .subscribe(
         info => {
           console.log('RES=', info);
@@ -189,7 +198,7 @@ export class RecmyComponent implements OnInit, AfterViewInit{
   getHistory(pStart: number, pEnd: number){
     this.historyList.update(val=> val = []);
       // По умолчанию
-      this.historyS.getHistoryEvents(pStart, pEnd, this.dtBegin, this.dtEnd)
+      this.historyS.getHistoryEvents(pStart, pEnd, this.periodDate.begin, this.periodDate.end)
         .subscribe(
           info => {
             this.historyList.update((items) => info);
@@ -203,8 +212,6 @@ export class RecmyComponent implements OnInit, AfterViewInit{
   /* выбор даты */
   changePeriod(dt: IPeriod) {
     console.log('changePeriod=', dt);
-    this.dtBegin = dt.begin;
-    this.dtEnd = dt.end;
     this.getHistorySize();
     this.getHistory(1, this.historyCountRectoPage);
   }
