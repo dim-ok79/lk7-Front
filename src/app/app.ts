@@ -53,12 +53,12 @@ export class App {
     this.iconRegistry.addSvgIcon('calendar', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/calendar.svg'));
 /* talon */
     this.iconRegistry.addSvgIcon('krest', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/talon/krest.svg'));
-    this.iconRegistry.addSvgIcon('calendar', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/talon/calendar.svg'));
     this.iconRegistry.addSvgIcon('geo', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/talon/geo.svg'));
     this.iconRegistry.addSvgIcon('price', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/talon/price.svg'));
     this.iconRegistry.addSvgIcon('time', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/talon/time.svg'));
 
     this.iconRegistry.addSvgIcon('upload', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/upload.svg'));
+    this.iconRegistry.addSvgIcon('document', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/document.svg'));
 
   }
 

@@ -39,21 +39,21 @@
   <div class="row">
     <div class="col-md-7">
       <div class="icon-info doc-lpu-adr">
-        <mat-icon svgIcon="geo"></mat-icon>
+        <mat-icon svgIcon="geo" style="padding: 7px"></mat-icon>
         <span>{{lpu?.addres}}</span>
       </div>
       <div class="icon-info srv-price" >
-        <mat-icon svgIcon="price" *ngIf="srvlist().length>0"></mat-icon>
+        <mat-icon svgIcon="price" style="padding: 7px"*ngIf="srvlist().length>0"></mat-icon>
         <span *ngIf="srvlist().length>0">Стоимость услуги: {{srvlist()[0]?.price | priceSpace:'.2'}} р.</span>
       </div>
     </div>
     <div class="col-md-5">
       <div class="icon-info">
-        <mat-icon svgIcon="calendar"></mat-icon>
+        <mat-icon svgIcon="calendar" style="padding: 7px"></mat-icon>
         <span>{{UtilsS.getTekDayDATE(talon().beginDate)}}</span>
       </div>
       <div class="icon-info">
-        <mat-icon svgIcon="time"></mat-icon>
+        <mat-icon svgIcon="time" style="padding: 7px"></mat-icon>
         <span>{{UtilsS.getTime(talon().beginDate)}}</span>
       </div>
     </div>

@@ -40,3 +40,22 @@
   min-height: 58px;
   padding-top: 16px;
 }
+
+.bd-icon-info{
+  /*
+  display: flex;
+  justify-content: center;
+  */
+  display: flex;
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+.bd-icon-info > .mat-icon{
+  height: 25px;
+}
+
+
+.bd-icon-info > span{
+  margin-left: 5px;
+}

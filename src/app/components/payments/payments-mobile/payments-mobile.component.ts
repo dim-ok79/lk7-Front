@@ -8,4 +8,8 @@ TODO: не используется
   templateUrl: './payments-mobile.component.html',
   styleUrl: './payments-mobile.component.scss',
 })
+
+/*
+TODO: не используется
+ */
 export class PaymentsMobileComponent {}

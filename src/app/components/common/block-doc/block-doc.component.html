@@ -1,10 +1,28 @@
 <div class="block-doc">
+  <div class="bd-icon-info">
+    <mat-icon svgIcon="calendar"></mat-icon>
+    <span>{{UtilsS.getTekDayDATE(infoDate)}}</span>
+  </div>
+  <div class="bd-icon-info" *ngIf="infoDateisTime">
+    <mat-icon svgIcon="time"></mat-icon>
+    <span>{{UtilsS.getTime(infoDate)}}</span>
+  </div>
+
+
+<!--
   <div>Дата</div>
   <div class="block-doc-date" *ngIf="!infoDateisTime">{{UtilsS.getTekDayDATE(infoDate)}}</div>
   <div class="block-doc-date" *ngIf="infoDateisTime">{{UtilsS.getTekDayDATE(infoDate)}} в {{UtilsS.getTime(infoDate)}}</div>
+-->
+  <div class="bd-icon-info">
+    <mat-icon svgIcon="document"></mat-icon>
+    <span>{{infoName}}</span>
+  </div>
 
+<!--
   <div>Название</div>
   <div>{{infoName}}</div>
+-->
 
   <div (click)="onClick()" class="block-doc-btn"  [ngClass]="{ 'block-doc-btn-notImg': infoBtnText}" *ngIf="!infoBtnHide">
     <mat-icon svgIcon="pdf_btn" *ngIf="!infoBtnText"
