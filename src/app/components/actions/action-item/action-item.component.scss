@@ -3,7 +3,8 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  height: 150px;
+/*  height: 150px;*/
+  text-align: center;
 }
 
 .app-action-info{
@@ -14,7 +15,7 @@
   bottom: 0;
   font-size: 14px;
   color: white;
-  text-transform: uppercase;
+/*  text-transform: uppercase;*/
   background-color: rgba(128, 128, 128, 0.5);
 }
 
@@ -23,4 +24,10 @@
     margin: 30px;
     height: 236px;
   }
+}
+
+.app-action-item > img {
+  width: 100%;
+  aspect-ratio: 4 / 3;    /* пропорции 4:3 */
+  object-fit: cover;      /* аккуратно заполнит рамку без сплющивания */
 }

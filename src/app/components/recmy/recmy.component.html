@@ -98,7 +98,7 @@
       <ng-container [ngSwitch]="deviceType()">
         <ng-template [ngSwitchCase]="sizeS.pc">
           <app-panel-table-pagination (onChangePeriod)="changePeriod($event)"
-                                      textNotREC="Нет Пасещений"
+                                      textNotREC="Нет Посещений"
                                       [HeaderHide]="true"
                                       [CountRec]="rnumbCountRec()"
                                       [CountRecPage]="historyCountRectoPage"

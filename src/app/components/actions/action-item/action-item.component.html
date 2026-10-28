@@ -1,4 +1,11 @@
+<!--
 <div class="app-action-item app-cp" (click)="openAction()"
      [style.background-image]="'url(' + actionItem()?.img + ')'">
+  <span class="app-action-info">{{actionItem()?.info}}</span>
+</div>
+-->
+
+<div class="app-action-item app-cp" (click)="openAction()">
+  <img [src]="actionItem()?.img">
   <span class="app-action-info">{{actionItem()?.info}}</span>
 </div>
