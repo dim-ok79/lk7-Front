@@ -134,6 +134,12 @@ img.cls-img-doc-photo{
 
 
 /* TABLE */
+td {
+  color: variables.$color-text;
+}
+td.logout-td-yeer , td.app-table-th-center, td.logout-td-text{
+  color: variables.$color-text;
+}
 td.logout-td-text{ // Центруем вертикально
   vertical-align: middle;
 }
