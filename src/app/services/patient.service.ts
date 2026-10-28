@@ -3,9 +3,8 @@ import {Observable} from "rxjs";
 import {IFamily, IInetuserLog, IInetuserLogSize, IPatient, IPolice, IStatementParam} from "../interfaces/patient.interface";
 import {AuthService} from "./auth.service";
 import {ICityBE} from "../interfaces/city.interface";
-import {IPatientAttached} from "../interfaces/patient-attached.interface";
 import { AppHttpService } from './application/app-http.service';
-import { dateToText } from '../utils/global.function';
+import { dateToText, strToDate } from '../utils/global.function';
 
 @Injectable({
   providedIn: 'root'
@@ -34,11 +33,6 @@ export class PatientService {
   public getCityList$(token: string): Observable<ICityBE[]> {
     return this.httpApp.get(`/patient/city` , token)
   }
-
-  public getLpuList$(): Observable<IPatientAttached[]> {
-    return this.httpApp.get(`/lpu/list` , this.auth.token)
-  }
-
 
   public getFamilyList$(): Observable<IFamily[]> {
     return this.httpApp.get(`/api/family` , this.auth.token)

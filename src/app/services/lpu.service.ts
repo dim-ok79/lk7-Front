@@ -4,6 +4,7 @@ import {Observable, Subject} from "rxjs";
 import { AppHttpService } from './application/app-http.service';
 import { IRnumb } from '../interfaces/frame2/rnumb.interface';
 import { AuthService } from './auth.service';
+import { map } from 'rxjs/operators';
 
 
 const prefix_module = 'lpu';
@@ -94,7 +95,10 @@ export class LpuService {
 
 
   getLpuFromId(id: number): Ilpu | null {
+console.log('!!! getLpuFromId id=', id)
+console.log('!!! getLpuFromId this._lpuList=', this._lpuList)
     const tmp = this._lpuList.filter(item => item.id == id);
+console.log('!!! getLpuFromId tmp=', tmp)
     if (tmp && tmp.length>0){
       return tmp[0];
     } else {
@@ -107,7 +111,22 @@ export class LpuService {
   }
 
   public getLpuList$(): Observable<Ilpu[]> {
-    return this.httpApp.get(`/${prefix_module}/list`, this.auth.token)
+/*    return this.httpApp.get(`/${prefix_module}/list`, this.auth.token)*/
+
+    return this.httpApp.get(`/${prefix_module}/list` , this.auth.token).pipe(
+      map((items: Ilpu[]) => {
+        let tmp = items.filter(itm => itm.id==1)[0]
+        const tmpItem: Ilpu = {
+          id: 0,
+          orderby: 10,
+          name: tmp.name,
+          addres: tmp.addres,
+          ispatient: tmp.ispatient,
+          city_id: tmp.city_id}
+        return [tmpItem, ...items];
+      })
+    )
+
   }
 
   public getSpecList$(): Observable<ISpec[]> {

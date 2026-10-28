@@ -3,7 +3,9 @@
 @use 'variables';
 @import "@angular/material/prebuilt-themes/indigo-pink.css";
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-
+:root {
+  --bs-body-color: variables.$color-text;
+}
 
 /* Стили анимации */
 // @import "animations";

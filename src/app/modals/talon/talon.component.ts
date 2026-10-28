@@ -174,9 +174,11 @@ export class TalonComponent implements OnInit{
 
           res[0].beginDate = strToDate(res[0].dat_bgn);
           res[0].endDate = strToDate(res[0].dat_end);
-          if (res[0] && res[0].lpu_id){
-            this.lpu = this.lpuS.getLpuFromId(res[0].lpu_id);
+console.log('!!!  res[0] =',  res[0]);
+          if (res[0] && Number(res[0].lpu_id)>-1){
+            this.lpu = this.lpuS.getLpuFromId(Number(res[0].lpu_id));
           }
+console.log('!!!  this.lpu =',  this.lpu );
           this.rnumbS.getRnumbSrv(id)
             .subscribe(resS => {
                 if (resS && resS.price) {
