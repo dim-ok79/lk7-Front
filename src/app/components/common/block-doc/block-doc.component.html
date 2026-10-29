@@ -14,9 +14,14 @@
   <div class="block-doc-date" *ngIf="!infoDateisTime">{{UtilsS.getTekDayDATE(infoDate)}}</div>
   <div class="block-doc-date" *ngIf="infoDateisTime">{{UtilsS.getTekDayDATE(infoDate)}} в {{UtilsS.getTime(infoDate)}}</div>
 -->
-  <div class="bd-icon-info">
+  <div class="bd-icon-info" *ngIf="infoName">
     <mat-icon svgIcon="document"></mat-icon>
     <span>{{infoName}}</span>
+  </div>
+
+  <div class="bd-icon-info" *ngIf="infoDocName">
+    <mat-icon svgIcon="doc"></mat-icon>
+    <span>{{infoDocName}}</span>
   </div>
 
 <!--
@@ -44,7 +49,7 @@
   </app-btn>
 -->
 
-
+  <ng-content></ng-content>
 </div>
 
 

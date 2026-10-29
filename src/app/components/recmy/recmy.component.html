@@ -80,11 +80,30 @@
           <div class="row" style="margin-top: 15px; text-align: left;">
 
             <app-block-doc class="col-sm-6" *ngFor="let his of historyList()"
-                           infoName="Врач: {{his.doctor}}, Услуга: {{his.typetext}}"
+                           [infoName]="his.typetext"
+                           [infoDocName]="his.doctor"
                            [infoDate]="his.dtSort"
                            [infoDateisTime]="true"
                            [infoBtnHide]="true"
-                           (onClickPDF)="gotToDownload(his.keyid, his.typehistory, his.count_files)"></app-block-doc>
+                           (onClickPDF)="gotToDownload(his.keyid, his.typehistory, his.count_files)">
+              <app-btn class="app-btn-filter"
+                       text="Оценить врача"
+                       [active]="false"
+                       (click)="onClickDoctor(his.doctorid)">
+              </app-btn>
+              <app-btn class="app-btn-filter"
+                       text="Документ"
+                       [active]="false"
+                       (click)="gotToDownload(his.keyid, his.typehistory, his.count_files)">
+                <mat-icon svgIcon="pdf_btn"
+                          class="cls-mat-icon cls-mat-icon-info block-doc-btn-icon">
+                </mat-icon>
+
+              </app-btn>
+
+
+
+            </app-block-doc>
 
           </div>
         </ng-template>
@@ -138,7 +157,8 @@
         <ng-template [ngSwitchCase]="sizeS.mobile">
           <div class="row" style="margin-top: 15px; text-align: left;">
             <app-block-doc class="col-sm-6" *ngFor="let rnumb of rnumbList()"
-                           infoName="Кабинет: {{rnumb.cab}}, Врач: {{getFIODoc(rnumb.lastname, rnumb.firstname, rnumb.secondname)}}"
+                           infoName="Кабинет: {{rnumb.cab}}"
+                           infoDocName="{{getFIODoc(rnumb.lastname, rnumb.firstname, rnumb.secondname)}}"
                            [infoDate]="rnumb.beginDate!"
                            [infoDateisTime]="true"
                            [infoBtnHide]="true"

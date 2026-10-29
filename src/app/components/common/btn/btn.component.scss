@@ -7,7 +7,7 @@
 }
 
 .app-btn.active{
-  background-color: white;
+  background-color: v.$color-btn-bg-active;
   color: v.$color-btn-bg;
   border-width: 2px;
 }

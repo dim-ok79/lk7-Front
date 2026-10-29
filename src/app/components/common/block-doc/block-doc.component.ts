@@ -23,6 +23,7 @@ export class BlockDocComponent {
   @Input() infoBtnText: string | null = null;   // Текст на кнопке
 //  @Input() infoUrl: string;  // url перехода
 //  @Input() semd_id: number = -1;  // СЭМД ID для перехида
+  @Input() infoDocName: string | null = null;  // ФИО доктора
   @Output() onClickPDF = new EventEmitter<IBlockDoc>(); // выбрана Дата формат YYYY-MM-DD
 
 

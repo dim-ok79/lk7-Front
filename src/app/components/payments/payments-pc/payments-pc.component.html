@@ -78,11 +78,17 @@
 
     <ng-template [ngSwitchCase]="sizeS.mobile">
       <div style="text-align: center; color: #7a7a7a; font-size: 16px; margin-bottom: 12px">ФИНАНСЫ</div>
-      <app-block-doc *ngFor="let pay of paymentsList()"
-                     infoName="{{pay.services[0].name}}"
-                     [infoDate]="pay.dtSort!"
-                     infoBtnText="Оплатить {{pay.pay_nal}} р."
-                     (onClickPDF)="toPay(pay)"></app-block-doc>
+      <ng-container *ngIf="paymentsList().length>1; then showPayList else showNotPay"></ng-container>
+      <ng-template #showNotPay>
+        <div class="cls-not-rec">Нет документов по выбранному фильтру</div>
+      </ng-template>
+      <ng-template #showPayList>
+        <app-block-doc *ngFor="let pay of paymentsList()"
+                       infoName="{{pay.services[0].name}}"
+                       [infoDate]="pay.dtSort!"
+                       infoBtnText="Оплатить {{pay.pay_nal}} р."
+                       (onClickPDF)="toPay(pay)"></app-block-doc>
+      </ng-template>
 
     </ng-template>
 

@@ -13,7 +13,7 @@
 }
 
 .app-MyDoc-btn-filter.active{
-  background-color: white;
+  background-color: v.$color-btn-bg-active;
   color: v.$color-btn-bg;
   border: 2px solid v.$color-btn-bg;
 }
@@ -21,4 +21,10 @@
 .my-doc-period{
   text-align: center;
   margin-top: 10px;
+}
+
+@media (max-width: 388px) {
+  .app-MyDoc-btn-filter{
+    width: 94%;
+  }
 }

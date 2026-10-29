@@ -27,6 +27,11 @@ MJF1R5QSAC
 САВ1072702
 15LU10R42C
 
+Виталий
+логин и пароль:
+ЗВЕ1276096
+TNB395A4XI
+
  */
   loading = false;      // Загрузка
   hidePassword = true;  // Показывать пароль
