@@ -60,6 +60,7 @@ export class App {
     this.iconRegistry.addSvgIcon('upload', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/upload.svg'));
     this.iconRegistry.addSvgIcon('document', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/document.svg'));
     this.iconRegistry.addSvgIcon('doc', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/doc.svg'));
+    this.iconRegistry.addSvgIcon('reit', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/reit.svg'));
 
   }
 

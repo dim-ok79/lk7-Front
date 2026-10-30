@@ -83,22 +83,21 @@
                            [infoName]="his.typetext"
                            [infoDocName]="his.doctor"
                            [infoDate]="his.dtSort"
-                           [infoDateisTime]="true"
+                           [infoDateisTime]="false"
                            [infoBtnHide]="true"
                            (onClickPDF)="gotToDownload(his.keyid, his.typehistory, his.count_files)">
-              <app-btn class="app-btn-filter"
-                       text="Оценить врача"
-                       [active]="false"
-                       (click)="onClickDoctor(his.doctorid)">
-              </app-btn>
-              <app-btn class="app-btn-filter"
-                       text="Документ"
+              <app-btn class="app-btn-filter-recmy"
+                       svgIconName = "pdf_btn"
+                       text="Скачать документ"
                        [active]="false"
                        (click)="gotToDownload(his.keyid, his.typehistory, his.count_files)">
-                <mat-icon svgIcon="pdf_btn"
-                          class="cls-mat-icon cls-mat-icon-info block-doc-btn-icon">
-                </mat-icon>
+              </app-btn>
 
+              <app-btn class="app-btn-filter-recmy"
+                       text="Оценить врача"
+                       [active]="false"
+                       svgIconName="reit"
+                       (click)="onClickDoctor(his.doctorid)">
               </app-btn>
 
 

@@ -1,5 +1,9 @@
 <button class="btn app-btn"
         type="button"
         [disabled] = "btnDisabled"
-        [ngClass]="{ 'active': active, 'cls-btn-second-bg': isBtnSecond}">{{text}}
+        [ngClass]="{ 'active': active, 'cls-btn-second-bg': isBtnSecond}">
+  <mat-icon [svgIcon]="svgIconName" *ngIf="svgIconName"
+            class="cls-mat-icon cls-mat-icon-info block-doc-btn-icon">
+  </mat-icon>
+  <div>{{text}}</div>
 </button>
