@@ -19,6 +19,30 @@
   background-color: #60bdc2;
 }
 
+.app-recmy-btn-rate {
+  cursor: pointer;
+  text-align: center;
+  border: solid 2px #60bdc2;
+  border-radius: 10px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+.app-recmy-btn-rate-icon {
+  width: 30px !important;
+  height: 30px !important;
+}
+
+.app-recmy-btn-rate > div {
+  margin-top: -7px;
+}
+
+
 @media (max-width: 600px) {
   .app-mobile-text-center{
     text-align: center;

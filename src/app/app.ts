@@ -62,6 +62,11 @@ export class App {
     this.iconRegistry.addSvgIcon('doc', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/doc.svg'));
     this.iconRegistry.addSvgIcon('reit', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/reit.svg'));
 
+    this.iconRegistry.addSvgIcon('star', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/star.svg'));
+    this.iconRegistry.addSvgIcon('star_empty', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/star_empty.svg'));
+    this.iconRegistry.addSvgIcon('star_grey', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/star_grey.svg'));
+    this.iconRegistry.addSvgIcon('star_white', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/svg/star_white.svg'));
+
   }
 
 }

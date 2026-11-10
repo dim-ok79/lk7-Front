@@ -32,6 +32,7 @@ import { AuthService } from '../../services/auth.service';
 import { SeamanService } from '../../services/seaman.service';
 import { BlockDocComponent } from '../common/block-doc/block-doc.component';
 import { DateRangeComponent } from '../common/date-range/date-range.component';
+import { UtilsService } from '../../services/application/utils.service';
 
 @Component({
   selector: 'app-recmy',
@@ -78,6 +79,7 @@ export class RecmyComponent implements OnInit, AfterViewInit{
   private configS = inject(ConfigService);
   private historyS = inject(HistoryService);
   private rnumbS = inject(RnumbService);
+  public UtilsS = inject(UtilsService);
 
   constructor(
   ){
