@@ -1,1 +1,22 @@
-<p>rate works!</p>
+<div class="modal-header app-bg-color">
+  <div>Оцените прием,<br>нам важно Ваше мнение!</div>
+</div>
+
+<div class="modal-body" style="text-align: center;">
+  <div class="w-100 app-rate_icon_star">
+    <mat-icon [svgIcon]="getNameIconRate(1)" (click)="rateCount = 1"></mat-icon>
+    <mat-icon [svgIcon]="getNameIconRate(2)" (click)="rateCount = 2"></mat-icon>
+    <mat-icon [svgIcon]="getNameIconRate(3)" (click)="rateCount = 3"></mat-icon>
+    <mat-icon [svgIcon]="getNameIconRate(4)" (click)="rateCount = 4"></mat-icon>
+    <mat-icon [svgIcon]="getNameIconRate(5)" (click)="rateCount = 5"></mat-icon>
+  </div>
+
+  <mat-form-field appearance="outline" class="w-100 no-hover-border" style="margin-top: 16px;">
+    <textarea matInput rows="18" placeholder="При желании можете оставить отзыв" [(ngModel)]="rateText"></textarea>
+  </mat-form-field>
+  <app-btn class="app-btn-filter"
+           text="Оценить прием"
+           (click)="rateDoctor()">
+  </app-btn>
+
+</div>

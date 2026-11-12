@@ -41,6 +41,16 @@
 .app-recmy-btn-rate > div {
   margin-top: -7px;
 }
+.app-recmy-stars {
+  margin-bottom: 10px;
+}
+
+.app-recmy-stars > mat-icon{
+  height: 40px;
+  width: 40px;
+  margin-left: 3px;
+  margin-right: 3px;
+}
 
 
 @media (max-width: 600px) {

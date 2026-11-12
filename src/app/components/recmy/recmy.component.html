@@ -32,7 +32,7 @@
                 <table class="table table-borderless table-hover table-fixed">
                   <thead>
                   <tr>
-                    <th scope="col" class="app-bg-color cls-header-table-dt logout-td-yeer" >Дата посещения</th>
+                    <th scope="col" class="app-bg-color app-table-th-center" >Дата посещения</th>
                     <th scope="col" class="app-bg-color app-table-th-center">Врач</th>
                     <th scope="col" class="app-bg-color app-table-th-center">Услуга</th>
                     <th scope="col" class="app-bg-color app-table-th-center" style=" width: 187px;">Оценить</th>
@@ -47,9 +47,16 @@
                     <td class="app-table-th-center">{{his.doctor}}</td>
                     <td class="app-table-th-center">{{his.typetext}}</td>
                     <td class="app-table-th-center">
-                      <div class="app-table-th-center app-recmy-btn-rate" (click)="onClickDoctor(his.doctorid)">
-                        <mat-icon svgIcon="star_grey" class="app-recmy-btn-rate-icon"
-                                  (click)="gotToDownload(his.keyid, his.typehistory, his.count_files)">
+                      <div *ngIf="his.rate_count" class="w-100">
+                        <mat-icon [svgIcon]="getNameIconRate(1, his.rate_count)"></mat-icon>
+                        <mat-icon [svgIcon]="getNameIconRate(2, his.rate_count)"></mat-icon>
+                        <mat-icon [svgIcon]="getNameIconRate(3, his.rate_count)"></mat-icon>
+                        <mat-icon [svgIcon]="getNameIconRate(4, his.rate_count)"></mat-icon>
+                        <mat-icon [svgIcon]="getNameIconRate(5, his.rate_count)"></mat-icon>
+                      </div>
+                      <div class="app-table-th-center app-recmy-btn-rate" *ngIf="!his.rate_count"
+                           (click)="onClickDoctor(his.keyid, his.doctorid, his.specid, his.typehistory)">
+                        <mat-icon svgIcon="star_grey" class="app-recmy-btn-rate-icon">
 
                         </mat-icon>
                         <div>Оценить прием</div>
@@ -86,21 +93,29 @@
                            [infoDateisTime]="false"
                            [infoBtnHide]="true"
                            (onClickPDF)="gotToDownload(his.keyid, his.typehistory, his.count_files)">
+
+              <div *ngIf="his.rate_count" class="w-100 app-recmy-stars">
+                <mat-icon [svgIcon]="getNameIconRate(1, his.rate_count)"></mat-icon>
+                <mat-icon [svgIcon]="getNameIconRate(2, his.rate_count)"></mat-icon>
+                <mat-icon [svgIcon]="getNameIconRate(3, his.rate_count)"></mat-icon>
+                <mat-icon [svgIcon]="getNameIconRate(4, his.rate_count)"></mat-icon>
+                <mat-icon [svgIcon]="getNameIconRate(5, his.rate_count)"></mat-icon>
+              </div>
+
+              <app-btn class="app-btn-filter-recmy"
+                       *ngIf="!his.rate_count"
+                       text="Оценить врача"
+                       [active]="false"
+                       svgIconName="reit"
+                       (click)="onClickDoctor(his.keyid, his.doctorid, his.specid, his.typehistory)">
+              </app-btn>
+
               <app-btn class="app-btn-filter-recmy"
                        svgIconName = "pdf_btn"
                        text="Скачать документ"
                        [active]="false"
                        (click)="gotToDownload(his.keyid, his.typehistory, his.count_files)">
               </app-btn>
-
-              <app-btn class="app-btn-filter-recmy"
-                       text="Оценить врача"
-                       [active]="false"
-                       svgIconName="reit"
-                       (click)="onClickDoctor(his.doctorid)">
-              </app-btn>
-
-
 
             </app-block-doc>
 

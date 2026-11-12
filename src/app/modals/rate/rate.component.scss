@@ -1,0 +1,22 @@
+.app-rate_icon_star {
+  padding: 10px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: nowrap;
+  cursor: pointer;
+}
+
+.app-rate_icon_star > mat-icon{
+  height: 30px;
+  width: 30px;
+}
+
+.mdc-notched-outline{
+  border: solid 2px #60bdc2;
+  border-radius: 10px;
+}
+
+// Убрал рамку вокруг блока - черная
+.mdc-notched-outline > div {
+  border: none;
+}

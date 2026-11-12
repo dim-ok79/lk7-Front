@@ -33,6 +33,8 @@ import { SeamanService } from '../../services/seaman.service';
 import { BlockDocComponent } from '../common/block-doc/block-doc.component';
 import { DateRangeComponent } from '../common/date-range/date-range.component';
 import { UtilsService } from '../../services/application/utils.service';
+import { RateComponent } from '../../modals/rate/rate.component';
+import { RateService } from '../../services/rate.service';
 
 @Component({
   selector: 'app-recmy',
@@ -57,7 +59,7 @@ export class RecmyComponent implements OnInit, AfterViewInit{
   private alert = inject(NgbdToastGlobal);
   public sizeS = inject(Size);
   public seamanS = inject(SeamanService);
-
+  private rateS = inject(RateService);
 
   deviceType = signal<string>('');
 
@@ -289,7 +291,50 @@ export class RecmyComponent implements OnInit, AfterViewInit{
     );
   }
 
-  onClickDoctor(p_doctorid: number){
+//  IHistoryEvents
+  onClickDoctor(keyid: number, doctorid: number, specid: number, typehistory: string){
+    const modalRef = this.modalService.open(RateComponent);
+/*
+    modalRef.componentInstance.keyid = keyid;
+    modalRef.componentInstance.doctorid = doctorid;
+    modalRef.componentInstance.specid = specid;
+*/
+
+    modalRef.result.then(
+      (result) => {
+        // Действие при закрытии (close)
+//        console.log('Закрыто с результатом:', result);
+        this.rateS.add_rate( keyid,  doctorid,  specid,  typehistory, result.count, result.text)
+          .subscribe(
+              res => {
+                console.log('add_rate res=', res);
+                if (res.success === true) {
+                  this.alert.success('Спасибо за оценку.');
+                  this.historyList.update(items =>
+                    items.map(item =>
+                      item.keyid === keyid
+                        ? { ...item, rate_count: result.count, rate_text: result.text}
+                        : item
+                    )
+                  );
+                } else {
+                  this.alert.danger('ошибка оценки врача.');
+                }
+              },
+              err => {
+                this.alert.danger('ошибка оценки врача.');
+//                console.log('add_rate err=', err);
+              }
+            );
+
+      },
+      (reason) => {
+        // Действие при отмене/закрытии крестиком (dismiss)
+        console.log(`Отклонено по причине: ${reason}`);
+      }
+    );
+
+/*
     this.semdS.getSemdTest()
       .subscribe(
         res => {
@@ -301,6 +346,27 @@ export class RecmyComponent implements OnInit, AfterViewInit{
       );
 
     this.alert.success('Оценить врача, пока не доступно.');
+*/
   }
+
+  getNameIconRate(n: number, rate_count: number): string{
+    if (n<=rate_count) {
+      return 'star';
+    } else {
+      return 'star_empty';
+    }
+
+  }
+
+/*
+  getNameIconRate(n: number, history: IHistoryEvents): string{
+    if (history.rate_count && n<=history.rate_count) {
+      return 'star';
+    } else {
+      return 'star_empty';
+    }
+
+  }
+*/
 
 }

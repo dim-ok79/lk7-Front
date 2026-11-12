@@ -3,8 +3,11 @@
 @use 'variables';
 @import "@angular/material/prebuilt-themes/indigo-pink.css";
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
+
 :root {
   --bs-body-color: variables.$color-text;
+  --mat-form-field-filled-container-color: #ededed;
 }
 
 /* Стили анимации */
@@ -58,7 +61,7 @@ body, html {
 
 
 .app-bg-color {
-  background-color: variables.$color-block!important;
+  background-color: variables.$color-btn!important;
   color: white!important;
 }
 
@@ -185,6 +188,14 @@ table.table > thead > tr > th:not(:last-child) {
 .cls-modal-talon-width {
   --bs-modal-width: 700px; /* Укажите нужную ширину */
 }
+/* Надстройка над модалкой */
+.modal-header {
+  justify-content: space-evenly;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  text-align: center
+}
+
 
 
 .tableFixHead {

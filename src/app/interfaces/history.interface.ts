@@ -16,6 +16,8 @@ export interface IHistoryEvents {
   dep_name: string;  // Отделение
   sched_exists_for_dd_on_visit: number;  // 1-Возможна запись ОНЛАЙН
   count_files : number;     // Количество подписанных документов СЭМД
+  rate_count? : number;    // Оценка
+  rate_text? : string;     // Текст оценки
 }
 
 export interface IHistoryEventList {
