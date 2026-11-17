@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import {Icity, IDoc, IDocAll, IDocURL, Ilpu, ISpec} from "../interfaces/frame2/lpu.interface";
+import {IDoc, IDocAll, IDocURL, Ilpu, ISpec} from "../interfaces/frame2/lpu.interface";
 import {Observable, Subject} from "rxjs";
 import { AppHttpService } from './application/app-http.service';
 import { IRnumb } from '../interfaces/frame2/rnumb.interface';
@@ -111,22 +111,7 @@ console.log('!!! getLpuFromId tmp=', tmp)
   }
 
   public getLpuList$(): Observable<Ilpu[]> {
-/*    return this.httpApp.get(`/${prefix_module}/list`, this.auth.token)*/
-
-    return this.httpApp.get(`/${prefix_module}/list` , this.auth.token).pipe(
-      map((items: Ilpu[]) => {
-        let tmp = items.filter(itm => itm.id==1)[0]
-        const tmpItem: Ilpu = {
-          id: 0,
-          orderby: 10,
-          name: tmp.name,
-          addres: tmp.addres,
-          ispatient: tmp.ispatient,
-          city_id: tmp.city_id}
-        return [tmpItem, ...items];
-      })
-    )
-
+    return this.httpApp.get(`/${prefix_module}/list`, this.auth.token)
   }
 
   public getSpecList$(): Observable<ISpec[]> {
