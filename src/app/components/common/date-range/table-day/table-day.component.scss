@@ -3,12 +3,12 @@
 // Стартовая дата
 .cls-dr-start-day {
   border-radius: 16px 0 0 16px;
-  background-color: #e3dcff;
+  background-color: #DD7E7E!important;  // #e3dcff
   color: white!important;
 }
 
 .cls-dr-start-day > span{
-  background-color: #9277ff;
+  background-color: #DD7E7E; // #9277ff
   border-radius: 16px;
   display: inline-block;
   width: 30px;
@@ -20,12 +20,12 @@
 // дата окончания
 .cls-dr-end-day {
   border-radius: 0 16px 16px 0;
-  background-color: #e3dcff;
+  background-color: #DD7E7E!important;
   color: white!important;
 }
 
 .cls-dr-end-day > span{
-  background-color: #9277ff;
+  background-color: #DD7E7E;  //#9277ff
   border-radius: 16px;
   display: inline-block;
   width: 30px;
@@ -36,12 +36,13 @@
 
 // Промежуточная дата
 .cls-dr-inserted {
-  background-color: #e3dcff;
+  background-color: #fce4e9;  // #e3dcff
 }
 
 // Текущий день
 .cls-dr-current-day {
-  background-color: #C7BFE9;
+  background-color: #60bdc2;
+  border-radius: 15px;
 }
 
 // Текущий месяц

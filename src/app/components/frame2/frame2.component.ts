@@ -36,7 +36,7 @@ export class Frame2Component {
 
   public loadingDate = signal<boolean>(false);
   public loadingDocList = signal<boolean>(false);
-  private defSpecid= 874; // По умолчанию специальность
+  private defSpecid = 27713491; // По умолчанию специальность
 
   public doctorList : IDoc[] | null = [];
   public tmp_doctorList : IDoc[] | null = [];
