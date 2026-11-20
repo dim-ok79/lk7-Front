@@ -16,8 +16,8 @@ import { ITokenAndPatientId } from '../../../interfaces/patient.interface';
 export class LoginComponent {
 /*
 Мой логин и пароль
-ДДИ1275944
-CTOEX4NEFI
+ДДИ1275944CTOEX4NEFI
+
 
 Наталия
 ДНА606694

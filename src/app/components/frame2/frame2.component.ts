@@ -177,7 +177,6 @@ export class Frame2Component {
 
     this.SelectedSpec = ev;
 
-
     this.tmp_doctorList = null;
     this.doctorList = null;
     this.loadingDocList.set(true);
